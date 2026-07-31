@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; media-src 'self'; frame-src 'none'; worker-src 'none'; manifest-src 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PowerOmega APP | Estimación de Peso Equino & Nutrición Lipídica</title>
+  <meta name="description" content="PowerOmega APP - Calculadora morfométrica de peso equino, estimación de requerimientos nutricionales y dosificación de EQUIGRAS®. Desarrollada por Rolando Hernández Mora, soportada por Tecnigrasas S.A.S.">
+  
+  <!-- Fonts Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS Premium Header Negro & Dorado 2026 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header Navbar Negro Marca Equigras & Dorado 2026 -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrapper">
+        <img src="assets/logo_app.png" alt="TECNIGRASAS® - PowerOmega APP" class="brand-logo-img" data-fallback-src="assets/logo_tecnigrasas_2026.png">
+        <div class="brand-text">
+          <h1>Power<span>Omega</span></h1>
+          <p>Equine Weight & Lipid Nutrition System</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs" role="tablist" aria-label="Módulos de PowerOmega">
+        <button id="tab-morphometrics" type="button" class="nav-tab-btn active" data-module="module-morphometrics" role="tab" aria-controls="module-morphometrics" aria-selected="true" tabindex="0">
+          <span>📐</span> Peso Morfométrico
+        </button>
+        <button id="tab-nutrition" type="button" class="nav-tab-btn nav-tab-btn--subtitle" data-module="module-nutrition" role="tab" aria-controls="module-nutrition" aria-selected="false" tabindex="-1">
+          <span aria-hidden="true">🌾</span>
+          <span class="nav-tab-copy">
+            <span>Requerimientos &amp; Nutrición</span>
+            <small>(Dosis de EQUIGRAS®)</small>
+          </span>
+        </button>
+        <button id="tab-bcs" type="button" class="nav-tab-btn" data-module="module-bcs" role="tab" aria-controls="module-bcs" aria-selected="false" tabindex="-1">
+          <span>🐎</span> Condición Corporal (BCS)
+        </button>
+        <button id="tab-product" type="button" class="nav-tab-btn" data-module="module-product" role="tab" aria-controls="module-product" aria-selected="false" tabindex="-1">
+          <span>📋</span> EQUIGRAS® & Tecnigrasas
+        </button>
+      </nav>
+
+      <div class="equigras-header-logo-wrapper">
+        <img src="assets/logo_equigras_header.png" alt="EQUIGRAS®" class="equigras-header-logo-img">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container (Fondo Blanco) -->
+  <main class="main-content">
+
+    <!-- ==========================================================================
+         MÓDULO 1: CALCULADORA MORFOMÉTRICA DE PESO
+         ========================================================================== -->
+    <section id="module-morphometrics" class="module-section active" role="tabpanel" aria-labelledby="tab-morphometrics">
+      <div class="module-header-card">
+        <div class="module-header-title">
+          <h2><span>📐</span> Calcula el peso de tu caballo con las medidas de la gráfica</h2>
+          <p>Estimación científica del peso vivo (PV) ajustada a la gráfica oficial de Carter & Dugdale (2014) / RRHM (2021).</p>
+        </div>
+        <div class="unit-selector-group">
+          <button type="button" id="btnUnitMetric" class="unit-btn active">Métrico (cm / kg)</button>
+          <button type="button" id="btnUnitImperial" class="unit-btn">Imperial (in / lb)</button>
+        </div>
+      </div>
+
+      <!-- Filtro de Selección de Modelo Científico Validado -->
+      <div class="glass-card mb-4">
+        <div class="form-group morphometrics-div-01">
+          <label for="selectWeightModel" class="morphometrics-label-01">
+            <span>🔬</span> <strong>Seleccionar Modelo Científico de Estimación:</strong>
+          </label>
+          <select id="selectWeightModel" class="form-control s-select-weight-model">
+            <option value="carroll_1988" selected>Carroll & Huntington (1988) — [MODELO PREDETERMINADO / MÁS UTILIZADO]</option>
+            <option value="traditional_hall">Tradicional / Hall (1971) / NRC (2007)</option>
+            <option value="marcenac_1964">Marcenac & Aublet (1964)</option>
+            <option value="ensminger_1977">Ensminger (1977)</option>
+            <option value="jones_1989">Jones et al. (1989)</option>
+            <option value="willoughby_1975">Willoughby (1975)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Columna Izquierda: Formulario e Entradas -->
+        <div class="glass-card">
+          <h3 class="card-title"><span>📏</span> Mediciones Morfométricas</h3>
+          
+          <!-- Input NC -->
+          <div class="form-group">
+            <label for="inputNC">NC: Circunferencia del Cuello</label>
+            <div class="input-wrapper">
+              <input type="number" id="inputNC" class="form-control" value="85" min="40" max="160" step="1">
+              <span class="input-unit unit-label-length">cm</span>
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="rangeNC" class="range-slider" value="85" min="40" max="160" step="1" aria-label="Circunferencia del cuello">
+            </div>
+          </div>
+
+          <!-- Input H -->
+          <div class="form-group">
+            <label for="inputH">H: Altura a la Cruz</label>
+            <div class="input-wrapper">
+              <input type="number" id="inputH" class="form-control" value="150" min="80" max="210" step="1">
+              <span class="input-unit unit-label-length">cm</span>
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="rangeH" class="range-slider" value="150" min="80" max="210" step="1" aria-label="Altura a la cruz">
+            </div>
+          </div>
+
+          <!-- Input G -->
+          <div class="form-group">
+            <label for="inputG">G: Circunferencia de la Cincha (del Barril / Cardíaca)</label>
+            <div class="input-wrapper">
+              <input type="number" id="inputG" class="form-control" value="180" min="90" max="260" step="1">
+              <span class="input-unit unit-label-length">cm</span>
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="rangeG" class="range-slider" value="180" min="90" max="260" step="1" aria-label="Circunferencia de la cincha">
+            </div>
+          </div>
+
+          <!-- Input L -->
+          <div class="form-group">
+            <label for="inputL">L: Longitud Corporal (Escápula a Punta de Nalga)</label>
+            <div class="input-wrapper">
+              <input type="number" id="inputL" class="form-control" value="165" min="80" max="240" step="1">
+              <span class="input-unit unit-label-length">cm</span>
+            </div>
+            <div class="range-slider-wrapper">
+              <input type="range" id="rangeL" class="range-slider" value="165" min="80" max="240" step="1" aria-label="Longitud corporal">
+            </div>
+          </div>
+
+          <div class="citation-box">
+            <strong>📌 Nota Técnica (RRHM, 2021):</strong><br>
+            Toma las mediciones con cinta flexible de costurero. La circunferencia cardíaca (G) se mide justo detrás de la cruz y el hombro, donde se coloca la cincha delantera. La longitud corporal (L) abarca desde la articulación escápulo-humeral hasta la tuberosidad isquiática.
+            <br><br><strong>Uso de las medidas:</strong> cada fórmula conserva sus variables originales y recibe un ajuste complementario basado en Martinson et al. para las medidas que no incluye. De esta manera NC, H, G y L modifican el resultado con cualquiera de los seis modelos. Este ajuste combinado es una implementación de PowerOmega y no debe interpretarse como parte de la ecuación publicada originalmente.
+            
+            <div class="morphometrics-div-02">
+              <a href="https://www.tecnigrasas.com/descargas/" target="_blank" rel="noopener noreferrer" class="tech-note-link-btn">
+                <span>📄 Conoce más y descarga las Notas Técnicas oficiales sobre EQUIGRAS®</span>
+                <span class="link-arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Diagrama Exacto del Equino con Líneas Continuas -->
+        <div>
+          <!-- Gráfica Anatómica Exacta del Caballo con Líneas Continuas -->
+          <div class="graphic-container mb-4">
+            <div class="horse-canvas-box morphometrics-div-03">
+              <!-- Exact Diagram Image from Original Study -->
+              <img src="assets/diagrama_caballo.png" alt="Ubicación de las medidas morfométricas más comunes - Carter & Dugdale 2014" class="realistic-horse-img">
+
+              <!-- Interactive SVG Layer Overlay: Clean Live Measurement Value Badges -->
+              <svg viewBox="0 0 854 590" class="svg-overlay-layer">
+                <!-- Live Value Badges (Recuadros de medición) -->
+                <!-- NC Badge -->
+                <g transform="translate(290, 45)">
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeNC" x="60" y="19" text-anchor="middle" fill="#9333ea" font-size="13" font-weight="800">NC: 85 cm</text>
+                </g>
+
+                <!-- H Badge -->
+                <g transform="translate(370, 85)">
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeH" x="60" y="19" text-anchor="middle" fill="#15803d" font-size="13" font-weight="800">H: 150 cm</text>
+                </g>
+
+                <!-- G Badge -->
+                <g transform="translate(500, 105)">
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeG" x="60" y="19" text-anchor="middle" fill="#b45309" font-size="13" font-weight="800">G: 180 cm</text>
+                </g>
+
+                <!-- L Badge -->
+                <g transform="translate(725, 145)">
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeL" x="60" y="19" text-anchor="middle" fill="#0369a1" font-size="13" font-weight="800">L: 165 cm</text>
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Hero Display del Peso Estimado con el Modelo Seleccionado -->
+          <div class="result-hero-box" role="status" aria-live="polite" aria-atomic="true">
+            <div class="weight-sub morphometrics-div-04">MODELO SELECCIONADO: <span id="heroModelName" class="u-extracted-01">Carroll & Huntington (1988)</span></div>
+            <div>
+              <span id="heroWeightVal" class="weight-val">450</span>
+              <span id="heroWeightUnit" class="weight-unit">kg</span>
+            </div>
+            <div id="heroModelCitation" class="weight-sub s-hero-model-citation">
+              <strong>Fórmula:</strong> PV (kg) = (G² × L) / 11877<br>
+              <strong>Fuente:</strong> Carroll, C. L., & Huntington, P. J. (1988). Equine Vet. J.
+            </div>
+          </div>
+
+          <!-- Tabla Comparativa de Modelos Validados -->
+          <div class="glass-card">
+            <h4 class="morphometrics-h4-01">📊 Comparativa de Modelos Validados</h4>
+
+            <table class="custom-table morphometrics-table-01">
+              <thead>
+                <tr>
+                  <th>Ecuación / Fuente</th>
+                  <th>Peso Estimado</th>
+                  <th>Cita / Población</th>
+                </tr>
+              </thead>
+              <tbody id="modelComparisonTableBody">
+                <!-- Renderizado dinámicamente por morphometrics.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         MÓDULO 2: REQUERIMIENTOS NUTRICIONALES Y ALIMENTACIÓN
+         ========================================================================== -->
+    <section id="module-nutrition" class="module-section" role="tabpanel" aria-labelledby="tab-nutrition">
+      <div class="module-header-card amber-border">
+        <div class="module-header-title">
+          <h2><span>🌾</span> Requerimientos Nutricionales & Suplementación EQUIGRAS®</h2>
+          <p>Estimación de Energía Digestible, consumo de agua e ingesta recomendada según estado fisiológico (NRC 2007, INRA 2015, Lawrence 2014).</p>
+        </div>
+      </div>
+
+      <div role="note" class="nutrition-div-01">
+        <strong>⚠️ Herramienta educativa, no prescriptiva.</strong> Las estimaciones de peso, energía, materia seca, agua y dosificación no sustituyen la evaluación de un médico veterinario o nutricionista equino. Valide la ración completa, el estado clínico y la etiqueta vigente antes de tomar decisiones.
+      </div>
+
+      <div class="grid-2">
+        <!-- Parámetros del Equino -->
+        <div class="glass-card">
+          <h3 class="card-title"><span>⚙️</span> Estado Fisiológico y Actividad</h3>
+
+          <div class="form-group">
+            <label for="selectPhysioState">Estado Fisiológico / Nivel de Actividad</label>
+            <select id="selectPhysioState" class="form-control">
+              <option value="maintenance" selected>Caballo Adulto - Mantenimiento</option>
+              <option value="light_work">Trabajo / Ejercicio Ligero (+20% ED)</option>
+              <option value="moderate_work">Trabajo / Ejercicio Moderado (+40% ED)</option>
+              <option value="intense_work">Ejercicio Intenso / Competencia (+90% ED)</option>
+              <option value="stallion">Semental en Época de Monta (+25% ED)</option>
+              <option value="gestation_late">Yegua Gestante (3er tercio, +15% ED; rango 10–20%)</option>
+              <option value="lactation_early">Yegua Lactante Pico (Meses 1 a 3, +75% ED; rango 70–80%)</option>
+              <option value="foal">Potro en Crecimiento / Destete (requiere cálculo individual)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="selectHeightCategory">Alzada del Equino</label>
+            <select id="selectHeightCategory" class="form-control">
+              <option value="high" selected>Superior a 1.45 m (Alzada Normal / Grande)</option>
+              <option value="low">Hasta 1.45 m (Poni / Alzada Pequeña)</option>
+            </select>
+          </div>
+
+          <div class="citation-box">
+            <strong>📖 Datos de Referencia (RRHM, 2021; Lawrence 2014):</strong><br>
+            • 1 kg de leche de yegua contiene ~ 500-792 kcal, 2% proteína y 2% grasa.<br>
+            • La yegua en pico de lactancia produce entre 10 a 25 kg/día de leche.<br>
+            • Una yegua requiere ganar de 16 a 20 kg de peso para elevar 1 punto de CC (1 kg ganancia = 20 Mcal ED).
+          </div>
+
+          <!-- Botón para abrir el simulador de agua -->
+          <button type="button" id="btnToggleWaterSim" class="hover-lift-water s-btn-toggle-water-sim" aria-expanded="false" aria-controls="waterSimulator">
+            <span id="btnWaterSimIcon">💧</span>
+            <span id="btnWaterSimText">Estimar consumo de agua de mi equino</span>
+            <span id="btnWaterSimArrow" class="s-btn-water-sim-arrow">&#9660;</span>
+          </button>
+
+          <!-- ======= SIMULADOR DE CONSUMO DE AGUA (NRC 2007, Tabla 7-1) ======= -->
+          <div id="waterSimulator" hidden class="s-water-simulator">
+            <h4 class="water-simulator-heading">
+              <span class="water-horse-icon">
+                <img src="assets/horse_drinking_bucket.png" alt="" aria-hidden="true">
+              </span>
+              <span class="water-simulator-title">Simulador de Consumo de Agua</span>
+              <span class="water-simulator-source">Estimaciones derivadas de NRC 2007</span>
+            </h4>
+
+            <!-- Fila 1: Categoría + Temperatura -->
+            <div class="water-simulator-grid nutrition-div-02">
+              <div>
+                <label for="simCategory" class="u-extracted-02">Categoría del equino</label>
+                <select id="simCategory" class="u-extracted-03">
+                  <option value="maintenance" class="u-extracted-04">Adulto en mantenimiento</option>
+                  <option value="gestation" class="u-extracted-04">Yegua gestante</option>
+                  <option value="lactating" class="u-extracted-04">Yegua lactante</option>
+                  <option value="moderate_ex" class="u-extracted-04">Ejercicio moderado (1 h/día)</option>
+                  <option value="yearling" class="u-extracted-04">Potro de un año (Yearling)</option>
+                </select>
+              </div>
+              <div>
+                <label for="simTemp" class="u-extracted-02">Temperatura ambiental</label>
+                <select id="simTemp" class="u-extracted-03">
+                  <option value="cold" class="u-extracted-04">Fría / Muy fría (−20 a −10 °C)</option>
+                  <option value="neutral" selected class="u-extracted-04">Termoneutral (20 °C)</option>
+                  <option value="warm" class="u-extracted-04">Calurosa (30 °C)</option>
+                  <option value="hot" class="u-extracted-04">Muy calurosa (35 °C)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Fila 2: Tipo de dieta + Peso vivo -->
+            <div class="water-simulator-grid nutrition-div-03">
+              <div>
+                <label for="simDiet" class="u-extracted-02">Tipo de dieta</label>
+                <select id="simDiet" class="u-extracted-03">
+                  <option value="hay" class="u-extracted-04">Solo heno</option>
+                  <option value="mixed" selected class="u-extracted-04">Heno + concentrado</option>
+                </select>
+              </div>
+              <div>
+                <label for="simBodyWeight" class="u-extracted-02">Peso vivo del equino (kg, sincronizado con Módulo 1)</label>
+                <input id="simBodyWeight" type="number" value="500" min="100" max="900" step="10"
+                  class="s-sim-body-weight">
+              </div>
+            </div>
+
+            <!-- Resultado del simulador -->
+            <div id="waterSimResult" role="status" aria-live="polite" class="s-water-sim-result">
+              <div class="nutrition-div-04">Consumo estimado de agua</div>
+              <div id="simResultValue" class="s-sim-result-value">25 L/día</div>
+              <div id="simResultRange" class="s-sim-result-range">Rango: 21 – 29 L/día</div>
+              <div id="simResultNote" class="s-sim-result-note"></div>
+            </div>
+
+            <!-- Botón: ir a la tabla de referencia completa -->
+            <button type="button" id="btnScrollWaterTable" class="hover-water-table s-btn-scroll-water-table">
+              <span>📋</span>
+              ¿Quieres saber más sobre el agua en equinos? Haz clic aquí para ver la tabla completa
+              <span class="nutrition-span-01">↓</span>
+            </button>
+          </div>
+          <!-- FIN SIMULADOR -->
+
+        </div>
+
+        <!-- Resultados Nutricionales -->
+        <div class="glass-card">
+          <h3 class="card-title"><span>⚡</span> Balance Energético &amp; Ingesta de Materia Seca</h3>
+
+          <div class="grid-2 mb-3">
+            <div class="formula-card">
+              <span class="formula-name">Energía Digestible Total</span>
+              <div id="valEdTotal" class="weight-val u-extracted-05" role="status" aria-live="polite">16.65 Mcal ED/día</div>
+              <div id="valEdmAvg" class="s-val-edm-avg">16.65 Mcal/d (Mantenimiento)</div>
+            </div>
+
+            <!-- Ingesta de Materia Seca (IMS) -->
+            <div class="formula-card nutrition-div-05">
+              <span class="formula-name">🌾 Ingesta de Materia Seca (IMS)</span>
+              <!-- Valor principal en kg/día -->
+              <div id="valDmiKg" class="weight-val u-extracted-05">9.0 kg MS/día</div>
+              <!-- % del PV -->
+              <div id="valDmiPct" class="s-val-dmi-pct">1.8 % del PV (Mantenimiento Adulto)</div>
+              <!-- Rango y fuente -->
+              <div id="valDmiRange" class="s-val-dmi-range">
+                Rango: 7.5 – 10.0 kg/día (1.5–2.0% PV) · NRC 2007 / INRA 2014
+              </div>
+              <!-- Badge: basado en peso del Módulo 1 -->
+              <div class="dmi-weight-source" aria-label="Peso estimado sincronizado desde el módulo 1">
+                <span class="dmi-weight-source-icon" aria-hidden="true">📐</span>
+                <span class="dmi-weight-source-copy">
+                  <small>Peso vivo estimado</small>
+                  <strong>PV = <span id="valDmiBasisWeight">457</span> kg</strong>
+                </span>
+                <span class="dmi-weight-source-origin">Módulo 1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recomendación EQUIGRAS -->
+          <div class="product-card equigras-dose-card nutrition-div-06">
+            <span class="product-badge">Dosificación de etiqueta (ICA 10396SL - Ficha 2025)</span>
+            <h3 class="nutrition-h3-01">Suplementación con EQUIGRAS®</h3>
+            <p id="valEquigrasDoseNote" class="s-val-equigras-dose-note">Equinos adultos > 1.45 m en mantenimiento / trabajo (150 g/día)</p>
+
+            <div class="grid-3 u-text-center">
+              <div class="equigras-dose-stat u-extracted-06">
+                <div class="u-extracted-07">DOSIS RECOMENDADA</div>
+                <div id="valEquigrasDose" class="s-val-equigras-dose">150 g/día</div>
+              </div>
+              <div class="equigras-dose-stat u-extracted-06">
+                <div class="u-extracted-07">APORTE ENERGÉTICO (EM)</div>
+                <div id="valEquigrasEM" class="s-val-equigras-em">0.98 Mcal EM/d*</div>
+              </div>
+              <div class="equigras-dose-stat u-extracted-06">
+                <div class="u-extracted-07">OMEGA 3 (EPA+DHA)</div>
+                <div id="valEquigrasO3" class="s-val-equigras-o3">5.6 g/d</div>
+              </div>
+            </div>
+
+            <div class="nutrition-div-07">
+              Aporte de Omega 6 (Linoleico): <strong id="valEquigrasO6" class="s-val-equigras-o6">13.5 g/d</strong> | Relación Omega 6 : 3 = <strong>3 : 1</strong>
+            </div>
+            <p class="nutrition-p-01">
+              * La energía del requerimiento se expresa como <strong>ED (energía digestible)</strong>; el aporte de EQUIGRAS® se declara como <strong>EM (energía metabolizable)</strong>. No se comparan ni se restan directamente porque son escalas energéticas diferentes.
+            </p>
+
+            <!-- Tabla de Referencia Dosificación Oficial 2025 -->
+            <div class="nutrition-div-08">
+              <strong class="nutrition-strong-01">📋 Dosificación Oficial EQUIGRAS® (Ficha Técnica 2025):</strong>
+              <table class="custom-table nutrition-table-01">
+                <thead>
+                  <tr>
+                    <th>Etapa Productiva / Actividad</th>
+                    <th>Hasta 1.45 m Alzada</th>
+                    <th>Superior a 1.45 m Alzada</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Yeguas Lactantes & Competencia / Deporte</strong></td>
+                    <td><strong class="u-color-amber-dark">150 g/día</strong></td>
+                    <td><strong class="u-color-amber-dark">200 g/día</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Yeguas Gestantes (3er Tercio)</strong></td>
+                    <td>100 g/día</td>
+                    <td>150 g/día</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Equinos Adultos Mantenimiento y Trabajo</strong></td>
+                    <td>100 g/día</td>
+                    <td>150 g/día</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Potros y Potrancas (hasta los 18 meses)</strong></td>
+                    <td>75 g/día</td>
+                    <td>100 g/día</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- =========================================================
+           TABLA 7-1: NECESIDADES DE AGUA ESTIMADAS EN CABALLOS
+           Fuente: NRC 2007 – Nutrient Requirements of Horses
+      ========================================================= -->
+      <div id="seccionTablaAgua" class="glass-card s-seccion-tabla-agua">
+
+        <!-- Recuadro: ¿Por qué es importante el agua? -->
+        <div class="nutrition-div-09">
+          <div class="nutrition-div-10">
+            <span class="nutrition-span-02">💧</span>
+            <h3 class="nutrition-h3-02">
+              ¿Por qué es fundamental el agua en la nutrición equina?
+            </h3>
+          </div>
+          <ul class="nutrition-ul-01">
+            <li>El agua es el nutriente más esencial para el caballo: representa entre el <strong class="u-color-white">60 y el 70%</strong> del peso corporal del animal adulto.</li>
+            <li>Participa en todas las reacciones metabólicas: digestión, absorción de nutrientes, regulación de la temperatura corporal y excreción de desechos.</li>
+            <li>Un caballo deshidratado en tan solo un <strong class="u-color-white">5%</strong> de su peso corporal puede mostrar signos clínicos como apatía, reducción del peristaltismo y riesgo de cólico.</li>
+            <li>La ingesta de agua varía según el <strong class="u-color-white">estado fisiológico</strong> (gestación, lactancia, ejercicio), la <strong class="u-color-white">temperatura ambiental</strong> y el tipo de dieta (heno solo vs. mezcla heno-concentrado).</li>
+            <li>Las yeguas lactantes pueden requerir hasta <strong class="u-color-white">2 a 3 veces</strong> más agua que un caballo adulto en mantenimiento.</li>
+            <li>En condiciones de calor extremo (35°C), un caballo en ejercicio puede necesitar hasta <strong class="u-color-white">82 L/día</strong>.</li>
+          </ul>
+        </div>
+
+        <!-- Tabla 7-1 traducida -->
+        <h3 class="card-title nutrition-h3-03">
+          <span>💧</span> Necesidades de Agua Estimadas en Caballos
+        </h3>
+        <p class="nutrition-p-02">
+          Tabla de apoyo elaborada a partir de valores de referencia del NRC (2007), con filas interpoladas y escenarios adicionales identificados como estimaciones de la aplicación. No es una reproducción literal de la Tabla 7-1. Los consumos individuales pueden variar según condición clínica, raza, dieta y ambiente.
+        </p>
+
+        <p class="mobile-scroll-hint" aria-hidden="true">↔ Desliza horizontalmente para consultar toda la tabla</p>
+        <div class="responsive-table-scroll nutrition-div-11">
+          <table class="custom-table nutrition-table-02">
+            <thead>
+              <tr>
+                <th rowspan="2" class="u-align-middle">Categoría del Equino</th>
+                <th rowspan="2" class="u-align-middle">Temperatura<br>Ambiental (°C)</th>
+                <th rowspan="2" class="u-align-middle">Duración del<br>Ejercicio (h)</th>
+                <th colspan="2" class="nutrition-th-01">Dieta<br>(kg / 100 kg PV)</th>
+                <th rowspan="2" class="nutrition-th-02">Consumo de<br>Agua<br>(L / 100 kg PV)</th>
+                <th rowspan="2" class="u-align-middle">Peso Vivo<br>Promedio (kg)</th>
+                <th rowspan="2" class="nutrition-th-03">Consumo<br>Total de<br>Agua (L/día)</th>
+                <th rowspan="2" class="u-align-middle">Rango Estimado<br>de Ingesta<br>(L/día)<sup>a</sup></th>
+              </tr>
+              <tr>
+                <th class="u-bg-cyan-soft">Cantidad</th>
+                <th class="u-bg-cyan-soft">Tipo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Adulto en mantenimiento – solo heno, 20°C -->
+              <tr>
+                <td rowspan="3" class="u-font-bold">Adulto en Mantenimiento</td>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">1.5</td>
+                <td>Solo Heno</td>
+                <td class="u-text-center-cyan">5</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">25</td>
+                <td class="u-text-center">21 – 29</td>
+              </tr>
+              <!-- Adulto en mantenimiento – solo heno, 30°C -->
+              <tr>
+                <td class="u-text-center">30</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">1.5</td>
+                <td>Solo Heno</td>
+                <td class="u-text-center-cyan">9.6</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">48</td>
+                <td class="u-text-center">42 – 54</td>
+              </tr>
+              <!-- Adulto en mantenimiento – heno-concentrado, 20°C -->
+              <tr>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.0</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">6.7</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">33.5</td>
+                <td class="u-text-center">30 – 38</td>
+              </tr>
+              <!-- Adulto en mantenimiento – heno-concentrado, 20°C, 2kg -->
+              <tr>
+                <td rowspan="2" class="u-font-bold">Adulto en Mantenimiento<br><small class="nutrition-small-01">(condiciones frías)</small></td>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.0</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">6.2</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">31</td>
+                <td class="u-text-center">27 – 35</td>
+              </tr>
+              <tr>
+                <td class="u-text-center">−20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.5</td>
+                <td>Solo Heno</td>
+                <td class="u-text-center-cyan">8.4</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">42</td>
+                <td class="u-text-center">37 – 47</td>
+              </tr>
+              <!-- Yegua gestante -->
+              <tr>
+                <td class="u-font-bold">Yegua Gestante</td>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.0</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">6.2</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">31</td>
+                <td class="u-text-center">27 – 35</td>
+              </tr>
+              <!-- Yegua lactante – solo heno -->
+              <tr>
+                <td rowspan="2" class="u-font-bold">Yegua Lactante</td>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">3.0</td>
+                <td>Solo Heno</td>
+                <td class="u-text-center-cyan">11.9 – 13.9</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">65</td>
+                <td class="u-text-center">52 – 78</td>
+              </tr>
+              <!-- Yegua lactante – heno-concentrado -->
+              <tr>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.5</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">9.2 – 11.2</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">51</td>
+                <td class="u-text-center">40 – 63</td>
+              </tr>
+              <!-- Ejercicio moderado – termoneutral -->
+              <tr>
+                <td rowspan="2" class="u-font-bold">Ejercicio Moderado</td>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">1 h</td>
+                <td class="u-text-center">2.2</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">8.2</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">41</td>
+                <td class="u-text-center">36 – 46</td>
+              </tr>
+              <!-- Ejercicio moderado – calor -->
+              <tr>
+                <td class="u-text-center">35 (promedio diario)</td>
+                <td class="u-text-center">1 h</td>
+                <td class="u-text-center">2.2</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">16.4</td>
+                <td class="u-text-center">500</td>
+                <td class="u-text-center-cyan-bold">82</td>
+                <td class="u-text-center">72 – 92</td>
+              </tr>
+              <!-- Potro de un año – frío -->
+              <tr>
+                <td rowspan="2" class="u-font-bold">Potro de un Año<br>(Yearling)</td>
+                <td class="u-text-center">−10</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.0</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">6.0</td>
+                <td class="u-text-center">300</td>
+                <td class="u-text-center-cyan-bold">18</td>
+                <td class="u-text-center">16 – 20</td>
+              </tr>
+              <!-- Potro de un año – termoneutral -->
+              <tr>
+                <td class="u-text-center">20</td>
+                <td class="u-text-center">—</td>
+                <td class="u-text-center">2.0</td>
+                <td>Heno–Concentrado</td>
+                <td class="u-text-center-cyan">6.3</td>
+                <td class="u-text-center">300</td>
+                <td class="u-text-center-cyan-bold">19</td>
+                <td class="u-text-center">17 – 21</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Notas al pie de tabla -->
+        <div class="nutrition-div-12">
+          <p class="nutrition-p-03"><sup>a</sup> Los valores son promedios; el consumo individual puede ser mayor o menor según la condición clínica del animal, su línea de base fisiológica y las variaciones en las condiciones ambientales.</p>
+          <p class="nutrition-p-04"><strong>PV</strong> = Peso Vivo &nbsp;|&nbsp; <strong>L/día</strong> = Litros por día &nbsp;|&nbsp; Los cálculos asumen un caballo de referencia con peso maduro de 500 kg.</p>
+        </div>
+
+        <!-- Cita de la fuente -->
+        <div class="nutrition-div-13">
+          📚 <strong class="nutrition-strong-02">Fuente:</strong>
+          National Research Council (NRC). <em>Nutrient Requirements of Horses.</em> Sixth Revised Edition. National Academies Press, Washington D.C., <strong class="nutrition-strong-03">2007</strong>. Tabla 7-1, p. 131.
+        </div>
+
+      </div>
+      <!-- FIN TABLA AGUA -->
+
+    </section>
+
+    <!-- ==========================================================================
+         MÓDULO 3: CONDICIÓN CORPORAL (BCS)
+         ========================================================================== -->
+    <section id="module-bcs" class="module-section" role="tabpanel" aria-labelledby="tab-bcs">
+      <div class="module-header-card cyan-border">
+        <div class="module-header-title">
+          <h2><span>🐎</span> Evaluación de la Condición Corporal (BCS Escala 1 al 9)</h2>
+          <p>Valoración de depósitos de grasa subcutánea y porcentaje de grasa corporal disecable.</p>
+        </div>
+      </div>
+
+      <div class="glass-card mb-4">
+        <h3 class="card-title"><span>🔢</span> Selecciona el Nivel de Condición Corporal (Henneke 1-9)</h3>
+
+        <div class="bcs-traffic-scale" role="group" aria-label="Clasificación visual de la escala de condición corporal">
+          <div class="bcs-traffic-item bcs-traffic-item--poor">
+            <span class="bcs-traffic-dot" aria-hidden="true"></span>
+            <span><strong>BCS 1–3</strong><small>Pobre</small></span>
+          </div>
+          <div class="bcs-traffic-item bcs-traffic-item--moderate">
+            <span class="bcs-traffic-dot" aria-hidden="true"></span>
+            <span><strong>BCS 4–6</strong><small>Moderada</small></span>
+          </div>
+          <div class="bcs-traffic-item bcs-traffic-item--fat">
+            <span class="bcs-traffic-dot" aria-hidden="true"></span>
+            <span><strong>BCS 7–9</strong><small>Gordo</small></span>
+          </div>
+        </div>
+        
+        <div class="bcs-selector-layout">
+          <div class="bcs-grid">
+            <div class="bcs-card" data-score="1">
+              <div class="bcs-score-num">1</div>
+              <div class="bcs-score-label">Pobre</div>
+            </div>
+            <div class="bcs-card" data-score="2">
+              <div class="bcs-score-num">2</div>
+              <div class="bcs-score-label">Muy Flaco</div>
+            </div>
+            <div class="bcs-card" data-score="3">
+              <div class="bcs-score-num">3</div>
+              <div class="bcs-score-label">Flaco</div>
+            </div>
+            <div class="bcs-card" data-score="4">
+              <div class="bcs-score-num">4</div>
+              <div class="bcs-score-label">Mod. Flaco</div>
+            </div>
+            <div class="bcs-card active" data-score="5">
+              <div class="bcs-score-num">5</div>
+              <div class="bcs-score-label">Moderado</div>
+            </div>
+            <div class="bcs-card" data-score="6">
+              <div class="bcs-score-num">6</div>
+              <div class="bcs-score-label">Mod. Carnoso</div>
+            </div>
+            <div class="bcs-card" data-score="7">
+              <div class="bcs-score-num">7</div>
+              <div class="bcs-score-label">Carnoso</div>
+            </div>
+            <div class="bcs-card" data-score="8">
+              <div class="bcs-score-num">8</div>
+              <div class="bcs-score-label">Gordo</div>
+            </div>
+            <div class="bcs-card" data-score="9">
+              <div class="bcs-score-num">9</div>
+              <div class="bcs-score-label">Obeso</div>
+            </div>
+          </div>
+
+          <aside class="bcs-optimal-tip" aria-label="Recomendación de condición corporal para reproducción">
+            <span class="bcs-optimal-tip-icon" aria-hidden="true">💡</span>
+            <p>Especialistas recomiendan condición corporal óptima para actividades reproductivas entre <strong>5 y 6</strong></p>
+          </aside>
+        </div>
+
+        <div class="result-hero-box bcs-div-01">
+          <h4 id="bcsScoreName" class="s-bcs-score-name">CC 5: Moderado (Óptimo Mantenimiento)</h4>
+          <p id="bcsScoreDesc" class="s-bcs-score-desc">Espalda nivelada. Costillas fácilmente palpables pero no visibles. Grasa en base de la cola esponjosa. Cruz redondeada y hombros suaves.</p>
+        </div>
+
+        <!-- ── IMÁGENES DE REFERENCIA BCS ── -->
+        <div class="bcs-div-02">
+
+          <!-- Encabezado + badge activo + enlace descarga chart -->
+          <div class="bcs-div-03">
+            <span class="bcs-span-01">🖼 Referencia Visual BCS</span>
+            <span id="bcsImageLabel" class="s-bcs-image-label">CC 5 · Moderado</span>
+            <a href="assets/bcs_slide11_c.jpeg" target="_blank" rel="noopener noreferrer" class="hover-opacity bcs-download-link bcs-a-01">
+              ⬇ Descargar tabla BCS 1–9 · Kentucky Equine Research
+            </a>
+          </div>
+
+          <!-- Imágenes BCS en paralelo: foto dinámica a la izquierda y tabla Kentucky a la derecha -->
+          <div class="bcs-reference-grid">
+            <!-- Foto comparativa con overlay rojo dinámico -->
+            <div class="bcs-photo-panel">
+
+              <!-- Imagen base -->
+              <img id="bcsPhotoImg"
+                src="assets/bcs_slide12_a.jpeg"
+                alt="Comparación fotográfica BCS: Poor (1-3) / Moderate (4-6) / Fat (7-9)">
+
+              <!-- Overlay rojo — se mueve según BCS seleccionado
+                   top = fila * 33.33% + 4% de inset superior por celda
+                   height = 29% para no salir de la celda -->
+              <div id="bcsRedOverlay" class="s-bcs-red-overlay bcs-overlay-r1-c1">
+                <!-- Etiqueta del BCS activo en la esquina -->
+                <span id="bcsOverlayLabel" class="s-bcs-overlay-label">CC 5</span>
+              </div>
+
+              <!-- Etiqueta inferior -->
+              <div class="bcs-photo-caption">Fotografías reales · Categorías Poor (1–3) / Moderate (4–6) / Fat (7–9)</div>
+            </div>
+
+            <!-- Tabla BCS Kentucky Equine Research — pequeña, a la derecha y bajo su descarga -->
+            <figure class="bcs-kentucky-panel">
+              <img
+                src="assets/bcs_slide11_c.jpeg"
+                alt="Tabla de Condición Corporal BCS 1 al 9 — Henneke et al. 1983 · Kentucky Equine Research">
+              <figcaption>
+                Tabla BCS 1–9 · Henneke et al. (1983) · Kentucky Equine Research
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- Diapositiva complementaria: áreas de acumulación de grasa en obesidad -->
+          <figure class="bcs-obesity-reference-card">
+            <div class="bcs-obesity-image-frame">
+              <img
+                src="assets/bcs_obesity_fat_deposits_carter_dugdale_2014.png"
+                alt="Áreas corporales donde se acumula grasa subcutánea en equinos con obesidad: cresta del cuello, espalda, costillas, detrás del hombro y grupa">
+            </div>
+            <figcaption>
+              <div>
+                <strong>Áreas de acumulación de grasa subcutánea en equinos con obesidad</strong>
+                <p><b>A:</b> cresta del cuello · <b>B:</b> espalda, costillas y detrás del hombro · <b>C:</b> grupa.</p>
+              </div>
+              <cite>Imágenes cortesía de Carter &amp; Dugdale (2014) · Diapositiva RRHM (2021) · Tecnigrasas.</cite>
+            </figcaption>
+          </figure>
+
+          <!-- Créditos / Cita bibliográfica -->
+          <div class="bcs-div-04">
+            📌 <strong>Créditos de las imágenes:</strong><br>
+            • <em>Tabla BCS 1–9 (descargable):</em> Henneke, D.R., Potter, G.D., Kreider, J.L. &amp; Yeates, B.F. (1983). <em>Relationship between condition score, physical measurements and body fat percentage in mares.</em> Equine Veterinary Journal, 15(4), 371–372. Gráfico e ilustraciones: <strong>Kentucky Equine Research</strong> — <a href="https://ker.com" target="_blank" rel="noopener noreferrer" class="u-color-green-dark">ker.com</a>.<br>
+            • <em>Fotografías comparativas:</em> Imágenes de referencia para evaluación de condición corporal en equinos. Fuente: <strong>Zoovetesmipasión</strong> — <a href="https://zoovetesmipasion.com/caballos/condicion-corporal-en-equinos/" target="_blank" rel="noopener noreferrer" class="u-color-green-dark">zoovetesmipasion.com/caballos/condicion-corporal-en-equinos/</a>.<br>
+            • <em>Áreas de acumulación de grasa en equinos con obesidad:</em> imágenes cortesía de <strong>Carter &amp; Dugdale (2014)</strong>. Diapositiva elaborada por <strong>RRHM (2021)</strong> para Tecnigrasas Suplementos y Nutrientes.
+          </div>
+        </div>
+        <!-- FIN IMÁGENES BCS -->
+
+
+      </div>
+
+      <!-- Estimador de Grasa Subcutánea -->
+      <div class="glass-card">
+        <h3 class="card-title"><span>📡</span> Estimación Ultrasónica de Grasa Corporal (% GC)</h3>
+        
+        <div class="grid-2">
+          <div>
+            <div class="form-group">
+              <label for="selectEquineType">Tipo de Equino</label>
+              <select id="selectEquineType" class="form-control">
+                <option value="horse" selected>Caballo Adulto</option>
+                <option value="pony">Poni</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputFatCm">Espesor de Grasa Subcutánea en Grupa (cm)</label>
+              <div class="input-wrapper">
+                <input type="number" id="inputFatCm" class="form-control" value="0.8" min="0.1" max="4.0" step="0.1">
+                <span class="input-unit">cm</span>
+              </div>
+              <div class="range-slider-wrapper">
+                <input type="range" id="rangeFatCm" class="range-slider" value="0.8" min="0.1" max="4.0" step="0.1">
+              </div>
+            </div>
+          </div>
+
+          <div class="bcs-div-05">
+            <div class="weight-sub">PORCENTAJE ESTIMADO DE GRASA CORPORAL</div>
+            <div id="valFatPercentage" class="weight-val s-val-fat-percentage" role="status" aria-live="polite">12.4 % aprox.</div>
+            <p class="bcs-p-01">
+              Estimación orientativa. La incertidumbre depende del sitio y técnica de ultrasonido, además de raza, sexo, edad y estado fisiológico.
+            </p>
+            <div class="formula-citation bcs-div-06">
+              <strong>Ecuaciones orientativas aplicadas:</strong><br>
+              <b>Caballo adulto — Westervelt et al. (1976):</b> % GC = 4.70 × grasa (cm) + 8.64; medición de grupa a 5 cm de la línea media.<br>
+              <b>Poni — Kane et al. (1987):</b> % GC = 5.47 × grasa (cm) + 2.47; protocolo de grupa con puntos a 10 cm de la línea media.
+            </div>
+          </div>
+        </div>
+
+        <figure class="ultrasound-example-card">
+          <div class="ultrasound-example-image">
+            <img
+              src="assets/ultrasound_subcutaneous_fat_rump_example.png"
+              alt="Ecografía de la grupa de un equino que diferencia la capa de grasa subcutánea y el músculo">
+          </div>
+          <figcaption>
+            <span class="ultrasound-example-kicker">Ejemplo de visualización ultrasonográfica</span>
+            <h4>Identificación de grasa subcutánea y músculo</h4>
+            <p>La zona oscura superficial señalada corresponde al espesor de <strong>grasa subcutánea</strong>; por debajo se observa el tejido muscular.</p>
+            <div class="ultrasound-clarification">
+              <strong>Aclaración anatómica y metodológica</strong>
+              <p>La imagen ilustra una medición de grasa subcutánea a nivel de la grupa, a <strong>10 cm lateral de la línea media</strong>. Este método estima únicamente el depósito subcutáneo visible en el sitio examinado y <strong>no considera la grasa visceral ni la grasa intramuscular</strong>.</p>
+            </div>
+            <p class="ultrasound-method-note">El sitio de medición debe corresponder a la ecuación seleccionada: Westervelt para caballo adulto (5 cm) o Kane para poni (10 cm). Los sitios y ecuaciones no deben intercambiarse.</p>
+            <cite>Referencia visual suministrada para PowerOmega APP · Anotación grasa/músculo: RRHM.</cite>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         MÓDULO 4: EQUIGRAS & TECNIGRASAS
+         ========================================================================== -->
+    <section id="module-product" class="module-section" role="tabpanel" aria-labelledby="tab-product">
+      <div class="module-header-card">
+        <div class="module-header-title">
+          <h2><span>📋</span> Ficha Técnica EQUIGRAS® & 9 Razones de Grasa en Equinos</h2>
+          <p>Resumen técnico de producto e información institucional de Tecnigrasas Suplementos y Nutrientes S.A.S.</p>
+        </div>
+      </div>
+
+      <!-- Ficha Técnica -->
+      <div class="product-card mb-4">
+        <span class="product-badge">FICHA TÉCNICA OFICIAL 2025 | REGISTRO ICA N° 10396SL</span>
+        <h2 class="product-h2-01">EQUIGRAS® — Energía para tus Equinos</h2>
+        <p class="product-p-01">Suplemento energético en polvo con alto contenido de Omega 3 y Omega 6 en la relación adecuada (3:1) para suministrar ácidos grasos esenciales a equinos en todas las etapas fisiológicas y productivas. Fabricado por Tecnigrasas Suplementos y Nutrientes S.A.S.</p>
+
+        <div class="grid-2 mb-3 product-div-01">
+          <div>
+            <h4 class="u-extracted-08">📊 Composición Nutricional Garantizada</h4>
+            <table class="custom-table u-font-size-084">
+              <thead>
+                <tr>
+                  <th>Parámetro Nutricional</th>
+                  <th>Especificación EQUIGRAS®</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>% de Grasa Total</strong></td>
+                  <td><span class="u-extracted-01">75% mín.</span> (reportado como % de ácidos grasos)</td>
+                </tr>
+                <tr>
+                  <td><strong>% EPA + DHA (Omega 3)</strong></td>
+                  <td><span class="product-span-01">5.0% mín.</span></td>
+                </tr>
+                <tr>
+                  <td><strong>% Ácido Linoleico (Omega 6)</strong></td>
+                  <td><span class="product-span-02">12.0% mín.</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Relación Omega 6 : Omega 3</strong></td>
+                  <td><strong>3 : 1</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Energía Metabolizable (EM)</strong></td>
+                  <td><strong>6.5 Mcal / kg MS</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Valor Calorífico Bruto</strong></td>
+                  <td><strong>7.6 Mcal / kg MS</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Calcio (% Ca)</strong></td>
+                  <td>7.0% mín.</td>
+                </tr>
+                <tr>
+                  <td><strong>Humedad</strong></td>
+                  <td>5.0% máx.</td>
+                </tr>
+                <tr>
+                  <td><strong>Ceniza</strong></td>
+                  <td>16.0% máx.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h4 class="u-extracted-08">🧪 Calidad, Ingredientes y Registro</h4>
+            <table class="custom-table u-font-size-084">
+              <thead>
+                <tr>
+                  <th>Característica / Parámetro</th>
+                  <th>Detalle Oficial (Ficha 2025)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Registro de Venta ICA</strong></td>
+                  <td><strong class="product-strong-01">10396SL</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>Fabricante</strong></td>
+                  <td>Tecnigrasas Suplementos y Nutrientes S.A.S.</td>
+                </tr>
+                <tr>
+                  <td><strong>Presentaciones Comerciales</strong></td>
+                  <td>Tarro por 2 kg y 5 kg</td>
+                </tr>
+                <tr>
+                  <td><strong>Tipo de Grasa</strong></td>
+                  <td>Grasas Técnicas Lipídicas</td>
+                </tr>
+                <tr>
+                  <td><strong>Ingredientes Activos</strong></td>
+                  <td>Aceite de soya, girasol, canola, palma y pescado</td>
+                </tr>
+                <tr>
+                  <td><strong>Índice de Peróxidos</strong></td>
+                  <td>10 meq / kg (máx.)</td>
+                </tr>
+                <tr>
+                  <td><strong>Acidez Titulable</strong></td>
+                  <td>4 % (máx.)</td>
+                </tr>
+                <tr>
+                  <td><strong>Materia Insaponificable</strong></td>
+                  <td>Menos del 5 %</td>
+                </tr>
+                <tr>
+                  <td><strong>Ácidos Grasos Libres (AGL)</strong></td>
+                  <td>0.5 % (máx.)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 Razones -->
+      <div class="glass-card">
+        <h3 class="card-title"><span>🌟</span> 9 Razones Científicas de Usar Grasa en Equinos (RRHM, 2021)</h3>
+        <ul id="reasonsListContainer" class="reasons-list">
+          <!-- Renderizado dinámicamente por product.js -->
+        </ul>
+      </div>
+
+      <!-- ============================================================
+           BLOQUE: ¿QUÉ DICEN LOS EXPERTOS? — Bibliografía Científica
+           ============================================================ -->
+      <div class="glass-card product-div-02">
+
+        <!-- Botón principal de activación -->
+        <button type="button" id="btnExpertsToggle" class="hover-lift-experts s-btn-experts-toggle" aria-expanded="false" aria-controls="expertsPanel">
+          <span class="product-span-03">🔬</span>
+          <span>¿Qué dicen los expertos sobre las grasas y los ácidos grasos esenciales?</span>
+          <span id="btnExpertsArrow" class="s-btn-experts-arrow">▼</span>
+        </button>
+
+        <!-- Panel desplegable -->
+        <div id="expertsPanel" hidden class="s-experts-panel">
+          <!-- Subtítulo -->
+          <div class="product-div-03">
+            <p class="product-p-02">
+              A continuación encontrarás el capítulo oficial del <strong>NRC (2007)</strong> sobre grasas y lípidos en caballos,
+              y una selección de artículos científicos de referencia utilizados en el desarrollo de EQUIGRAS® y
+              en la fundamentación nutricional de Tecnigrasas Suplementos y Nutrientes S.A.S.
+            </p>
+          </div>
+
+          <!-- ── TARJETA PRINCIPAL: NRC 2007 ── -->
+          <div class="nrc-source-card product-div-04">
+            <div class="product-div-05">📗</div>
+            <div class="nrc-source-copy product-div-06">
+              <div class="product-div-07">Fuente Principal · NRC 2007</div>
+              <div class="product-div-08">
+                Fats in Horses — Dietary Lipid Metabolism
+              </div>
+              <div class="product-div-09">
+                NRC (2007). <em>Nutrient Requirements of Horses</em> (6th Ed.), Capítulo 5, pp. 61–70.<br>
+                National Research Council · National Academies Press, Washington D.C.
+              </div>
+            </div>
+            <a href="docs/NRC_2007_fat_in_horses_pp61-70.pdf" target="_blank" rel="noopener noreferrer"
+               id="btnDownloadNRC" class="hover-lift-nrc nrc-download-link s-btn-download-nrc"
+              >
+              ⬇ Descargar PDF
+            </a>
+          </div>
+
+          <!-- ── OTRAS FUENTES CIENTÍFICAS ── -->
+          <div class="product-div-10">
+            <h4 class="product-h4-01">
+              <span>📚</span> Otras Fuentes Científicas de Referencia
+            </h4>
+
+            <div class="experts-source-grid product-div-11">
+
+              <!-- Warren -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Nutrición Lipídica Equina</div>
+                <div class="u-extracted-11">Feeding Fat to Horses</div>
+                <div class="u-extracted-12">Warren, L. K. University of Florida — IFAS Extension. Revisión de beneficios de la suplementación con grasa.</div>
+                <a href="docs/Warren_Feeding_Fat_to_Horses.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Dietary Fats & Lipid Metabolism -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Metabolismo Lipídico</div>
+                <div class="u-extracted-11">Dietary Fats &amp; Lipid Metabolism in the Horse</div>
+                <div class="u-extracted-12">Revisión científica del metabolismo de grasas dietarias y su relación con el rendimiento energético en equinos.</div>
+                <a href="docs/Dietary_Fats_Lipid_Metabolism_Horses.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Diet & Exercise -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Dieta y Rendimiento</div>
+                <div class="u-extracted-11">Diet and Exercise Performance in the Horse</div>
+                <div class="u-extracted-12">Análisis del impacto de la dieta y la suplementación lipídica sobre el rendimiento físico y la condición del equino deportivo.</div>
+                <a href="docs/Diet_Exercise_Performance_Horse.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Omega-3 & Athletic Performance -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Omega-3 y Deporte</div>
+                <div class="u-extracted-11">Omega-3 Fatty Acids &amp; Sports/Athletic Performance</div>
+                <div class="u-extracted-12">Revisión de la evidencia científica sobre los efectos de los ácidos grasos Omega-3 en el rendimiento deportivo y la salud musculoesquelética.</div>
+                <a href="docs/Omega3_Sports_Athletic_Performance.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Suplementación con grasa en caballos RRHM -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Revisión RRHM · Tecnigrasas</div>
+                <div class="u-extracted-11">Suplementación con Grasa en Caballos — EQUIGRAS®</div>
+                <div class="u-extracted-12">Hernández Mora, R. R. (2021). Revisión técnica sobre la suplementación energética con grasas en equinos. Tecnigrasas S.A.S.</div>
+                <a href="docs/EQ_Suplementacion_grasa_equinos.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Lorry Warren 2013 — Capítulo Grasas en Equinos -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Capítulo · Grasas en Equinos</div>
+                <div class="u-extracted-11">Capítulo: Grasas en Equinos</div>
+                <div class="u-extracted-12">Warren, L. K. (2013). Capítulo sobre el uso de grasas en la alimentación equina, metabolismo lipídico y beneficios en diferentes estados fisiológicos.</div>
+                <a href="docs/Capitulo_Grasas_Equinos_LorryWarren_2013.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+              <!-- Nutraceuticals in the Stallion -->
+              <div class="u-extracted-09">
+                <div class="u-extracted-10">📄 Reproducción Equina · Nutraceuticals</div>
+                <div class="u-extracted-11">Use of Nutraceuticals in the Stallion: Effects on Semen Quality</div>
+                <div class="u-extracted-12">Estudio sobre el uso de nutracéuticos (incluidos ácidos grasos esenciales Omega-3) en sementales y su efecto en la calidad seminal y fertilidad.</div>
+                <a href="docs/Use_of_nutraceuticals_stallion.pdf" target="_blank" rel="noopener noreferrer" class="hover-opacity u-extracted-13"
+                  >
+                  ⬇ Descargar
+                </a>
+              </div>
+
+            </div><!-- /grid -->
+          </div><!-- /otras fuentes -->
+
+          <!-- Nota al pie del panel -->
+          <div class="product-div-12">
+            📌 <strong>Licencias:</strong> Antes de publicar o redistribuir estos PDF debe verificarse por escrito la licencia o autorización correspondiente de cada titular. La disponibilidad interna de un archivo no implica permiso de redistribución. Todos los derechos pertenecen a sus respectivos autores y editoriales.
+          </div>
+
+        </div><!-- /expertsPanel -->
+      </div><!-- /glass-card expertos -->
+
+    </section>
+
+  </main>
+
+  <!-- Footer Negro Corporativo Marca Equigras 2026 -->
+  <footer class="app-footer">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <img src="assets/logo_app.png" alt="TECNIGRASAS® Suplementos y Nutrientes S.A.S." data-fallback-src="assets/logo_tecnigrasas_2026.png">
+        <div class="product-div-13">
+          <strong class="product-strong-02">Tecnigrasas Suplementos y Nutrientes S.A.S.</strong><br>
+          <span class="product-span-04">Itagüí, Colombia</span>
+        </div>
+      </div>
+      <div class="product-div-14">
+        <div class="product-div-15">Desarrollado por: Rolando Hernández Mora (RRHM)</div>
+        <div class="product-div-16">Soportado por Tecnigrasas S.A.S. | PowerOmega APP</div>
+      </div>
+    </div>
+
+    <!-- Certificaciones y reconocimientos institucionales -->
+    <section class="footer-achievements" aria-label="Certificaciones y reconocimientos">
+      <div class="footer-achievements-title">
+        <span>Certificaciones &amp; reconocimientos</span>
+      </div>
+
+      <div class="footer-achievements-grid">
+        <div class="footer-seal-card">
+          <img src="assets/logo_certificacion_bpmaa.png" alt="Certificación BPMAA de Buenas Prácticas de Manufactura">
+        </div>
+
+        <div class="footer-seal-card">
+          <img src="assets/logo_fda_registered.png" alt="Instalación registrada ante la FDA">
+        </div>
+
+        <div class="footer-seal-card">
+          <img src="assets/logo_omega_3_6.png" alt="Sello Omega 3 y 6 de EQUIGRAS">
+        </div>
+
+        <div class="footer-award-card">
+          <div class="footer-award-crop">
+            <img src="assets/logo_premio_innovacion_2025.png" alt="Premio Innovación Aburrá Sur 2025">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Declaración Formal de Derechos de Autor Reservados -->
+    <div class="footer-legal-notice">
+      <span>© 2026 PowerOmega APP. Todos los derechos de autor reservados.</span>
+      <p class="product-p-03">
+        Uso educativo. Los resultados deben ser revisados por un médico veterinario o nutricionista equino y no constituyen diagnóstico, prescripción ni garantía de resultado.
+      </p>
+      <p class="product-p-04">
+        Queda estrictamente prohibida la reproducción, copia, distribución, modificación o uso no autorizado total o parcial de este software, interfaz web, algoritmos nutricionales, código fuente y modelos de estimación morfométrica sin la autorización previa y expresa por escrito del autor Rolando Hernández Mora (RRHM) y Tecnigrasas Suplementos y Nutrientes S.A.S.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts JS Modulares -->
+  <script src="js/morphometrics.js"></script>
+  <script src="js/nutrition.js"></script>
+  <script src="js/bcs.js"></script>
+  <script src="js/product.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
