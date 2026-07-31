@@ -174,8 +174,8 @@ body::before {
   width: 100%;
   min-width: 0;
   min-height: 48px;
-  background: transparent;
-  border: none;
+  background: rgba(245, 158, 11, 0.025);
+  border: 1px solid rgba(245, 158, 11, 0.38);
   color: #9ca3af;
   padding: 0.6rem 1.2rem;
   font-family: inherit;
@@ -195,11 +195,13 @@ body::before {
 
 .nav-tab-btn:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(251, 191, 36, 0.72);
+  background: rgba(245, 158, 11, 0.1);
 }
 
 .nav-tab-btn.active {
   background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  border-color: #fbbf24;
   color: #ffffff;
   box-shadow: 0 4px 14px rgba(217, 119, 6, 0.4);
 }
@@ -425,6 +427,42 @@ body::before {
   font-weight: 700;
   color: var(--text-main);
   margin-bottom: 0.4rem;
+}
+
+/* Correspondencia visual con los recuadros NC, H, G y L de la guía equina */
+.morphometric-measure {
+  --measure-color: var(--text-main);
+  --measure-soft: #f8fafc;
+}
+
+.morphometric-measure--nc {
+  --measure-color: #9333ea;
+  --measure-soft: #faf5ff;
+}
+
+.morphometric-measure--h {
+  --measure-color: #15803d;
+  --measure-soft: #f0fdf4;
+}
+
+.morphometric-measure--g {
+  --measure-color: #b45309;
+  --measure-soft: #fffbeb;
+}
+
+.morphometric-measure--l {
+  --measure-color: #0369a1;
+  --measure-soft: #f0f9ff;
+}
+
+.form-group .morphometric-measure-label {
+  padding: 0.42rem 0.62rem;
+  border-left: 4px solid var(--measure-color);
+  border-radius: 0 7px 7px 0;
+  background: var(--measure-soft);
+  color: var(--measure-color);
+  font-size: 0.92rem;
+  line-height: 1.35;
 }
 
 .input-wrapper {
@@ -801,6 +839,10 @@ body::before {
 
 .citation-box strong {
   color: var(--accent-cyan-light);
+}
+
+.morphometrics-technical-note {
+  margin-top: 1.5rem;
 }
 
 .tech-note-link-btn {
@@ -1195,7 +1237,16 @@ body::before {
   }
 
   .footer-award-crop {
-    height: 120px;
+    width: 100%;
+    height: 156px;
+  }
+
+  .footer-award-card {
+    min-height: 156px;
+  }
+
+  .footer-award-crop img {
+    top: -3px;
   }
 }
 
@@ -1461,7 +1512,12 @@ body::before {
   max-width: 650px;
 }
 
-.bcs-photo-panel > img {
+.bcs-photo-stage {
+  position: relative;
+  width: 100%;
+}
+
+.bcs-photo-stage > img {
   width: 100%;
   display: block;
   border: 2px solid var(--border-light);
@@ -1505,6 +1561,10 @@ body::before {
   text-align: center;
 }
 
+.bcs-download-link.bcs-download-link--mobile {
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .bcs-selector-layout {
     grid-template-columns: 1fr;
@@ -1518,51 +1578,93 @@ body::before {
 .bcs-obesity-reference-card {
   max-width: 1120px;
   margin: 1.35rem auto 0;
-  overflow: hidden;
+  padding: 1.1rem;
   border: 1px solid rgba(2, 132, 199, 0.26);
   border-radius: 16px;
-  background: #ffffff;
+  background: linear-gradient(145deg, #eff6ff 0%, #ffffff 48%, #f8fafc 100%);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
 }
 
-.bcs-obesity-image-frame {
-  padding: 0.7rem;
-  background: linear-gradient(135deg, #eff6ff, #f8fafc);
-}
-
-.bcs-obesity-image-frame img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 10px;
-}
-
-.bcs-obesity-reference-card figcaption {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(230px, 0.48fr);
-  align-items: center;
-  gap: 1rem;
-  padding: 0.9rem 1rem 1rem;
-  border-top: 1px solid var(--border-light);
-}
-
-.bcs-obesity-reference-card figcaption strong {
-  display: block;
+.bcs-obesity-title {
+  margin: 0 0 1rem;
   color: #0f2f6b;
-  font-size: 1rem;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  text-align: center;
 }
 
-.bcs-obesity-reference-card figcaption p {
-  margin-top: 0.25rem;
+.bcs-obesity-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 0.85rem;
+}
+
+.bcs-obesity-photo-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #e2e8f0;
+  box-shadow: 0 5px 14px rgba(15, 23, 42, 0.1);
+}
+
+.bcs-obesity-photo-card img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  object-fit: cover;
+}
+
+.bcs-obesity-photo-marker {
+  position: absolute;
+  bottom: 0.65rem;
+  left: 0.65rem;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: #0f172a;
+  font-size: 0.9rem;
+  font-weight: 900;
+  line-height: 1;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.32);
+}
+
+.bcs-obesity-legend {
+  display: grid;
+  gap: 0.3rem;
+  margin-top: 0.9rem;
+  padding: 0.8rem 0.9rem;
+  border-left: 4px solid #0284c7;
+  border-radius: 0 9px 9px 0;
+  background: rgba(224, 242, 254, 0.66);
+}
+
+.bcs-obesity-legend p {
+  margin: 0;
   color: var(--text-body);
   font-size: 0.83rem;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.bcs-obesity-legend strong {
+  color: #0f2f6b;
 }
 
 .bcs-obesity-reference-card cite {
+  display: block;
+  margin-top: 0.7rem;
   color: var(--text-muted);
   font-size: 0.75rem;
   line-height: 1.45;
-  text-align: right;
+  text-align: justify;
 }
 
 .ultrasound-example-card {
@@ -1631,6 +1733,7 @@ body::before {
   border-left: 4px solid #f59e0b;
   border-radius: 0 10px 10px 0;
   background: #fffbeb;
+  text-align: justify;
 }
 
 .ultrasound-clarification > strong {
@@ -1672,12 +1775,21 @@ body::before {
     width: min(100%, 330px);
   }
 
-  .bcs-obesity-reference-card figcaption {
-    grid-template-columns: 1fr;
+  .bcs-download-link.bcs-download-link--desktop {
+    display: none;
   }
 
-  .bcs-obesity-reference-card cite {
-    text-align: left;
+  .bcs-download-link.bcs-download-link--mobile {
+    display: inline-flex;
+    width: 100%;
+    margin: 0 0 0.65rem;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .bcs-obesity-photo-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .bcs-selector-layout {
@@ -1892,6 +2004,67 @@ button,
     justify-content: center;
     white-space: normal !important;
     text-align: center;
+  }
+
+  /* Orden narrativo del Módulo 2 exclusivo para teléfonos:
+     parámetros -> resultados/dosis -> información y simulador de agua. */
+  .nutrition-main-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nutrition-parameters-card {
+    display: contents;
+  }
+
+  .nutrition-parameters-core {
+    order: 1;
+    padding: 1.35rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    background: var(--bg-card);
+    box-shadow: var(--shadow-premium);
+  }
+
+  .nutrition-main-grid > .glass-card:not(.nutrition-parameters-card) {
+    order: 2;
+  }
+
+  .nutrition-water-controls {
+    order: 3;
+  }
+
+  .water-guide-download-card {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 0.9rem;
+    padding: 1.3rem 1.1rem;
+    text-align: center;
+  }
+
+  .water-guide-download-icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .water-guide-download-button {
+    width: 100%;
+    white-space: normal;
+  }
+
+  /* En móvil permanece la explicación sobre el agua; solo la tabla ancha y
+     sus textos auxiliares se sustituyen por la guía PDF legible. */
+  #seccionTablaAgua {
+    display: block;
+    margin-top: 1.25rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  #seccionTablaAgua > :not(.nutrition-div-09) {
+    display: none;
   }
 
   .bcs-download-link {
@@ -2158,6 +2331,12 @@ button,
   display: flex; align-items: center; justify-content: center; gap: 0.55rem; width: 100%; margin-top: 1rem; padding: 0.65rem 1rem; background: rgba(255,255,255,0.1); color: #ffffff; font-size: 0.83rem; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 9px; cursor: pointer; letter-spacing: 0.01em; transition: all 0.2s ease;
 }
 
+.water-guide-inline-link {
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+}
+
 .nutrition-span-01 {
   margin-left:auto;
 }
@@ -2248,6 +2427,83 @@ button,
 
 .s-seccion-tabla-agua {
   margin-top: 2rem;
+}
+
+.water-guide-download-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid #7dd3fc;
+  border-left: 6px solid #0284c7;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 60%, #f8fafc 100%);
+  box-shadow: 0 8px 24px rgba(3, 105, 161, 0.14);
+}
+
+.water-guide-download-icon {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #0369a1, #38bdf8);
+  color: #fff;
+  font-size: 1.8rem;
+  box-shadow: 0 6px 16px rgba(3, 105, 161, 0.3);
+}
+
+.water-guide-download-copy {
+  min-width: 0;
+}
+
+.water-guide-download-kicker {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #0369a1;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.water-guide-download-copy h3 {
+  margin: 0;
+  color: #0c4a6e;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.water-guide-download-copy p {
+  margin: 0.35rem 0 0;
+  color: #475569;
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.water-guide-download-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.72rem 1.15rem;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0369a1, #0284c7);
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 5px 14px rgba(3, 105, 161, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.water-guide-download-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(3, 105, 161, 0.38);
 }
 
 .nutrition-div-09 {
@@ -2441,7 +2697,7 @@ button,
 }
 
 .bcs-div-04 {
-  margin-top:0.9rem; padding:0.7rem 1rem; background:rgba(4,120,87,0.06); border-left:3px solid #16a34a; border-radius:0 8px 8px 0; font-size:0.74rem; color:var(--text-muted); line-height:1.6;
+  margin-top:0.9rem; padding:0.7rem 1rem; background:rgba(4,120,87,0.06); border-left:3px solid #16a34a; border-radius:0 8px 8px 0; font-size:0.74rem; color:var(--text-muted); line-height:1.6; text-align:justify;
 }
 
 .u-color-green-dark {

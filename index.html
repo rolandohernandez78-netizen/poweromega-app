@@ -96,8 +96,8 @@
           <h3 class="card-title"><span>📏</span> Mediciones Morfométricas</h3>
           
           <!-- Input NC -->
-          <div class="form-group">
-            <label for="inputNC">NC: Circunferencia del Cuello</label>
+          <div class="form-group morphometric-measure morphometric-measure--nc">
+            <label for="inputNC" class="morphometric-measure-label">NC: Circunferencia del Cuello</label>
             <div class="input-wrapper">
               <input type="number" id="inputNC" class="form-control" value="85" min="40" max="160" step="1">
               <span class="input-unit unit-label-length">cm</span>
@@ -108,8 +108,8 @@
           </div>
 
           <!-- Input H -->
-          <div class="form-group">
-            <label for="inputH">H: Altura a la Cruz</label>
+          <div class="form-group morphometric-measure morphometric-measure--h">
+            <label for="inputH" class="morphometric-measure-label">H: Altura a la Cruz</label>
             <div class="input-wrapper">
               <input type="number" id="inputH" class="form-control" value="150" min="80" max="210" step="1">
               <span class="input-unit unit-label-length">cm</span>
@@ -120,8 +120,8 @@
           </div>
 
           <!-- Input G -->
-          <div class="form-group">
-            <label for="inputG">G: Circunferencia de la Cincha (del Barril / Cardíaca)</label>
+          <div class="form-group morphometric-measure morphometric-measure--g">
+            <label for="inputG" class="morphometric-measure-label">G: Circunferencia de la Cincha (del Barril / Cardíaca)</label>
             <div class="input-wrapper">
               <input type="number" id="inputG" class="form-control" value="180" min="90" max="260" step="1">
               <span class="input-unit unit-label-length">cm</span>
@@ -132,8 +132,8 @@
           </div>
 
           <!-- Input L -->
-          <div class="form-group">
-            <label for="inputL">L: Longitud Corporal (Escápula a Punta de Nalga)</label>
+          <div class="form-group morphometric-measure morphometric-measure--l">
+            <label for="inputL" class="morphometric-measure-label">L: Longitud Corporal (Escápula a Punta de Nalga)</label>
             <div class="input-wrapper">
               <input type="number" id="inputL" class="form-control" value="165" min="80" max="240" step="1">
               <span class="input-unit unit-label-length">cm</span>
@@ -143,18 +143,6 @@
             </div>
           </div>
 
-          <div class="citation-box">
-            <strong>📌 Nota Técnica (RRHM, 2021):</strong><br>
-            Toma las mediciones con cinta flexible de costurero. La circunferencia cardíaca (G) se mide justo detrás de la cruz y el hombro, donde se coloca la cincha delantera. La longitud corporal (L) abarca desde la articulación escápulo-humeral hasta la tuberosidad isquiática.
-            <br><br><strong>Uso de las medidas:</strong> cada fórmula conserva sus variables originales y recibe un ajuste complementario basado en Martinson et al. para las medidas que no incluye. De esta manera NC, H, G y L modifican el resultado con cualquiera de los seis modelos. Este ajuste combinado es una implementación de PowerOmega y no debe interpretarse como parte de la ecuación publicada originalmente.
-            
-            <div class="morphometrics-div-02">
-              <a href="https://www.tecnigrasas.com/descargas/" target="_blank" rel="noopener noreferrer" class="tech-note-link-btn">
-                <span>📄 Conoce más y descarga las Notas Técnicas oficiales sobre EQUIGRAS®</span>
-                <span class="link-arrow">→</span>
-              </a>
-            </div>
-          </div>
         </div>
 
         <!-- Columna Derecha: Diagrama Exacto del Equino con Líneas Continuas -->
@@ -227,6 +215,20 @@
           </div>
         </div>
       </div>
+
+      <!-- Cierre técnico del módulo: aparece después de la guía, el resultado y la comparativa -->
+      <div class="citation-box morphometrics-technical-note">
+        <strong>📌 Nota Técnica (RRHM, 2021):</strong><br>
+        Toma las mediciones con cinta flexible de costurero. La circunferencia cardíaca (G) se mide justo detrás de la cruz y el hombro, donde se coloca la cincha delantera. La longitud corporal (L) abarca desde la articulación escápulo-humeral hasta la tuberosidad isquiática.
+        <br><br><strong>Uso de las medidas:</strong> cada fórmula conserva sus variables originales y recibe un ajuste complementario basado en Martinson et al. para las medidas que no incluye. De esta manera NC, H, G y L modifican el resultado con cualquiera de los seis modelos. Este ajuste combinado es una implementación de PowerOmega y no debe interpretarse como parte de la ecuación publicada originalmente.
+
+        <div class="morphometrics-div-02">
+          <a href="https://www.tecnigrasas.com/descargas/" target="_blank" rel="noopener noreferrer" class="tech-note-link-btn">
+            <span>📄 Conoce más y descarga las Notas Técnicas oficiales sobre EQUIGRAS®</span>
+            <span class="link-arrow">→</span>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- ==========================================================================
@@ -244,49 +246,52 @@
         <strong>⚠️ Herramienta educativa, no prescriptiva.</strong> Las estimaciones de peso, energía, materia seca, agua y dosificación no sustituyen la evaluación de un médico veterinario o nutricionista equino. Valide la ración completa, el estado clínico y la etiqueta vigente antes de tomar decisiones.
       </div>
 
-      <div class="grid-2">
+      <div class="grid-2 nutrition-main-grid">
         <!-- Parámetros del Equino -->
-        <div class="glass-card">
-          <h3 class="card-title"><span>⚙️</span> Estado Fisiológico y Actividad</h3>
+        <div class="glass-card nutrition-parameters-card">
+          <div class="nutrition-parameters-core">
+            <h3 class="card-title"><span>⚙️</span> Estado Fisiológico y Actividad</h3>
 
-          <div class="form-group">
-            <label for="selectPhysioState">Estado Fisiológico / Nivel de Actividad</label>
-            <select id="selectPhysioState" class="form-control">
-              <option value="maintenance" selected>Caballo Adulto - Mantenimiento</option>
-              <option value="light_work">Trabajo / Ejercicio Ligero (+20% ED)</option>
-              <option value="moderate_work">Trabajo / Ejercicio Moderado (+40% ED)</option>
-              <option value="intense_work">Ejercicio Intenso / Competencia (+90% ED)</option>
-              <option value="stallion">Semental en Época de Monta (+25% ED)</option>
-              <option value="gestation_late">Yegua Gestante (3er tercio, +15% ED; rango 10–20%)</option>
-              <option value="lactation_early">Yegua Lactante Pico (Meses 1 a 3, +75% ED; rango 70–80%)</option>
-              <option value="foal">Potro en Crecimiento / Destete (requiere cálculo individual)</option>
-            </select>
+            <div class="form-group">
+              <label for="selectPhysioState">Estado Fisiológico / Nivel de Actividad</label>
+              <select id="selectPhysioState" class="form-control">
+                <option value="maintenance" selected>Caballo Adulto - Mantenimiento</option>
+                <option value="light_work">Trabajo / Ejercicio Ligero (+20% ED)</option>
+                <option value="moderate_work">Trabajo / Ejercicio Moderado (+40% ED)</option>
+                <option value="intense_work">Ejercicio Intenso / Competencia (+90% ED)</option>
+                <option value="stallion">Semental en Época de Monta (+25% ED)</option>
+                <option value="gestation_late">Yegua Gestante (3er tercio, +15% ED; rango 10–20%)</option>
+                <option value="lactation_early">Yegua Lactante Pico (Meses 1 a 3, +75% ED; rango 70–80%)</option>
+                <option value="foal">Potro en Crecimiento / Destete (requiere cálculo individual)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="selectHeightCategory">Alzada del Equino</label>
+              <select id="selectHeightCategory" class="form-control">
+                <option value="high" selected>Superior a 1.45 m (Alzada Normal / Grande)</option>
+                <option value="low">Hasta 1.45 m (Poni / Alzada Pequeña)</option>
+              </select>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label for="selectHeightCategory">Alzada del Equino</label>
-            <select id="selectHeightCategory" class="form-control">
-              <option value="high" selected>Superior a 1.45 m (Alzada Normal / Grande)</option>
-              <option value="low">Hasta 1.45 m (Poni / Alzada Pequeña)</option>
-            </select>
-          </div>
+          <div class="nutrition-water-controls">
+            <div class="citation-box">
+              <strong>📖 Datos de Referencia (RRHM, 2021; Lawrence 2014):</strong><br>
+              • 1 kg de leche de yegua contiene ~ 500-792 kcal, 2% proteína y 2% grasa.<br>
+              • La yegua en pico de lactancia produce entre 10 a 25 kg/día de leche.<br>
+              • Una yegua requiere ganar de 16 a 20 kg de peso para elevar 1 punto de CC (1 kg ganancia = 20 Mcal ED).
+            </div>
 
-          <div class="citation-box">
-            <strong>📖 Datos de Referencia (RRHM, 2021; Lawrence 2014):</strong><br>
-            • 1 kg de leche de yegua contiene ~ 500-792 kcal, 2% proteína y 2% grasa.<br>
-            • La yegua en pico de lactancia produce entre 10 a 25 kg/día de leche.<br>
-            • Una yegua requiere ganar de 16 a 20 kg de peso para elevar 1 punto de CC (1 kg ganancia = 20 Mcal ED).
-          </div>
-
-          <!-- Botón para abrir el simulador de agua -->
-          <button type="button" id="btnToggleWaterSim" class="hover-lift-water s-btn-toggle-water-sim" aria-expanded="false" aria-controls="waterSimulator">
-            <span id="btnWaterSimIcon">💧</span>
-            <span id="btnWaterSimText">Estimar consumo de agua de mi equino</span>
-            <span id="btnWaterSimArrow" class="s-btn-water-sim-arrow">&#9660;</span>
-          </button>
+            <!-- Botón para abrir el simulador de agua -->
+            <button type="button" id="btnToggleWaterSim" class="hover-lift-water s-btn-toggle-water-sim" aria-expanded="false" aria-controls="waterSimulator">
+              <span id="btnWaterSimIcon">💧</span>
+              <span id="btnWaterSimText">Estimar consumo de agua de mi equino</span>
+              <span id="btnWaterSimArrow" class="s-btn-water-sim-arrow">&#9660;</span>
+            </button>
 
           <!-- ======= SIMULADOR DE CONSUMO DE AGUA (NRC 2007, Tabla 7-1) ======= -->
-          <div id="waterSimulator" hidden class="s-water-simulator">
+            <div id="waterSimulator" hidden class="s-water-simulator">
             <h4 class="water-simulator-heading">
               <span class="water-horse-icon">
                 <img src="assets/horse_drinking_bucket.png" alt="" aria-hidden="true">
@@ -342,14 +347,17 @@
               <div id="simResultNote" class="s-sim-result-note"></div>
             </div>
 
-            <!-- Botón: ir a la tabla de referencia completa -->
-            <button type="button" id="btnScrollWaterTable" class="hover-water-table s-btn-scroll-water-table">
-              <span>📋</span>
-              ¿Quieres saber más sobre el agua en equinos? Haz clic aquí para ver la tabla completa
-              <span class="nutrition-span-01">↓</span>
-            </button>
+            <!-- Acceso directo a la guía descargable -->
+            <a href="output/pdf/guia_consumo_agua_equinos.pdf" download
+              class="hover-water-table s-btn-scroll-water-table water-guide-inline-link"
+              aria-label="Descargar guía sobre consumo de agua en equinos en formato PDF">
+              <span>📘</span>
+              ¿Quieres saber más sobre el consumo de agua en equinos? Descarga aquí la guía completa
+              <span class="nutrition-span-01">⬇</span>
+            </a>
+            </div>
+            <!-- FIN SIMULADOR -->
           </div>
-          <!-- FIN SIMULADOR -->
 
         </div>
 
@@ -452,6 +460,21 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Guía descargable: alternativa legible a la tabla técnica en teléfonos -->
+      <div class="water-guide-download-card">
+        <div class="water-guide-download-icon" aria-hidden="true">💧</div>
+        <div class="water-guide-download-copy">
+          <span class="water-guide-download-kicker">Guía técnica descargable</span>
+          <h3>¿Quieres saber más sobre el consumo de agua en los equinos?</h3>
+          <p>Consulta la tabla completa, sus notas de interpretación y las referencias científicas en un PDF diseñado para una lectura cómoda.</p>
+        </div>
+        <a href="output/pdf/guia_consumo_agua_equinos.pdf" download
+          class="water-guide-download-button"
+          aria-label="Descargar guía completa sobre consumo de agua en equinos en PDF">
+          <span>⬇</span> Descargar PDF
+        </a>
       </div>
 
       <!-- =========================================================
@@ -751,7 +774,7 @@
           <div class="bcs-div-03">
             <span class="bcs-span-01">🖼 Referencia Visual BCS</span>
             <span id="bcsImageLabel" class="s-bcs-image-label">CC 5 · Moderado</span>
-            <a href="assets/bcs_slide11_c.jpeg" target="_blank" rel="noopener noreferrer" class="hover-opacity bcs-download-link bcs-a-01">
+            <a href="assets/bcs_slide11_c.jpeg" download target="_blank" rel="noopener noreferrer" class="hover-opacity bcs-download-link bcs-download-link--desktop bcs-a-01">
               ⬇ Descargar tabla BCS 1–9 · Kentucky Equine Research
             </a>
           </div>
@@ -760,18 +783,18 @@
           <div class="bcs-reference-grid">
             <!-- Foto comparativa con overlay rojo dinámico -->
             <div class="bcs-photo-panel">
+              <div class="bcs-photo-stage">
 
-              <!-- Imagen base -->
-              <img id="bcsPhotoImg"
-                src="assets/bcs_slide12_a.jpeg"
-                alt="Comparación fotográfica BCS: Poor (1-3) / Moderate (4-6) / Fat (7-9)">
+                <!-- Imagen base -->
+                <img id="bcsPhotoImg"
+                  src="assets/bcs_slide12_a.jpeg"
+                  alt="Comparación fotográfica BCS: Poor (1-3) / Moderate (4-6) / Fat (7-9)">
 
-              <!-- Overlay rojo — se mueve según BCS seleccionado
-                   top = fila * 33.33% + 4% de inset superior por celda
-                   height = 29% para no salir de la celda -->
-              <div id="bcsRedOverlay" class="s-bcs-red-overlay bcs-overlay-r1-c1">
-                <!-- Etiqueta del BCS activo en la esquina -->
-                <span id="bcsOverlayLabel" class="s-bcs-overlay-label">CC 5</span>
+                <!-- Overlay rojo — se mueve según BCS seleccionado -->
+                <div id="bcsRedOverlay" class="s-bcs-red-overlay bcs-overlay-r1-c1">
+                  <!-- Etiqueta del BCS activo en la esquina -->
+                  <span id="bcsOverlayLabel" class="s-bcs-overlay-label">CC 5</span>
+                </div>
               </div>
 
               <!-- Etiqueta inferior -->
@@ -780,6 +803,10 @@
 
             <!-- Tabla BCS Kentucky Equine Research — pequeña, a la derecha y bajo su descarga -->
             <figure class="bcs-kentucky-panel">
+              <a href="assets/bcs_slide11_c.jpeg" download target="_blank" rel="noopener noreferrer"
+                class="hover-opacity bcs-download-link bcs-download-link--mobile bcs-a-01">
+                ⬇ Descargar tabla BCS 1–9 · Kentucky Equine Research
+              </a>
               <img
                 src="assets/bcs_slide11_c.jpeg"
                 alt="Tabla de Condición Corporal BCS 1 al 9 — Henneke et al. 1983 · Kentucky Equine Research">
@@ -789,28 +816,47 @@
             </figure>
           </div>
 
-          <!-- Diapositiva complementaria: áreas de acumulación de grasa en obesidad -->
-          <figure class="bcs-obesity-reference-card">
-            <div class="bcs-obesity-image-frame">
-              <img
-                src="assets/bcs_obesity_fat_deposits_carter_dugdale_2014.png"
-                alt="Áreas corporales donde se acumula grasa subcutánea en equinos con obesidad: cresta del cuello, espalda, costillas, detrás del hombro y grupa">
+          <!-- Fotografías: áreas de acumulación de grasa en obesidad -->
+          <section class="bcs-obesity-reference-card" aria-labelledby="bcsObesityAreasTitle">
+            <h3 id="bcsObesityAreasTitle" class="bcs-obesity-title">
+              Áreas corporales donde se acumula grasa subcutánea en equinos con obesidad
+            </h3>
+
+            <div class="bcs-obesity-photo-grid">
+              <figure class="bcs-obesity-photo-card">
+                <img
+                  src="assets/bcs_obesity_neck_crest.jpg"
+                  alt="Ejemplo de acumulación de grasa subcutánea a lo largo de la cresta del cuello de un equino">
+                <span class="bcs-obesity-photo-marker" aria-hidden="true">A</span>
+              </figure>
+              <figure class="bcs-obesity-photo-card">
+                <img
+                  src="assets/bcs_obesity_shoulder_ribs.jpg"
+                  alt="Ejemplo de acumulación de grasa subcutánea sobre la espalda, las costillas y detrás del hombro de un equino">
+                <span class="bcs-obesity-photo-marker" aria-hidden="true">B</span>
+              </figure>
+              <figure class="bcs-obesity-photo-card">
+                <img
+                  src="assets/bcs_obesity_croup.jpg"
+                  alt="Ejemplo de acumulación de grasa subcutánea sobre la grupa de un equino">
+                <span class="bcs-obesity-photo-marker" aria-hidden="true">C</span>
+              </figure>
             </div>
-            <figcaption>
-              <div>
-                <strong>Áreas de acumulación de grasa subcutánea en equinos con obesidad</strong>
-                <p><b>A:</b> cresta del cuello · <b>B:</b> espalda, costillas y detrás del hombro · <b>C:</b> grupa.</p>
-              </div>
-              <cite>Imágenes cortesía de Carter &amp; Dugdale (2014) · Diapositiva RRHM (2021) · Tecnigrasas.</cite>
-            </figcaption>
-          </figure>
+
+            <div class="bcs-obesity-legend">
+              <p><strong>A:</strong> A lo largo de la cresta del cuello.</p>
+              <p><strong>B:</strong> Sobre la espalda, las costillas y detrás del hombro.</p>
+              <p><strong>C:</strong> Sobre la grupa.</p>
+            </div>
+            <cite>Imágenes cortesía de Carter &amp; Dugdale (2014).</cite>
+          </section>
 
           <!-- Créditos / Cita bibliográfica -->
           <div class="bcs-div-04">
             📌 <strong>Créditos de las imágenes:</strong><br>
             • <em>Tabla BCS 1–9 (descargable):</em> Henneke, D.R., Potter, G.D., Kreider, J.L. &amp; Yeates, B.F. (1983). <em>Relationship between condition score, physical measurements and body fat percentage in mares.</em> Equine Veterinary Journal, 15(4), 371–372. Gráfico e ilustraciones: <strong>Kentucky Equine Research</strong> — <a href="https://ker.com" target="_blank" rel="noopener noreferrer" class="u-color-green-dark">ker.com</a>.<br>
             • <em>Fotografías comparativas:</em> Imágenes de referencia para evaluación de condición corporal en equinos. Fuente: <strong>Zoovetesmipasión</strong> — <a href="https://zoovetesmipasion.com/caballos/condicion-corporal-en-equinos/" target="_blank" rel="noopener noreferrer" class="u-color-green-dark">zoovetesmipasion.com/caballos/condicion-corporal-en-equinos/</a>.<br>
-            • <em>Áreas de acumulación de grasa en equinos con obesidad:</em> imágenes cortesía de <strong>Carter &amp; Dugdale (2014)</strong>. Diapositiva elaborada por <strong>RRHM (2021)</strong> para Tecnigrasas Suplementos y Nutrientes.
+            • <em>Áreas de acumulación de grasa en equinos con obesidad:</em> imágenes cortesía de <strong>Carter &amp; Dugdale (2014)</strong>.
           </div>
         </div>
         <!-- FIN IMÁGENES BCS -->
