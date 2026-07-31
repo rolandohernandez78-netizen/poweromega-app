@@ -1910,7 +1910,10 @@ button,
   }
 
   .brand-text p {
+    display: block;
+    max-width: 180px;
     font-size: 0.68rem;
+    line-height: 1.25;
   }
 
   .equigras-header-logo-wrapper {
@@ -2034,21 +2037,37 @@ button,
     order: 3;
   }
 
-  .water-guide-download-card {
-    grid-template-columns: minmax(0, 1fr);
-    justify-items: center;
-    gap: 0.9rem;
+  #module-nutrition .water-guide-download-card {
+    grid-template-columns: 54px minmax(0, 1fr);
+    grid-template-areas:
+      "icon copy"
+      "button button";
+    align-items: start;
+    justify-items: stretch;
+    column-gap: 0.8rem;
+    row-gap: 1rem;
     padding: 1.3rem 1.1rem;
-    text-align: center;
+    text-align: left;
   }
 
-  .water-guide-download-icon {
-    width: 64px;
-    height: 64px;
+  #module-nutrition .water-guide-download-icon {
+    grid-area: icon;
+    width: 52px;
+    height: 52px;
+    justify-self: start;
+    font-size: 1.5rem;
   }
 
-  .water-guide-download-button {
-    width: 100%;
+  #module-nutrition .water-guide-download-copy {
+    grid-area: copy;
+  }
+
+  #module-nutrition .water-guide-download-button {
+    grid-area: button;
+    width: auto;
+    max-width: 100%;
+    justify-self: end;
+    padding: 0.65rem 0.9rem;
     white-space: normal;
   }
 
@@ -2098,6 +2117,21 @@ button,
   .app-header {
     position: relative;
     top: auto;
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+  }
+
+  .header-container {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .brand-wrapper {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    justify-content: center;
+    gap: 0.6rem;
   }
 
   .main-content {
@@ -2108,17 +2142,42 @@ button,
 
   .brand-logo-img {
     height: 40px;
-    max-width: min(54vw, 180px);
+    max-width: min(46vw, 160px);
     padding: 3px 7px;
   }
 
   .brand-text {
-    display: none;
+    display: block;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .brand-text h1 {
+    font-size: 1.18rem;
+  }
+
+  .brand-text p {
+    display: block;
+    max-width: 150px;
+    margin-top: 0.12rem;
+    font-size: 0.58rem;
+    line-height: 1.22;
+  }
+
+  .equigras-header-logo-wrapper {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
   }
 
   .equigras-header-logo-img {
-    max-width: min(32vw, 108px);
+    max-width: min(40vw, 125px);
     height: 38px;
+  }
+
+  .nav-tabs {
+    grid-column: 1;
+    grid-row: 3;
   }
 
   .module-header-card,
@@ -2183,7 +2242,16 @@ button,
   }
 
   .brand-logo-img {
-    max-width: 52vw;
+    max-width: min(43vw, 138px);
+  }
+
+  .brand-text h1 {
+    font-size: 1.05rem;
+  }
+
+  .brand-text p {
+    max-width: 132px;
+    font-size: 0.53rem;
   }
 
   .nav-tab-btn {
@@ -2194,7 +2262,7 @@ button,
   }
 
   .equigras-header-logo-img {
-    max-width: 34vw;
+    max-width: min(42vw, 118px);
   }
 
   .footer-achievements-grid {
