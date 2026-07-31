@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'self'; script-src 'self'; script-src-attr 'none'; style-src 'self'; style-src-attr 'none'; img-src 'self' data:; frame-src 'self'; connect-src 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#090e16">
+  <title>Visor de recursos | PowerOmega APP</title>
+  <link rel="stylesheet" href="css/viewer.css">
+</head>
+<body>
+  <header class="viewer-toolbar">
+    <button type="button" id="viewerBackButton" class="viewer-back-button">
+      <span aria-hidden="true">←</span>
+      Volver a PowerOmega APP
+    </button>
+
+    <div class="viewer-brand">
+      <img src="assets/logo_app.png" alt="Tecnigrasas - PowerOmega APP" data-fallback-src="assets/logo_tecnigrasas_2026.png">
+      <div>
+        <strong>PowerOmega APP</strong>
+        <span>Visor de documentos e imágenes</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="viewer-main">
+    <div class="viewer-heading">
+      <span class="viewer-kicker">Recurso de consulta</span>
+      <h1 id="viewerTitle">Cargando recurso…</h1>
+      <p>Al terminar, utiliza el botón superior para regresar a la aplicación.</p>
+    </div>
+
+    <section id="viewerContent" class="viewer-content" aria-live="polite">
+      <iframe id="viewerFrame" class="viewer-frame" title="Documento de PowerOmega APP" hidden></iframe>
+      <img id="viewerImage" class="viewer-image" alt="" hidden>
+      <div id="viewerError" class="viewer-error" hidden>
+        <strong>No fue posible abrir este recurso.</strong>
+        <p>Regresa a PowerOmega APP e intenta nuevamente.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/resource-viewer.js"></script>
+</body>
+</html>
