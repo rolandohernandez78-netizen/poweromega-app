@@ -1,6 +1,6 @@
 /* ==========================================================================
    PowerOmega APP - Módulo de Producto EQUIGRAS® & 9 Razones de Nutrición Lipídica
-   Desarrollado por Rolando Hernández Mora (RRHM)
+   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Master en Nutrición Animal)
    Soportado por Tecnigrasas Suplementos y Nutrientes S.A.S.
    ========================================================================== */
 
