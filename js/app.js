@@ -35,6 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof BCS !== 'undefined') BCS.init();
   if (typeof ProductModule !== 'undefined') ProductModule.init();
 
+  // Botón móvil "Presiona aquí para ver el peso estimado" (Módulo Peso Morfométrico)
+  const btnScrollToWeight = document.getElementById('btnScrollToWeight');
+  const resultHeroBox = document.getElementById('resultHeroBox');
+  if (btnScrollToWeight && resultHeroBox) {
+    btnScrollToWeight.addEventListener('click', () => {
+      resultHeroBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
   // Control de Tabs / Módulos
   const tabButtons = document.querySelectorAll('.nav-tab-btn');
   const moduleSections = document.querySelectorAll('.module-section');
