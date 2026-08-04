@@ -95,6 +95,17 @@
         <div class="glass-card">
           <h3 class="card-title"><span>📏</span> Mediciones Morfométricas</h3>
           
+          <!-- Aclaratoria y botón de navegación a resultados (SOLO EN TELÉFONOS MÓVILES) -->
+          <div class="mobile-only-notice">
+            <p class="mobile-notice-text">
+              💡 <strong>Instrucciones:</strong> Ingresa o desliza las medidas de tu caballo a continuación. La figura anatómica y la estimación del peso vivo se calculan automáticamente más abajo.
+            </p>
+            <button type="button" class="btn-mobile-scroll-weight" onclick="document.getElementById('resultHeroBox').scrollIntoView({behavior: 'smooth'})">
+              <span>⚖️ Presiona aquí para ver el peso estimado</span>
+              <span class="arrow-down">👇</span>
+            </button>
+          </div>
+
           <!-- Input NC -->
           <div class="form-group morphometric-measure morphometric-measure--nc">
             <label for="inputNC" class="morphometric-measure-label">NC: Circunferencia del Cuello</label>
@@ -153,13 +164,26 @@
               <!-- Exact Diagram Image from Original Study -->
               <img src="assets/diagrama_caballo.png" alt="Ubicación de las medidas morfométricas más comunes - Carter & Dugdale 2014" class="realistic-horse-img">
 
-              <!-- Interactive SVG Layer Overlay: Clean Live Measurement Value Badges -->
+              <!-- Interactive SVG Layer Overlay: Clean Live Measurement Value Badges & Vector Lines -->
               <svg viewBox="0 0 854 590" class="svg-overlay-layer">
+                <!-- 100% Solid Vector Measurement Lines (NC, H, G, L) -->
+                <!-- NC Line: Neck Circumference (Marrón Lipídico #92400e) -->
+                <line x1="337" y1="74" x2="276" y2="178" stroke="#92400e" stroke-width="4.5" stroke-linecap="round"/>
+
+                <!-- L Line: Body Length (Verde Oscuro Profundo #14532d) -->
+                <line x1="345" y1="269" x2="778" y2="183" stroke="#14532d" stroke-width="4.5" stroke-linecap="round"/>
+
+                <!-- G Line: Girth Circumference (Ámbar Mostaza #d97706) -->
+                <line x1="493" y1="143" x2="456" y2="336" stroke="#d97706" stroke-width="4.5" stroke-linecap="round"/>
+
+                <!-- H Line: Height at Withers (Verde Esmeralda #16a34a) -->
+                <line x1="432" y1="124" x2="432" y2="575" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round"/>
+
                 <!-- Live Value Badges (Recuadros de medición) -->
                 <!-- NC Badge -->
                 <g transform="translate(290, 45)">
-                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
-                  <text id="svgBadgeNC" x="60" y="19" text-anchor="middle" fill="#9333ea" font-size="13" font-weight="800">NC: 85 cm</text>
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#92400e" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeNC" x="60" y="19" text-anchor="middle" fill="#92400e" font-size="13" font-weight="800">NC: 85 cm</text>
                 </g>
 
                 <!-- H Badge -->
@@ -171,20 +195,20 @@
                 <!-- G Badge -->
                 <g transform="translate(500, 105)">
                   <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#d97706" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
-                  <text id="svgBadgeG" x="60" y="19" text-anchor="middle" fill="#b45309" font-size="13" font-weight="800">G: 180 cm</text>
+                  <text id="svgBadgeG" x="60" y="19" text-anchor="middle" fill="#d97706" font-size="13" font-weight="800">G: 180 cm</text>
                 </g>
 
                 <!-- L Badge -->
                 <g transform="translate(725, 145)">
-                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
-                  <text id="svgBadgeL" x="60" y="19" text-anchor="middle" fill="#0369a1" font-size="13" font-weight="800">L: 165 cm</text>
+                  <rect width="120" height="28" rx="6" fill="#ffffff" stroke="#166534" stroke-width="2.5" filter="drop-shadow(0px 2px 4px rgba(0,0,0,0.15))"/>
+                  <text id="svgBadgeL" x="60" y="19" text-anchor="middle" fill="#14532d" font-size="13" font-weight="800">L: 165 cm</text>
                 </g>
               </svg>
             </div>
           </div>
 
           <!-- Hero Display del Peso Estimado con el Modelo Seleccionado -->
-          <div class="result-hero-box" role="status" aria-live="polite" aria-atomic="true">
+          <div class="result-hero-box" id="resultHeroBox" role="status" aria-live="polite" aria-atomic="true">
             <div class="weight-sub morphometrics-div-04">MODELO SELECCIONADO: <span id="heroModelName" class="u-extracted-01">Carroll & Huntington (1988)</span></div>
             <div>
               <span id="heroWeightVal" class="weight-val">450</span>

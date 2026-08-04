@@ -366,9 +366,9 @@ body::before {
 }
 
 .unit-btn.active {
-  background: var(--accent-cyan);
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
   color: #ffffff;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 3px 10px rgba(22, 163, 74, 0.3);
 }
 
 /* Grid Layouts */
@@ -436,8 +436,8 @@ body::before {
 }
 
 .morphometric-measure--nc {
-  --measure-color: #9333ea;
-  --measure-soft: #faf5ff;
+  --measure-color: #92400e;
+  --measure-soft: #fef3c7;
 }
 
 .morphometric-measure--h {
@@ -446,13 +446,38 @@ body::before {
 }
 
 .morphometric-measure--g {
-  --measure-color: #b45309;
+  --measure-color: #d97706;
   --measure-soft: #fffbeb;
 }
 
 .morphometric-measure--l {
-  --measure-color: #0369a1;
-  --measure-soft: #f0f9ff;
+  --measure-color: #14532d;
+  --measure-soft: #dcfce7;
+}
+
+.morphometric-measure .form-control {
+  border-color: var(--measure-color) !important;
+  color: var(--measure-color) !important;
+  font-weight: 800 !important;
+  font-size: 1.1rem;
+}
+
+.morphometric-measure .form-control:focus {
+  border-color: var(--measure-color) !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.morphometric-measure .input-unit {
+  color: var(--measure-color) !important;
+  font-weight: 800 !important;
+}
+
+.morphometric-measure .range-slider::-webkit-slider-thumb {
+  background: var(--measure-color) !important;
+}
+
+.morphometric-measure .range-slider::-moz-range-thumb {
+  background: var(--measure-color) !important;
 }
 
 .form-group .morphometric-measure-label {
@@ -460,7 +485,8 @@ body::before {
   border-left: 4px solid var(--measure-color);
   border-radius: 0 7px 7px 0;
   background: var(--measure-soft);
-  color: var(--measure-color);
+  color: var(--measure-color) !important;
+  font-weight: 800 !important;
   font-size: 0.92rem;
   line-height: 1.35;
 }
@@ -850,20 +876,20 @@ body::before {
   align-items: center;
   gap: 0.5rem;
   padding: 0.6rem 1rem;
-  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
   color: #ffffff !important;
   font-weight: 700;
   font-size: 0.84rem;
   border-radius: var(--radius-sm);
   text-decoration: none;
   transition: all 0.25s ease;
-  box-shadow: 0 3px 10px rgba(2, 132, 199, 0.25);
+  box-shadow: 0 3px 10px rgba(22, 163, 74, 0.28);
 }
 
 .tech-note-link-btn:hover {
-  background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(2, 132, 199, 0.4);
+  box-shadow: 0 5px 15px rgba(22, 163, 74, 0.4);
   color: #ffffff !important;
 }
 
@@ -2352,7 +2378,7 @@ button,
 }
 
 .s-btn-toggle-water-sim {
-  display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-top: 1.1rem; padding: 0.75rem 1rem; background: linear-gradient(135deg, #0369a1 0%, #0284c7 60%, #38bdf8 100%); color: #fff; font-size: 0.9rem; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; letter-spacing: 0.01em; box-shadow: 0 4px 14px rgba(14,165,233,0.35); transition: all 0.22s ease;
+  display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; margin-top: 1.1rem; padding: 0.75rem 1rem; background: linear-gradient(135deg, #16a34a 0%, #15803d 60%, #166534 100%); color: #fff; font-size: 0.9rem; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; letter-spacing: 0.01em; box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35); transition: all 0.22s ease;
 }
 
 .s-btn-water-sim-arrow {
@@ -2360,7 +2386,7 @@ button,
 }
 
 .s-water-simulator {
-  margin-top: 1rem; background: linear-gradient(160deg, #082f49 0%, #075985 58%, #0c4a6e 100%); border: 1px solid rgba(56,189,248,0.55); border-radius: 12px; padding: 1.3rem 1.4rem; animation: fadeInDown 0.3s ease; box-shadow: 0 8px 26px rgba(3,105,161,0.32);
+  margin-top: 1rem; background: linear-gradient(160deg, #052e16 0%, #14532d 58%, #166534 100%); border: 1px solid rgba(74, 222, 128, 0.45); border-radius: 12px; padding: 1.3rem 1.4rem; animation: fadeInDown 0.3s ease; box-shadow: 0 8px 26px rgba(22, 163, 74, 0.32);
 }
 
 .nutrition-div-02 {
@@ -2368,15 +2394,15 @@ button,
 }
 
 .u-extracted-02 {
-  font-size:0.78rem; color:#bae6fd; font-weight:700; display:block; margin-bottom:0.3rem;
+  font-size:0.78rem; color:#bbf7d0; font-weight:700; display:block; margin-bottom:0.3rem;
 }
 
 .u-extracted-03 {
-  width:100%; padding:0.5rem 0.7rem; border-radius:8px; background:#082f49; border:1px solid rgba(125,211,252,0.5); color:#ffffff; font-size:0.83rem; cursor:pointer;
+  width:100%; padding:0.5rem 0.7rem; border-radius:8px; background:#052e16; border:1px solid rgba(74, 222, 128, 0.4); color:#ffffff; font-size:0.83rem; cursor:pointer;
 }
 
 .u-extracted-04 {
-  background:#082f49; color:#fff;
+  background:#052e16; color:#fff;
 }
 
 .nutrition-div-03 {
@@ -2384,15 +2410,15 @@ button,
 }
 
 .s-sim-body-weight {
-  width:100%; padding:0.5rem 0.7rem; border-radius:8px; background:#082f49; border:1px solid rgba(125,211,252,0.5); color:#ffffff; font-size:0.83rem; box-sizing:border-box;
+  width:100%; padding:0.5rem 0.7rem; border-radius:8px; background:#052e16; border:1px solid rgba(74, 222, 128, 0.4); color:#ffffff; font-size:0.83rem; box-sizing:border-box;
 }
 
 .s-water-sim-result {
-  background: rgba(56,189,248,0.14); border: 1.5px solid rgba(125,211,252,0.55); border-radius: 10px; padding: 1rem 1.2rem; text-align: center;
+  background: rgba(34, 197, 94, 0.18); border: 1.5px solid rgba(74, 222, 128, 0.55); border-radius: 10px; padding: 1rem 1.2rem; text-align: center;
 }
 
 .nutrition-div-04 {
-  font-size:0.75rem; color:#bae6fd; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.3rem;
+  font-size:0.75rem; color:#bbf7d0; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; margin-bottom:0.3rem;
 }
 
 .s-sim-result-value {
@@ -2400,15 +2426,15 @@ button,
 }
 
 .s-sim-result-range {
-  font-size:0.78rem; color:#bae6fd; margin-top:0.25rem;
+  font-size:0.78rem; color:#bbf7d0; margin-top:0.25rem;
 }
 
 .s-sim-result-note {
-  font-size:0.76rem; color:#dbeafe; margin-top:0.5rem; font-style:italic;
+  font-size:0.76rem; color:#dcfce7; margin-top:0.5rem; font-style:italic;
 }
 
 .s-btn-scroll-water-table {
-  display: flex; align-items: center; justify-content: center; gap: 0.55rem; width: 100%; margin-top: 1rem; padding: 0.65rem 1rem; background: rgba(255,255,255,0.1); color: #ffffff; font-size: 0.83rem; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 9px; cursor: pointer; letter-spacing: 0.01em; transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center; gap: 0.55rem; width: 100%; margin-top: 1rem; padding: 0.65rem 1rem; background: linear-gradient(135deg, #16a34a 0%, #15803d 100%); color: #ffffff; font-size: 0.83rem; font-weight: 700; border: 1.5px solid rgba(255,255,255,0.4); border-radius: 9px; cursor: pointer; letter-spacing: 0.01em; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 .water-guide-inline-link {
@@ -2571,19 +2597,20 @@ button,
   min-height: 44px;
   padding: 0.72rem 1.15rem;
   border-radius: 10px;
-  background: linear-gradient(135deg, #0369a1, #0284c7);
+  background: linear-gradient(135deg, #16a34a, #15803d);
   color: #fff;
   font-size: 0.84rem;
   font-weight: 800;
   text-decoration: none;
   white-space: nowrap;
-  box-shadow: 0 5px 14px rgba(3, 105, 161, 0.28);
+  box-shadow: 0 5px 14px rgba(22, 163, 74, 0.3);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .water-guide-download-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(3, 105, 161, 0.38);
+  background: linear-gradient(135deg, #15803d, #166534);
+  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.4);
 }
 
 .nutrition-div-09 {
@@ -2954,4 +2981,66 @@ button,
 
 .product-p-04 {
   margin-top:4px; font-size:0.74rem; color:#6b7280; max-width:950px; margin-left:auto; margin-right:auto; line-height:1.4;
+}
+
+/* ==========================================================================
+   Aclaratoria y Botón de Navegación de Resultados en Teléfonos (Mobile Only)
+   ========================================================================== */
+.mobile-only-notice {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .mobile-only-notice {
+    display: block;
+    background: #f0fdf4;
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    border-left: 5px solid #16a34a;
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1rem;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.08);
+  }
+  
+  .mobile-notice-text {
+    font-size: 0.85rem;
+    color: #15803d;
+    margin-bottom: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .btn-mobile-scroll-weight {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #ffffff !important;
+    font-weight: 800;
+    font-size: 0.88rem;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3);
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+  
+  .btn-mobile-scroll-weight:hover,
+  .btn-mobile-scroll-weight:active {
+    background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    transform: translateY(1px);
+    box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+  }
+
+  .btn-mobile-scroll-weight .arrow-down {
+    font-size: 1rem;
+    animation: bounceDown 1.5s infinite;
+  }
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
 }
