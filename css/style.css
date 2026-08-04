@@ -902,6 +902,169 @@ body::before {
   transform: translateX(4px);
 }
 
+/* ==========================================================================
+   Glosario Pedagógico de Términos (Módulo Peso Morfométrico)
+   ========================================================================== */
+.glossary-card {
+  margin-top: 1.2rem;
+  padding: 0;
+  overflow: hidden;
+}
+
+.glossary-details summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.glossary-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.glossary-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  color: #ffffff;
+  transition: var(--transition);
+}
+
+.glossary-toggle-btn:hover {
+  background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+}
+
+.glossary-toggle-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+
+.glossary-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+
+.glossary-toggle-text {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+.glossary-toggle-sub {
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0.92;
+}
+
+.glossary-chevron {
+  font-size: 1.3rem;
+  font-weight: 800;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+
+.glossary-details[open] .glossary-chevron {
+  transform: rotate(180deg);
+}
+
+.glossary-content {
+  padding: 1.6rem 1.8rem 1.8rem;
+  animation: glossaryFadeIn 0.35s ease;
+}
+
+@keyframes glossaryFadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.glossary-mascot {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 0.4rem;
+  animation: glossaryHorseBounce 2.4s ease-in-out infinite;
+}
+
+@keyframes glossaryHorseBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.glossary-intro {
+  text-align: center;
+  color: var(--text-body);
+  font-size: 0.92rem;
+  max-width: 640px;
+  margin: 0 auto 1.6rem;
+  line-height: 1.55;
+}
+
+.glossary-category {
+  margin-bottom: 1.5rem;
+}
+
+.glossary-category:last-of-type {
+  margin-bottom: 1.2rem;
+}
+
+.glossary-category-title {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary-green-dark);
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.glossary-list dt {
+  font-weight: 800;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  margin-top: 0.9rem;
+}
+
+.glossary-list dt:first-child {
+  margin-top: 0;
+}
+
+.glossary-list dd {
+  color: var(--text-body);
+  font-size: 0.87rem;
+  line-height: 1.55;
+  margin: 0.25rem 0 0;
+}
+
+.glossary-sources {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  border-top: 1px dashed var(--border-light);
+  padding-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 760px) {
+  .glossary-toggle-btn {
+    padding: 0.9rem 1.1rem;
+  }
+
+  .glossary-toggle-icon {
+    font-size: 1.4rem;
+  }
+
+  .glossary-toggle-text {
+    font-size: 0.95rem;
+  }
+
+  .glossary-toggle-sub {
+    font-size: 0.78rem;
+  }
+
+  .glossary-content {
+    padding: 1.3rem 1.1rem 1.5rem;
+  }
+}
+
 /* Product Info & Technical Cards */
 .product-card {
   background: #ffffff;
