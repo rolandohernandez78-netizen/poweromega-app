@@ -1,6 +1,6 @@
 /* ==========================================================================
    PowerOmega APP - Módulo de Producto EQUIGRAS® & 9 Razones de Nutrición Lipídica
-   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Master en Nutrición Animal)
+   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Máster en Nutrición Animal)
    Soportado por Tecnigrasas Suplementos y Nutrientes S.A.S.
    ========================================================================== */
 
@@ -39,7 +39,7 @@ const ProductModule = (function() {
     {
       num: 7,
       title: "Eficiencia Reproductiva en Yeguas",
-      desc: "Mejora el desarrollo folicular, calidad del embrión y modula el ambiente uterino post-parto."
+      desc: "Mejora el desarrollo folicular, calidad del embrión y modula el ambiente uterino posparto."
     },
     {
       num: 8,

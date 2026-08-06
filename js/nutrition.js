@@ -1,6 +1,6 @@
 /* ==========================================================================
    PowerOmega APP - Módulo de Estimación Nutricional & Suplementación EQUIGRAS®
-   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Master en Nutrición Animal)
+   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Máster en Nutrición Animal)
    Citas bibliográficas: NRC (2007), INRA (2014, 2015), Lawrence (2014)
    DMI (Ingesta de Materia Seca): NRC (2007) & INRA (2014)
    ========================================================================== */

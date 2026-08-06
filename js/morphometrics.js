@@ -1,6 +1,6 @@
 /* ==========================================================================
    PowerOmega APP - Módulo Morfométrico y Estimación de Peso Equino
-   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Master en Nutrición Animal)
+   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Máster en Nutrición Animal)
    Modelos Bibliográficos Validados:
    1. Carroll & Huntington (1988) [PREDETERMINADO / MÁS UTILIZADO]
    2. Tradicional / Hall (1971) / NRC (2007)

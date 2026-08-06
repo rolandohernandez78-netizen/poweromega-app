@@ -1,6 +1,6 @@
 /* ==========================================================================
    PowerOmega APP - Módulo de Evaluación de Condición Corporal (BCS) & Grasa Subcutánea
-   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Master en Nutrición Animal)
+   Desarrollado por Rolando Hernández Mora (Médico Veterinario, Máster en Nutrición Animal)
    Citas bibliográficas: Henneke et al. (1983), INRA (2015), Westervelt et al. (1976)
    ========================================================================== */
 
