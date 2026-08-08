@@ -2400,12 +2400,38 @@ button,
 
   .bcs-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.55rem;
+    gap: 0.4rem;
+  }
+
+  .bcs-selector-layout {
+    margin-bottom: 1rem;
+  }
+
+  .bcs-selector-layout .bcs-grid {
+    gap: 0.4rem;
   }
 
   .bcs-card {
-    min-height: 68px;
-    padding: 0.6rem 0.35rem;
+    min-height: 46px;
+    padding: 0.35rem 0.3rem;
+    border-radius: 10px;
+  }
+
+  .bcs-card:is([data-score="1"], [data-score="2"], [data-score="3"]),
+  .bcs-card:is([data-score="4"], [data-score="5"], [data-score="6"]),
+  .bcs-card:is([data-score="7"], [data-score="8"], [data-score="9"]) {
+    border-top-width: 3px;
+  }
+
+  .bcs-score-num {
+    font-size: 1.15rem;
+    line-height: 1.1;
+  }
+
+  .bcs-score-label {
+    font-size: 0.62rem;
+    margin-top: 0.1rem;
+    line-height: 1.15;
   }
 
   .bcs-photo-caption {
