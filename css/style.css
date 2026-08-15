@@ -1074,6 +1074,189 @@ body::before {
   box-shadow: var(--shadow-premium);
 }
 
+/* Sello artístico de apertura — Módulo 4 */
+.product-module-banner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+}
+
+.equigras-art-showcase {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.92fr) minmax(320px, 1.08fr);
+  margin: 0 0 1.8rem;
+  overflow: hidden;
+  color: #f8fafc;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(245, 183, 27, 0.18), transparent 34%),
+    linear-gradient(135deg, #050608 0%, #0b0e13 58%, #151007 100%);
+  border: 1px solid rgba(245, 183, 27, 0.55);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 52px -24px rgba(0, 0, 0, 0.82), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+}
+
+.equigras-art-showcase::after {
+  content: "";
+  position: absolute;
+  right: -72px;
+  bottom: -96px;
+  width: 230px;
+  height: 230px;
+  border: 1px solid rgba(245, 183, 27, 0.16);
+  border-radius: 50%;
+  box-shadow: 0 0 0 28px rgba(245, 183, 27, 0.035), 0 0 0 58px rgba(245, 183, 27, 0.025);
+  pointer-events: none;
+}
+
+.equigras-art-showcase__image-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  padding: 0.85rem;
+  background: linear-gradient(145deg, rgba(245, 183, 27, 0.14), rgba(255, 255, 255, 0.02));
+  border-right: 1px solid rgba(245, 183, 27, 0.32);
+}
+
+.equigras-art-showcase__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: calc(var(--radius-lg) - 0.45rem);
+  box-shadow: 0 20px 36px -18px rgba(0, 0, 0, 0.9);
+}
+
+.equigras-art-showcase__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(2rem, 5vw, 4.4rem);
+}
+
+.equigras-art-showcase__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.38rem 0.85rem;
+  color: #fcd34d;
+  background: rgba(245, 183, 27, 0.1);
+  border: 1px solid rgba(245, 183, 27, 0.45);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.equigras-art-showcase__content h3 {
+  max-width: 620px;
+  margin: 0 0 1rem;
+  color: #ffffff;
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+.equigras-art-showcase__content p {
+  max-width: 650px;
+  margin: 0;
+  color: #d1d5db;
+  font-size: clamp(0.92rem, 1.6vw, 1.05rem);
+  line-height: 1.75;
+}
+
+.equigras-art-showcase__highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 1.45rem 0 1.25rem;
+}
+
+.equigras-art-showcase__highlights span {
+  padding: 0.42rem 0.72rem;
+  color: #111827;
+  background: linear-gradient(135deg, #fde68a, #f4b71b);
+  border-radius: 7px;
+  font-size: 0.75rem;
+  font-weight: 900;
+  box-shadow: 0 7px 16px -10px rgba(245, 183, 27, 0.9);
+}
+
+.equigras-art-showcase__content small {
+  color: #9ca3af;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 820px) {
+  .equigras-art-showcase {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .equigras-art-showcase__image-wrap {
+    padding: 0.7rem;
+    border-right: 0;
+    border-bottom: 1px solid rgba(245, 183, 27, 0.32);
+  }
+
+  .equigras-art-showcase__image {
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .equigras-art-showcase__content {
+    padding: 1.65rem 1.35rem 1.8rem;
+  }
+
+  .equigras-art-showcase__content h3 {
+    font-size: clamp(1.65rem, 7.5vw, 2.25rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .equigras-art-showcase {
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-md);
+  }
+
+  .equigras-art-showcase__image-wrap {
+    padding: 0.5rem;
+  }
+
+  .equigras-art-showcase__image {
+    border-radius: calc(var(--radius-md) - 0.3rem);
+  }
+
+  .equigras-art-showcase__content {
+    padding: 1.4rem 1rem 1.5rem;
+  }
+
+  .equigras-art-showcase__eyebrow {
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+  }
+
+  .equigras-art-showcase__content p {
+    text-align: justify;
+  }
+
+  .equigras-art-showcase__highlights {
+    margin: 1.1rem 0;
+  }
+
+  .equigras-art-showcase__highlights span {
+    font-size: 0.7rem;
+  }
+}
+
 /* Tarjeta corporativa de dosificación EQUIGRAS® — Módulo 2 */
 .equigras-dose-card {
   background:
