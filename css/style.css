@@ -305,6 +305,70 @@ body::before {
   transition: box-shadow 0.3s ease;
 }
 
+/* Identificador permanente de la versión vigente */
+.app-version-banner {
+  position: relative;
+  z-index: 20;
+  width: 100%;
+  color: #f8fafc;
+  background:
+    radial-gradient(circle at 50% -80%, rgba(245, 183, 27, 0.24), transparent 58%),
+    linear-gradient(90deg, #080b10 0%, #111827 50%, #080b10 100%);
+  border-top: 1px solid rgba(245, 183, 27, 0.2);
+  border-bottom: 1px solid rgba(245, 183, 27, 0.58);
+  box-shadow: 0 8px 22px -16px rgba(0, 0, 0, 0.9);
+}
+
+.app-version-banner__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 42px;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0.55rem 1.25rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.065em;
+  text-transform: uppercase;
+}
+
+.app-version-banner__content strong {
+  color: #fcd34d;
+  font-weight: 900;
+}
+
+.app-version-banner__mark {
+  margin-right: 0.65rem;
+  color: #f4b71b;
+  font-size: 0.62rem;
+  filter: drop-shadow(0 0 7px rgba(245, 183, 27, 0.75));
+}
+
+.app-version-banner__divider {
+  width: 1px;
+  height: 16px;
+  margin: 0 0.85rem;
+  background: rgba(245, 183, 27, 0.46);
+}
+
+@media (max-width: 560px) {
+  .app-version-banner__content {
+    min-height: 40px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.045em;
+  }
+
+  .app-version-banner__mark {
+    margin-right: 0.5rem;
+  }
+
+  .app-version-banner__divider {
+    margin: 0 0.65rem;
+  }
+}
+
 /* Module Header Banner Card */
 .module-header-card {
   background: var(--bg-card);
