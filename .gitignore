@@ -2,4 +2,12 @@
 Thumbs.db
 *.log
 .netlify/
+node_modules/
 
+# Panel y bases de analítica: uso exclusivamente local, nunca publicar
+estadistica.html
+css/estadistica.css
+js/estadistica.js
+analytics-data/
+analytics-access-key.txt
+.analytics-local.json

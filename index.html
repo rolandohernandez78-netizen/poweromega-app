@@ -1387,8 +1387,27 @@
       <p class="product-p-04">
         Queda estrictamente prohibida la reproducción, copia, distribución, modificación o uso no autorizado total o parcial de este software, interfaz web, algoritmos nutricionales, código fuente y modelos de estimación morfométrica sin la autorización previa y expresa por escrito del autor Rolando Hernández Mora (Médico Veterinario, Máster en Nutrición Animal) y Tecnigrasas Suplementos y Nutrientes S.A.S.
       </p>
+      <button type="button" id="btnPrivacySettings" class="privacy-settings-button">
+        Privacidad y datos de navegación
+      </button>
     </div>
   </footer>
+
+  <!-- Consentimiento previo para analítica agregada de navegación -->
+  <section id="analyticsConsent" class="analytics-consent" role="dialog" aria-labelledby="analyticsConsentTitle" aria-describedby="analyticsConsentDescription" hidden>
+    <div class="analytics-consent__icon" aria-hidden="true">🔒</div>
+    <div class="analytics-consent__content">
+      <h2 id="analyticsConsentTitle">Privacidad y datos de navegación</h2>
+      <p id="analyticsConsentDescription">
+        Con tu autorización, PowerOmega APP recopila estadísticas de uso como módulos consultados, descargas, tiempo de interacción, tipo de dispositivo, procedencia y ubicación aproximada (país, departamento y ciudad). No recopilamos nombres, correos, ubicación GPS, información clínica ni los valores ingresados en los calculadores. Estos datos se utilizan exclusivamente para medir y mejorar la aplicación, en cumplimiento de la Ley 1581 de 2012, el Decreto 1074 de 2015 y la
+        <a href="https://www.tecnigrasas.com/politicas-tratamiento-de-datos/" target="_blank" rel="noopener noreferrer">Política de Tratamiento de Datos Personales de Tecnigrasas S.A.S.</a>
+      </p>
+    </div>
+    <div class="analytics-consent__actions">
+      <button type="button" id="btnAnalyticsDecline" class="analytics-consent__button analytics-consent__button--secondary">Solo necesarias</button>
+      <button type="button" id="btnAnalyticsAccept" class="analytics-consent__button analytics-consent__button--primary">Aceptar analítica</button>
+    </div>
+  </section>
 
   <!-- Scripts JS Modulares -->
   <script src="js/morphometrics.js"></script>
@@ -1396,6 +1415,7 @@
   <script src="js/bcs.js"></script>
   <script src="js/product.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/analytics.js"></script>
 
 </body>
 </html>
