@@ -86,11 +86,47 @@ const BCS = (function() {
     });
   }
 
+  function scrollToSelectedExample() {
+    const overlayEl = document.getElementById('bcsRedOverlay');
+    const photoEl = document.getElementById('bcsPhotoImg');
+    if (!overlayEl) return;
+
+    const revealOverlay = () => {
+      window.requestAnimationFrame(() => {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const overlayRect = overlayEl.getBoundingClientRect();
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        const currentScroll = window.scrollY || window.pageYOffset || 0;
+        const targetScroll = Math.max(
+          0,
+          currentScroll + overlayRect.top - ((viewportHeight - overlayRect.height) / 2)
+        );
+
+        try {
+          window.scrollTo({
+            top: targetScroll,
+            left: 0,
+            behavior: reduceMotion ? 'auto' : 'smooth'
+          });
+        } catch (_error) {
+          window.scrollTo(0, targetScroll);
+        }
+      });
+    };
+
+    if (photoEl && !photoEl.complete) {
+      photoEl.addEventListener('load', revealOverlay, { once: true });
+      return;
+    }
+    revealOverlay();
+  }
+
   function bindEvents() {
     document.querySelectorAll('.bcs-card').forEach(card => {
       card.addEventListener('click', () => {
         selectedScore = parseInt(card.dataset.score);
         updateUI();
+        scrollToSelectedExample();
         window.dispatchEvent(new CustomEvent('bcsUpdated', {
           detail: { hennekeScore: selectedScore }
         }));
