@@ -5,23 +5,79 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
-# Bloqueo permanente del panel interno de analítica: aunque estos archivos
-# lleguen a subirse por error a Netlify (deploy manual, etc.), nunca deben
-# responder en producción. Uso exclusivamente local, nunca publicar.
+# ─────────────────────────────────────────────────────────────────────────────
+# SALVAGUARDA PERMANENTE — panel privado de analítica
+#
+# El panel de estadística es de uso exclusivamente local. Ya está excluido de git
+# (.gitignore), pero eso solo impide que llegue por el repositorio: una subida
+# manual a Netlify que no pase por GitHub lo dejaría público, que es exactamente
+# lo que ocurrió aquí la primera vez.
+#
+# Estas reglas usan force = true, así que ganan AUNQUE el archivo exista en el
+# deploy. Y usan comodín (*) a propósito, para cubrir cualquier variante futura
+# (/estadistica, /estadistica.html, /estadistica-v2.html, /estadistica/loquesea)
+# sin depender de que nadie recuerde añadir una regla nueva.
+# ─────────────────────────────────────────────────────────────────────────────
+
 [[redirects]]
   from = "/estadistica*"
-  to = "/"
+  to = "/404.html"
   status = 404
   force = true
 
 [[redirects]]
-  from = "/css/estadistica.css"
-  to = "/"
+  from = "/css/estadistica*"
+  to = "/404.html"
   status = 404
   force = true
 
 [[redirects]]
-  from = "/js/estadistica.js"
-  to = "/"
+  from = "/js/estadistica*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Clave de acceso, instrucciones internas y datos históricos de analítica
+[[redirects]]
+  from = "/analytics-access-key*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/INSTRUCCIONES_ANALITICA_LOCAL*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/analytics-data/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/.analytics-local*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+# Manifiestos de dependencias: no aportan nada al usuario final y revelan la
+# estructura interna del proyecto. Estaban respondiendo 200 en producción.
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/pnpm-lock.yaml"
+  to = "/404.html"
   status = 404
   force = true
