@@ -12,6 +12,7 @@ const Nutrition = (function() {
     heightCategory: 'high',     // 'low' (<= 1.45m) or 'high' (> 1.45m)
     forageQuality: 'medium'     // 'medium', 'high'
   };
+  let waterWeightManuallyEdited = false; // evita que weightUpdated pise un peso "qué pasaría si" escrito a mano
 
   // Parámetros Nutricionales de EQUIGRAS®
   const EQUIGRAS_SPECS = {
@@ -30,9 +31,10 @@ const Nutrition = (function() {
     maintenance_neutral_hay:   { L100: 5.0,  low: 21, high: 29 },
     maintenance_warm_hay:      { L100: 9.6,  low: 42, high: 54 },
     maintenance_neutral_mixed: { L100: 6.7,  low: 30, high: 38 },
+    maintenance_warm_mixed:    { L100: 7.8,  low: 34, high: 44 },
     maintenance_cold_mixed:    { L100: 6.2,  low: 27, high: 35 },
     maintenance_cold_hay:      { L100: 8.4,  low: 37, high: 47 },
-    maintenance_hot_hay:       { L100: 9.6,  low: 42, high: 54 },
+    maintenance_hot_hay:       { L100: 11.0, low: 48, high: 62 },
     maintenance_hot_mixed:     { L100: 9.0,  low: 38, high: 52 },
     gestation_neutral_mixed:   { L100: 6.2,  low: 27, high: 35 },
     gestation_neutral_hay:     { L100: 6.5,  low: 28, high: 37 },
@@ -333,14 +335,6 @@ const Nutrition = (function() {
     if (willOpen) calcWaterNeeds();
   }
 
-  function scrollToWaterTable() {
-    const section = document.getElementById('seccionTablaAgua');
-    if (!section) return;
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    section.classList.add('water-table-highlight');
-    setTimeout(() => section.classList.remove('water-table-highlight'), 1200);
-  }
-
   function updateUI() {
     const edReq = calcEDRequirements(state.weightKg, state.physioState);
     const dmi   = calcDMI(state.weightKg, state.physioState);
@@ -381,7 +375,6 @@ const Nutrition = (function() {
     const stateSelect = document.getElementById('selectPhysioState');
     const heightSelect = document.getElementById('selectHeightCategory');
     const waterToggle = document.getElementById('btnToggleWaterSim');
-    const waterScroll = document.getElementById('btnScrollWaterTable');
     const waterCategory = document.getElementById('simCategory');
     const waterTemperature = document.getElementById('simTemp');
     const waterDiet = document.getElementById('simDiet');
@@ -402,12 +395,14 @@ const Nutrition = (function() {
     }
 
     if (waterToggle) waterToggle.addEventListener('click', toggleWaterSimulator);
-    if (waterScroll) waterScroll.addEventListener('click', scrollToWaterTable);
     [waterCategory, waterTemperature, waterDiet].forEach(control => {
       if (control) control.addEventListener('change', calcWaterNeeds);
     });
     if (waterWeight) {
-      waterWeight.addEventListener('input', calcWaterNeeds);
+      waterWeight.addEventListener('input', () => {
+        waterWeightManuallyEdited = true;
+        calcWaterNeeds();
+      });
       waterWeight.addEventListener('change', calcWaterNeeds);
     }
 
@@ -415,10 +410,12 @@ const Nutrition = (function() {
     window.addEventListener('weightUpdated', (e) => {
       if (e.detail && e.detail.weightKg) {
         state.weightKg = e.detail.weightKg;
-        const waterWeight = document.getElementById('simBodyWeight');
-        if (waterWeight) {
-          waterWeight.value = Math.round(state.weightKg);
-          calcWaterNeeds();
+        if (!waterWeightManuallyEdited) {
+          const waterWeight = document.getElementById('simBodyWeight');
+          if (waterWeight) {
+            waterWeight.value = Math.round(state.weightKg);
+            calcWaterNeeds();
+          }
         }
         updateUI();
       }

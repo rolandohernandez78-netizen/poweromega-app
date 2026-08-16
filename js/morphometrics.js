@@ -13,6 +13,7 @@
 const Morphometrics = (function() {
   let currentUnit = 'metric'; // 'metric' (cm, kg) or 'imperial' (in, lb)
   let selectedModel = 'carroll_1988'; // DEFAULT MODEL: Carroll & Huntington (1988)
+  let tableRenderTimer = null; // Debounce del rebuild de la tabla comparativa durante el arrastre del slider
 
   // Internal state stored in cm
   let state = {
@@ -281,9 +282,12 @@ const Morphometrics = (function() {
     if (svgBadgeG) svgBadgeG.textContent = `G: ${Math.round(cmToUnit(state.G))} ${lUnit}`;
     if (svgBadgeL) svgBadgeL.textContent = `L: ${Math.round(cmToUnit(state.L))} ${lUnit}`;
 
-    // Renderizar tabla comparativa de modelos
-    const tableBody = document.getElementById('modelComparisonTableBody');
-    if (tableBody) {
+    // Renderizar tabla comparativa de modelos (con debounce: evita reconstruir
+    // el DOM en cada micro-movimiento del slider durante un arrastre)
+    clearTimeout(tableRenderTimer);
+    tableRenderTimer = setTimeout(() => {
+      const tableBody = document.getElementById('modelComparisonTableBody');
+      if (!tableBody) return;
       tableBody.innerHTML = Object.keys(calc.modelsMap).map(key => {
         const item = calc.modelsMap[key];
         const isSelected = key === selectedModel;
@@ -299,7 +303,7 @@ const Morphometrics = (function() {
           </tr>
         `;
       }).join('');
-    }
+    }, 120);
 
     // Disparar evento global para actualizar Módulo de Nutrición con el peso del modelo activo
     window.dispatchEvent(new CustomEvent('weightUpdated', {

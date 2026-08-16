@@ -11,7 +11,7 @@
   <!-- Fonts Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   
   <!-- Custom CSS Premium Header Negro & Dorado 2026 -->
   <link rel="stylesheet" href="css/style.css">
@@ -177,16 +177,16 @@
               <svg viewBox="0 0 854 590" class="svg-overlay-layer">
                 <!-- 100% Solid Vector Measurement Lines (NC, H, G, L) -->
                 <!-- NC Line: Neck Circumference (Marrón Lipídico #92400e) -->
-                <line x1="337" y1="74" x2="276" y2="178" stroke="#92400e" stroke-width="4.5" stroke-linecap="round"/>
+                <line id="svgLineNC" x1="337" y1="74" x2="276" y2="178" stroke="#92400e" stroke-width="4.5" stroke-linecap="round"/>
 
                 <!-- L Line: Body Length (Verde Oscuro Profundo #14532d) -->
-                <line x1="345" y1="269" x2="778" y2="183" stroke="#14532d" stroke-width="4.5" stroke-linecap="round"/>
+                <line id="svgLineL" x1="345" y1="269" x2="778" y2="183" stroke="#14532d" stroke-width="4.5" stroke-linecap="round"/>
 
                 <!-- G Line: Girth Circumference (Ámbar Mostaza #d97706) -->
-                <line x1="493" y1="143" x2="456" y2="336" stroke="#d97706" stroke-width="4.5" stroke-linecap="round"/>
+                <line id="svgLineG" x1="493" y1="143" x2="456" y2="336" stroke="#d97706" stroke-width="4.5" stroke-linecap="round"/>
 
                 <!-- H Line: Height at Withers (Verde Esmeralda #16a34a) -->
-                <line x1="432" y1="124" x2="432" y2="575" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round"/>
+                <line id="svgLineH" x1="432" y1="124" x2="432" y2="575" stroke="#16a34a" stroke-width="4.5" stroke-linecap="round"/>
 
                 <!-- Live Value Badges (Recuadros de medición) -->
                 <!-- NC Badge -->
@@ -925,7 +925,8 @@
                 <!-- Imagen base -->
                 <img id="bcsPhotoImg"
                   src="assets/bcs_slide12_a.jpeg"
-                  alt="Comparación fotográfica BCS: Poor (1-3) / Moderate (4-6) / Fat (7-9)">
+                  alt="Comparación fotográfica BCS: Poor (1-3) / Moderate (4-6) / Fat (7-9)"
+                  loading="lazy" decoding="async">
 
                 <!-- Overlay rojo — se mueve según BCS seleccionado -->
                 <div id="bcsRedOverlay" class="s-bcs-red-overlay bcs-overlay-r1-c1">
@@ -946,7 +947,8 @@
               </a>
               <img
                 src="assets/bcs_slide11_c.jpeg"
-                alt="Tabla de Condición Corporal BCS 1 al 9 — Henneke et al. 1983 · Kentucky Equine Research">
+                alt="Tabla de Condición Corporal BCS 1 al 9 — Henneke et al. 1983 · Kentucky Equine Research"
+                loading="lazy" decoding="async">
               <figcaption>
                 Tabla BCS 1–9 · Henneke et al. (1983) · Kentucky Equine Research
               </figcaption>
@@ -963,19 +965,22 @@
               <figure class="bcs-obesity-photo-card">
                 <img
                   src="assets/bcs_obesity_neck_crest.jpg"
-                  alt="Ejemplo de acumulación de grasa subcutánea a lo largo de la cresta del cuello de un equino">
+                  alt="Ejemplo de acumulación de grasa subcutánea a lo largo de la cresta del cuello de un equino"
+                  loading="lazy" decoding="async">
                 <span class="bcs-obesity-photo-marker" aria-hidden="true">A</span>
               </figure>
               <figure class="bcs-obesity-photo-card">
                 <img
                   src="assets/bcs_obesity_shoulder_ribs.jpg"
-                  alt="Ejemplo de acumulación de grasa subcutánea sobre la espalda, las costillas y detrás del hombro de un equino">
+                  alt="Ejemplo de acumulación de grasa subcutánea sobre la espalda, las costillas y detrás del hombro de un equino"
+                  loading="lazy" decoding="async">
                 <span class="bcs-obesity-photo-marker" aria-hidden="true">B</span>
               </figure>
               <figure class="bcs-obesity-photo-card">
                 <img
                   src="assets/bcs_obesity_croup.jpg"
-                  alt="Ejemplo de acumulación de grasa subcutánea sobre la grupa de un equino">
+                  alt="Ejemplo de acumulación de grasa subcutánea sobre la grupa de un equino"
+                  loading="lazy" decoding="async">
                 <span class="bcs-obesity-photo-marker" aria-hidden="true">C</span>
               </figure>
             </div>
@@ -1045,7 +1050,8 @@
           <div class="ultrasound-example-image">
             <img
               src="assets/ultrasound_subcutaneous_fat_rump_example.png"
-              alt="Ecografía de la grupa de un equino que diferencia la capa de grasa subcutánea y el músculo">
+              alt="Ecografía de la grupa de un equino que diferencia la capa de grasa subcutánea y el músculo"
+              loading="lazy" decoding="async">
           </div>
           <figcaption>
             <span class="ultrasound-example-kicker">Ejemplo de visualización ultrasonográfica</span>

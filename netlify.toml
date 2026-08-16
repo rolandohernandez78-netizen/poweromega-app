@@ -4,3 +4,24 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
+
+# Bloqueo permanente del panel interno de analítica: aunque estos archivos
+# lleguen a subirse por error a Netlify (deploy manual, etc.), nunca deben
+# responder en producción. Uso exclusivamente local, nunca publicar.
+[[redirects]]
+  from = "/estadistica*"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/css/estadistica.css"
+  to = "/"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/js/estadistica.js"
+  to = "/"
+  status = 404
+  force = true

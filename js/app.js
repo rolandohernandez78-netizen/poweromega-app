@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       inputGroup.addEventListener('blur', () => {
         svgLine.setAttribute('stroke-width', '3');
-        svgLine.setAttribute('stroke', key === 'NC' ? '#e11d48' : key === 'H' ? '#16a34a' : key === 'G' ? '#d97706' : '#0284c7');
+        svgLine.setAttribute('stroke', key === 'NC' ? '#92400e' : key === 'H' ? '#16a34a' : key === 'G' ? '#d97706' : '#14532d');
       });
     }
   });
