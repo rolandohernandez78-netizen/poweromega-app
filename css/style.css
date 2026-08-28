@@ -169,9 +169,9 @@ body::before {
 }
 
 .ally-row__logo {
-  height: 36px;
+  height: 50px;
   width: auto;
-  max-width: 140px;
+  max-width: 190px;
   flex-shrink: 0;
   display: block;
   border-radius: var(--radius-sm);
@@ -2374,7 +2374,7 @@ button,
   }
 
   .ally-row__logo {
-    height: 32px;
+    height: 46px;
   }
 }
 
@@ -2415,7 +2415,7 @@ button,
   }
 
   .ally-row__logo {
-    height: 30px;
+    height: 42px;
   }
 
   .ally-row__caption {
@@ -2667,9 +2667,9 @@ button,
   }
 
   .ally-row__logo {
-    height: 26px;
-    max-width: 100px;
-    padding: 2px 6px;
+    height: 38px;
+    max-width: 145px;
+    padding: 2px 7px;
   }
 
   .ally-row__caption {
@@ -2797,9 +2797,9 @@ button,
   }
 
   .ally-row__logo {
-    height: 23px;
-    max-width: 85px;
-    padding: 2px 5px;
+    height: 32px;
+    max-width: 120px;
+    padding: 2px 6px;
   }
 
   .ally-row__caption {
