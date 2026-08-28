@@ -11,3 +11,7 @@ js/estadistica.js
 analytics-data/
 analytics-access-key.txt
 .analytics-local.json
+
+# Respaldo local pre-corrección morfométrica (PLAN_CORRECCION_MORFOMETRIA.md,
+# sección 8.7): copia de seguridad de trabajo, no debe publicarse en GitHub/Netlify
+.backup_morfometria_pre_correccion/

@@ -10,7 +10,8 @@ const Nutrition = (function() {
     weightKg: 500,
     physioState: 'maintenance', // 'maintenance', 'light_work', 'moderate_work', 'intense_work', 'stallion', 'gestation_late', 'lactation_early', 'foal'
     heightCategory: 'high',     // 'low' (<= 1.45m) or 'high' (> 1.45m)
-    forageQuality: 'medium'     // 'medium', 'high'
+    forageQuality: 'medium',    // 'medium', 'high'
+    sex: null                   // 'male', 'gelding', 'female' — reflejo de #selectAnimalSex (módulo morfométrico), vía evento 'animalProfileUpdated'
   };
   let waterWeightManuallyEdited = false; // evita que weightUpdated pise un peso "qué pasaría si" escrito a mano
 
@@ -335,6 +336,23 @@ const Nutrition = (function() {
     if (willOpen) calcWaterNeeds();
   }
 
+  /**
+   * T-13, opción C: réplica en el lado de nutrición de la comprobación de
+   * coherencia sexo / estado fisiológico que ya existe en morphometrics.js
+   * (checkSexPhysioCoherence). Aquí no hace falta leer el DOM ajeno: state.sex
+   * ya se mantiene sincronizado vía el evento 'animalProfileUpdated' que
+   * emite morphometrics.js. Ver DEUDA_TECNICA_POWEROMEGA.md (D-01/D-02) —
+   * este acoplamiento por eventos debería migrar a un estado compartido del
+   * animal cuando ambos módulos entren en un mismo trabajo de refactor.
+   */
+  function checkSexPhysioCoherence() {
+    const isFemaleOnlyState = state.physioState === 'gestation_late' || state.physioState === 'lactation_early';
+    if ((state.sex === 'male' || state.sex === 'gelding') && isFemaleOnlyState) {
+      return 'El estado fisiológico elegido no concuerda con el sexo indicado en el módulo morfométrico. Revise ambos valores.';
+    }
+    return null;
+  }
+
   function updateUI() {
     const edReq = calcEDRequirements(state.weightKg, state.physioState);
     const dmi   = calcDMI(state.weightKg, state.physioState);
@@ -369,6 +387,19 @@ const Nutrition = (function() {
     if (eqEmElem) eqEmElem.textContent = `${eqDose.emContributionMcal.toFixed(2)} Mcal EM/d*`;
     if (eqO3Elem) eqO3Elem.textContent = `${eqDose.omega3Grams.toFixed(1)} g EPA+DHA/d`;
     if (eqO6Elem) eqO6Elem.textContent = `${eqDose.omega6Grams.toFixed(1)} g Linoleico/d`;
+
+    // T-13, opción C: aviso de coherencia sexo / estado fisiológico, en el punto de selección
+    const sexPhysioWarningElem = document.getElementById('nutritionSexPhysioWarning');
+    if (sexPhysioWarningElem) {
+      const warning = checkSexPhysioCoherence();
+      if (warning) {
+        sexPhysioWarningElem.textContent = `⚠️ ${warning}`;
+        sexPhysioWarningElem.hidden = false;
+      } else {
+        sexPhysioWarningElem.textContent = '';
+        sexPhysioWarningElem.hidden = true;
+      }
+    }
   }
 
   function bindEvents() {
@@ -417,6 +448,15 @@ const Nutrition = (function() {
             calcWaterNeeds();
           }
         }
+        updateUI();
+      }
+    });
+
+    // T-13, opción C: sincronizar sexo del animal desde el módulo morfométrico
+    // (solo lectura del evento; nunca escribe en #selectAnimalSex ni en morphometrics.js)
+    window.addEventListener('animalProfileUpdated', (e) => {
+      if (e.detail) {
+        state.sex = e.detail.sex || null;
         updateUI();
       }
     });

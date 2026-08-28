@@ -20,45 +20,67 @@
 
   <!-- Header Navbar Negro Marca Equigras & Dorado 2026 -->
   <header class="app-header">
-    <div class="header-container">
-      <div class="brand-wrapper">
-        <img src="assets/logo_app.png" alt="TECNIGRASAS® - PowerOmega APP" class="brand-logo-img" data-fallback-src="assets/logo_tecnigrasas_2026.png">
-        <div class="brand-text">
-          <h1>Power<span>Omega</span></h1>
-          <p>Equine Weight & Lipid Nutrition System</p>
+    <!-- Bloque superior: se desplaza con la página (NO es fijo), para dejar
+         más espacio visible al hacer scroll. -->
+    <div class="header-top-block">
+      <div class="header-container">
+        <div class="header-top-row">
+          <div class="brand-text">
+            <h1>Power<span>Omega</span></h1>
+            <p>Equine Weight & Lipid Nutrition System</p>
+          </div>
+
+          <div class="equigras-header-logo-wrapper">
+            <img src="assets/logo_equigras_header.png" alt="EQUIGRAS®" class="equigras-header-logo-img">
+          </div>
         </div>
-      </div>
 
-      <!-- Navigation Tabs -->
-      <nav class="nav-tabs" role="tablist" aria-label="Módulos de PowerOmega">
-        <button id="tab-morphometrics" type="button" class="nav-tab-btn active" data-module="module-morphometrics" role="tab" aria-controls="module-morphometrics" aria-selected="true" tabindex="0">
-          <span>📐</span> Peso Morfométrico
-        </button>
-        <button id="tab-nutrition" type="button" class="nav-tab-btn nav-tab-btn--subtitle" data-module="module-nutrition" role="tab" aria-controls="module-nutrition" aria-selected="false" tabindex="-1">
-          <span aria-hidden="true">🌾</span>
-          <span class="nav-tab-copy">
-            <span>Requerimientos &amp; Nutrición</span>
-            <small>(Dosis de EQUIGRAS®)</small>
-          </span>
-        </button>
-        <button id="tab-bcs" type="button" class="nav-tab-btn" data-module="module-bcs" role="tab" aria-controls="module-bcs" aria-selected="false" tabindex="-1">
-          <span>🐎</span> Condición Corporal (BCS)
-        </button>
-        <button id="tab-product" type="button" class="nav-tab-btn" data-module="module-product" role="tab" aria-controls="module-product" aria-selected="false" tabindex="-1">
-          <span>📋</span> EQUIGRAS® & Tecnigrasas
-        </button>
-      </nav>
-
-      <div class="equigras-header-logo-wrapper">
-        <img src="assets/logo_equigras_header.png" alt="EQUIGRAS®" class="equigras-header-logo-img">
+        <!-- Tecnigrasas (casa matriz, izquierda) + NutriBÁSICOS de Venezuela
+             (aliado estratégico, derecha), mismo tamaño de logo para ambos. -->
+        <div class="ally-row" aria-label="Tecnigrasas, casa matriz y respaldo institucional; NutriBÁSICOS, aliado estratégico en Venezuela">
+          <div class="ally-row__item ally-row__item--parent">
+            <img src="assets/logo_app.png" alt="Tecnigrasas Suplementos y Nutrientes" class="ally-row__logo" data-fallback-src="assets/logo_tecnigrasas_2026.png">
+            <span class="ally-row__caption">Casa matriz<small>Respaldo institucional</small></span>
+          </div>
+          <div class="ally-row__item ally-row__item--venezuela">
+            <img src="assets/logo_nutribasicos_venezuela.png" alt="NutriBÁSICOS de Venezuela, C.A." class="ally-row__logo">
+            <span class="ally-row__caption">Aliado estratégico<small>Venezuela</small></span>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
+  <!-- Barra de pestañas: única parte del header que queda fija al hacer scroll.
+       Va FUERA de <header> (hermana directa en <body>) a propósito: un elemento
+       sticky solo puede "flotar" dentro de los límites de su contenedor padre,
+       y <header> por sí solo es demasiado corto para eso — <body> sí abarca
+       toda la página. -->
+  <div class="header-tabs-bar">
+    <nav class="nav-tabs" role="tablist" aria-label="Módulos de PowerOmega">
+      <button id="tab-morphometrics" type="button" class="nav-tab-btn active" data-module="module-morphometrics" role="tab" aria-controls="module-morphometrics" aria-selected="true" tabindex="0">
+        <span>📐</span> Peso Morfométrico
+      </button>
+      <button id="tab-nutrition" type="button" class="nav-tab-btn nav-tab-btn--subtitle" data-module="module-nutrition" role="tab" aria-controls="module-nutrition" aria-selected="false" tabindex="-1">
+        <span aria-hidden="true">🌾</span>
+        <span class="nav-tab-copy">
+          <span>Requerimientos &amp; Nutrición</span>
+          <small>(Dosis de EQUIGRAS®)</small>
+        </span>
+      </button>
+      <button id="tab-bcs" type="button" class="nav-tab-btn" data-module="module-bcs" role="tab" aria-controls="module-bcs" aria-selected="false" tabindex="-1">
+        <span>🐎</span> Condición Corporal (BCS)
+      </button>
+      <button id="tab-product" type="button" class="nav-tab-btn" data-module="module-product" role="tab" aria-controls="module-product" aria-selected="false" tabindex="-1">
+        <span>📋</span> EQUIGRAS® & Tecnigrasas
+      </button>
+    </nav>
+  </div>
+
   <aside class="app-version-banner" aria-label="Versión actual de PowerOmega APP">
     <div class="app-version-banner__content">
       <span class="app-version-banner__mark" aria-hidden="true">◆</span>
-      <strong>Versión 2.2</strong>
+      <strong>Versión 2.3</strong>
       <span class="app-version-banner__divider" aria-hidden="true"></span>
       <span>Agosto 2026</span>
     </div>
@@ -89,13 +111,40 @@
             <span>🔬</span> <strong>Seleccionar Modelo Científico de Estimación:</strong>
           </label>
           <select id="selectWeightModel" class="form-control s-select-weight-model">
-            <option value="carroll_1988" selected>Carroll & Huntington (1988) — [MODELO PREDETERMINADO / MÁS UTILIZADO]</option>
-            <option value="traditional_hall">Tradicional / Hall (1971) / NRC (2007)</option>
-            <option value="marcenac_1964">Marcenac & Aublet (1964)</option>
-            <option value="ensminger_1977">Ensminger (1977)</option>
-            <option value="jones_1989">Jones et al. (1989)</option>
-            <option value="willoughby_1975">Willoughby (1975)</option>
+            <optgroup label="Cuatro medidas (recomendados)">
+              <option value="martinson_2014" selected>Martinson et al. (2014) — [MODELO PREDETERMINADO]</option>
+              <option value="catalano_2016">Catalano et al. (2016) — Tiro / Sangre Caliente</option>
+            </optgroup>
+            <optgroup label="Dos medidas">
+              <option value="carroll_1988">Carroll & Huntington (1988)</option>
+              <option value="carroll_criollo">Criollo Sudamericano — evidencia limitada</option>
+              <option value="marcenac_1964">Marcenac & Aublet (1964)</option>
+              <option value="willoughby_1975">Willoughby (1975)</option>
+            </optgroup>
           </select>
+        </div>
+
+        <div class="morphometrics-extra-inputs-row" id="morphometricsExtraInputsRow">
+          <div class="form-group" id="breedTypeGroup">
+            <label for="selectBreedType" class="morphometrics-label-01">Tipo racial (Martinson)</label>
+            <select id="selectBreedType" class="form-control">
+              <option value="arabian_pony" selected>Árabe / Poni</option>
+              <option value="stock">Sin raza determinada / conformación general</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="animalSexGroup">
+            <label for="selectAnimalSex" class="morphometrics-label-01">Sexo del animal (Willoughby)</label>
+            <select id="selectAnimalSex" class="form-control">
+              <option value="" selected disabled>Selecciona el sexo…</option>
+              <option value="male">Macho entero</option>
+              <option value="gelding">Castrado</option>
+              <option value="female">Hembra</option>
+            </select>
+            <!-- T-14, ampliación: aclara por qué el selector sigue habilitado (atenuado) cuando
+                 el modelo activo no es Willoughby — visible solo mientras está atenuado -->
+            <p id="sexModelRelevanceNote" class="morphometrics-sex-relevance-note" aria-live="off" hidden></p>
+          </div>
         </div>
       </div>
 
@@ -218,15 +267,41 @@
 
           <!-- Hero Display del Peso Estimado con el Modelo Seleccionado -->
           <div class="result-hero-box" id="resultHeroBox" role="status" aria-live="polite" aria-atomic="true">
-            <div class="weight-sub morphometrics-div-04">MODELO SELECCIONADO: <span id="heroModelName" class="u-extracted-01">Carroll & Huntington (1988)</span></div>
+            <div class="weight-sub morphometrics-div-04">MODELO SELECCIONADO: <span id="heroModelName" class="u-extracted-01">Martinson et al. (2014)</span></div>
             <div>
-              <span id="heroWeightVal" class="weight-val">450</span>
+              <span id="heroWeightVal" class="weight-val">458</span>
               <span id="heroWeightUnit" class="weight-unit">kg</span>
             </div>
-            <div id="heroModelCitation" class="weight-sub s-hero-model-citation">
-              <strong>Fórmula:</strong> PV (kg) = (G² × L) / 11877<br>
-              <strong>Fuente:</strong> Carroll, C. L., & Huntington, P. J. (1988). Equine Vet. J.
+            <p id="heroWeightRange" class="morphometrics-weight-range" aria-live="off">Rango probable: 443 - 509 kg (intervalo de concordancia 95%)</p>
+
+            <!-- Advertencias de dominio y de coherencia sexo/estado fisiológico (T-09, T-13).
+                 Se ubican aquí, justo bajo el peso, para que sean lo primero que se vea —
+                 antes quedaban al final de la tarjeta y pasaban inadvertidas. -->
+            <ul id="morphometricsDomainWarnings" class="morphometrics-domain-warnings" aria-live="off" hidden></ul>
+
+            <p id="heroSexNotice" class="morphometrics-sex-notice" aria-live="off" hidden></p>
+            <div id="heroModelCitation" class="weight-sub s-hero-model-citation" aria-live="off">
+              <strong>Fórmula:</strong> PV (kg) = (G¹·⁴⁸⁶ × L⁰·⁵⁵⁴ × H⁰·⁵⁹⁹ × NC⁰·¹⁷³) / 3596<br>
+              <strong>Fuente:</strong> Martinson, K. L., et al. (2014). J. Anim. Sci.
             </div>
+            <p id="heroModelUsage" class="morphometrics-model-usage" aria-live="off">Usa las cuatro medidas: perímetro torácico, longitud corporal, alzada, circunferencia de cuello.</p>
+            <p class="morphometrics-weight-longitudinal-note">Estas ecuaciones estiman el peso, no lo determinan. Su sesgo es sistemático dentro de un mismo animal, por lo que son más confiables para seguir cambios de peso en el tiempo que para establecer el peso absoluto.</p>
+          </div>
+
+          <!-- Índices Morfométricos (T-08): uso legítimo de NC y H cuando el modelo activo no las usa para el peso -->
+          <div class="glass-card morphometrics-index-panel">
+            <h4 class="morphometrics-h4-01">📐 Índices Morfométricos</h4>
+            <div class="morphometrics-index-grid">
+              <div class="morphometrics-index-item">
+                <span class="morphometrics-index-label">G : H (tórax / alzada)</span>
+                <span id="morphometricsIndexGH" class="morphometrics-index-value">1.20</span>
+              </div>
+              <div class="morphometrics-index-item">
+                <span class="morphometrics-index-label">NC : H (cuello / alzada)</span>
+                <span id="morphometricsIndexNCH" class="morphometrics-index-value">0.57</span>
+              </div>
+            </div>
+            <p class="morphometrics-index-note">El índice G:H es el predictor más fuerte de condición corporal entre los índices morfométricos evaluados (Carter et al., 2009). El índice NC:H se asocia a adiposidad regional del cuello y riesgo metabólico. <strong>Estos índices no son comparables entre caballos y ponis.</strong></p>
           </div>
 
           <!-- Tabla Comparativa de Modelos Validados -->
@@ -252,8 +327,12 @@
       <!-- Cierre técnico del módulo: aparece después de la guía, el resultado y la comparativa -->
       <div class="citation-box morphometrics-technical-note">
         <strong>📌 Nota Técnica (RRHM, 2021):</strong><br>
-        Toma las mediciones con cinta flexible de costurero. La circunferencia cardíaca (G) se mide justo detrás de la cruz y el hombro, donde se coloca la cincha delantera. La longitud corporal (L) abarca desde la articulación escápulo-humeral hasta la tuberosidad isquiática.
-        <br><br><strong>Uso de las medidas:</strong> cada fórmula conserva sus variables originales y recibe un ajuste complementario basado en Martinson et al. para las medidas que no incluye. De esta manera NC, H, G y L modifican el resultado con cualquiera de los seis modelos. Este ajuste combinado es una implementación de PowerOmega y no debe interpretarse como parte de la ecuación publicada originalmente.
+        Toma las mediciones con cinta flexible de costurero. La circunferencia torácica (G) se mide justo detrás de la cruz y el codo, donde se coloca la cincha delantera. La longitud corporal (L) abarca desde la articulación escápulo-humeral hasta la tuberosidad isquiática. Las fuentes secundarias discrepan sobre si Carroll & Huntington midió el perímetro sobre el punto más alto de la cruz o en su base, mientras que Martinson lo midió en la base de las crines: las ecuaciones del selector no fueron todas calibradas sobre el mismo punto anatómico exacto.
+        <br><br><strong>Uso de las medidas:</strong> cada modelo declara qué medidas usa para calcular el peso (ver la ficha bajo el resultado). Las medidas que no entran en la ecuación activa no se descartan: alimentan los índices morfométricos G:H y NC:H, la categoría de dosificación de EQUIGRAS® y la verificación del rango de validez del modelo.
+
+        <div class="morphometrics-div-02" role="note">
+          <strong>⚠️ Advertencia permanente:</strong> Ecuaciones calibradas en equinos adultos no gestantes. Su exactitud disminuye en yeguas gestantes, potros en crecimiento y animales en los extremos de la escala de condición corporal. Para dosificación de medicamentos con margen terapéutico estrecho, use báscula.
+        </div>
 
         <div class="morphometrics-div-02">
           <a href="https://www.tecnigrasas.com/descargas/" target="_blank" rel="noopener noreferrer" class="tech-note-link-btn">
@@ -402,6 +481,13 @@
                 <option value="foal">Potro en Crecimiento / Destete (requiere cálculo individual)</option>
               </select>
             </div>
+
+            <!-- Advertencia de coherencia sexo / estado fisiológico (T-13, opción C).
+                 Punto de selección: aparece aquí de inmediato si el estado elegido
+                 (gestación o lactancia) no concuerda con el sexo indicado en el
+                 módulo morfométrico. Réplica de nutrition-side de la misma
+                 comprobación que ya existe en morphometrics.js — ver DEUDA_TECNICA_POWEROMEGA.md (D-01/D-02). -->
+            <p id="nutritionSexPhysioWarning" class="nutrition-sex-physio-warning" role="alert" aria-live="polite" hidden></p>
 
             <div class="form-group">
               <label for="selectHeightCategory">Alzada del Equino</label>
@@ -1447,8 +1533,8 @@
   </section>
 
   <!-- Scripts JS Modulares -->
-  <script src="js/morphometrics.js"></script>
-  <script src="js/nutrition.js"></script>
+  <script src="js/morphometrics.js?v=20260827e"></script>
+  <script src="js/nutrition.js?v=20260827c"></script>
   <script src="js/bcs.js"></script>
   <script src="js/product.js"></script>
   <script src="js/app.js"></script>

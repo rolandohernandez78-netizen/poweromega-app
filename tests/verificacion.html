@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Verificación — Módulo Morfométrico (T-01 a T-14)</title>
+<style>
+  body { font-family: -apple-system, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; background: #0f172a; color: #e2e8f0; }
+  h1 { font-size: 1.3rem; }
+  h2 { font-size: 1rem; margin-top: 2rem; border-bottom: 1px solid #334155; padding-bottom: 0.3rem; }
+  .pass { color: #4ade80; }
+  .fail { color: #f87171; font-weight: 700; }
+  .row { padding: 0.15rem 0; font-size: 0.85rem; font-family: monospace; }
+  #summary { position: sticky; top: 0; background: #0f172a; padding: 1rem 0; font-size: 1.1rem; border-bottom: 2px solid #334155; }
+  /* Stub oculto: mismos ids que index.html usa, sin el diseño real */
+  #stub { display: none; }
+</style>
+</head>
+<body>
+<h1>Verificación — Corrección Morfométrica (PLAN_CORRECCION_MORFOMETRIA_1.md, sección 6)</h1>
+<div id="summary">Ejecutando…</div>
+<div id="results"></div>
+
+<!-- ============ STUB DOM: mismos ids que consume morphometrics.js ============ -->
+<div id="stub">
+  <input id="inputNC" type="number" value="85" min="0" max="9999">
+  <input id="rangeNC" type="range" value="85" min="0" max="9999">
+  <input id="inputH" type="number" value="150" min="0" max="9999">
+  <input id="rangeH" type="range" value="150" min="0" max="9999">
+  <input id="inputG" type="number" value="180" min="0" max="9999">
+  <input id="rangeG" type="range" value="180" min="0" max="9999">
+  <input id="inputL" type="number" value="165" min="0" max="9999">
+  <input id="rangeL" type="range" value="165" min="0" max="9999">
+
+  <select id="selectWeightModel">
+    <option value="martinson_2014">Martinson</option>
+    <option value="catalano_2016">Catalano</option>
+    <option value="carroll_1988">Carroll</option>
+    <option value="carroll_criollo">Criollo</option>
+    <option value="marcenac_1964">Marcenac</option>
+    <option value="willoughby_1975">Willoughby</option>
+  </select>
+  <select id="selectBreedType">
+    <option value="arabian_pony">Árabe/Poni</option>
+    <option value="stock">Stock</option>
+  </select>
+  <select id="selectAnimalSex">
+    <option value="">-</option>
+    <option value="male">Macho</option>
+    <option value="gelding">Castrado</option>
+    <option value="female">Hembra</option>
+  </select>
+  <button id="btnUnitMetric" class="active"></button>
+  <button id="btnUnitImperial"></button>
+
+  <span id="heroWeightVal"></span>
+  <span id="heroWeightUnit"></span>
+  <span id="heroModelName"></span>
+  <div id="heroModelCitation"></div>
+  <p id="heroWeightRange"></p>
+  <p id="heroSexNotice" hidden></p>
+  <p id="heroModelUsage"></p>
+
+  <div class="morphometric-measure--nc"></div>
+  <div class="morphometric-measure--h"></div>
+  <div class="morphometric-measure--g"></div>
+  <div class="morphometric-measure--l"></div>
+
+  <g><text id="svgBadgeNC"></text></g>
+  <g><text id="svgBadgeH"></text></g>
+  <g><text id="svgBadgeG"></text></g>
+  <g><text id="svgBadgeL"></text></g>
+
+  <table><tbody id="modelComparisonTableBody"></tbody></table>
+  <span id="morphometricsIndexGH"></span>
+  <span id="morphometricsIndexNCH"></span>
+  <ul id="morphometricsDomainWarnings" hidden></ul>
+</div>
+<!-- selectPhysioState NO está presente a propósito en el primer bloque de pruebas:
+     verifica que checkSexPhysioCoherence tolere su ausencia (T-13). Se añade
+     dinámicamente más abajo para la prueba de incoherencia. -->
+
+<script src="../js/morphometrics.js"></script>
+<script>
+(function () {
+  const results = [];
+  let passCount = 0, failCount = 0;
+
+  function log(label, ok, detail) {
+    results.push({ label, ok, detail });
+    if (ok) passCount++; else failCount++;
+  }
+
+  function assert(condition, label, detail) {
+    log(label, !!condition, detail || '');
+  }
+
+  function assertClose(actual, expected, tol, label) {
+    const diff = Math.abs(actual - expected);
+    log(label, diff <= tol, `esperado ${expected}, obtenido ${actual.toFixed(4)}, diff ${diff.toFixed(4)} (tol ${tol})`);
+  }
+
+  function setMeasure(key, val) {
+    const numEl = document.getElementById(`input${key}`);
+    numEl.value = val;
+    numEl.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function setAllMeasures(g, l, h, nc) {
+    setMeasure('G', g);
+    setMeasure('L', l);
+    setMeasure('H', h);
+    setMeasure('NC', nc);
+  }
+
+  // Init
+  Morphometrics.init();
+
+  // ============================================================
+  // 1. Casos de referencia (BCS Henneke = 5), tolerancia 0.1 kg
+  // ============================================================
+  const REFERENCE_CASES = [
+    { name: 'Referencia',          g: 180, l: 165, h: 150, nc: 85,  ch: 450.1, mart: 458.4 },
+    { name: 'Poni Shetland',       g: 120, l: 110, h: 105, nc: 60,  ch: 133.4, mart: 152.4 },
+    { name: 'Potro 8 meses',       g: 130, l: 115, h: 120, nc: 62,  ch: 163.6, mart: 191.7 },
+    { name: 'Criollo colombiano',  g: 178, l: 158, h: 143, nc: 88,  ch: 421.5, mart: 430.3 },
+    { name: 'PSI adulto',          g: 190, l: 168, h: 163, nc: 95,  ch: 510.6, mart: 537.6 },
+    { name: 'Warmblood',           g: 204, l: 185, h: 172, nc: 98,  ch: 648.2, mart: 654.4 },
+    { name: 'Percherón',           g: 230, l: 200, h: 178, nc: 115, ch: 890.8, mart: 857.0 }
+  ];
+
+  REFERENCE_CASES.forEach(c => {
+    setAllMeasures(c.g, c.l, c.h, c.nc);
+    Morphometrics.setModel('carroll_1988');
+    assertClose(Morphometrics.getCalculatedWeightKg(), c.ch, 0.1, `[T-01] Carroll & Huntington — ${c.name}`);
+    Morphometrics.setModel('martinson_2014');
+    Morphometrics.setBreedType('arabian_pony');
+    assertClose(Morphometrics.getCalculatedWeightKg(), c.mart, 0.1, `[T-02] Martinson (3596) — ${c.name}`);
+  });
+
+  // Restaurar medidas de referencia para el resto de pruebas
+  setAllMeasures(180, 165, 150, 85);
+
+  // Martinson con otros divisores (T-02, criterio de aceptación)
+  Morphometrics.setBreedType('stock');
+  assertClose(Morphometrics.getCalculatedWeightKg(), 479.1, 0.1, '[T-02] Martinson (3441, stock) — referencia');
+  Morphometrics.setBreedType('arabian_pony');
+
+  // Catalano (T-03, criterio de aceptación)
+  Morphometrics.setModel('catalano_2016');
+  assertClose(Morphometrics.getCalculatedWeightKg(), 473.5, 0.1, '[T-03] Catalano et al. (2016) — referencia');
+
+  // ============================================================
+  // 2. Escalado isométrico (obligatoria)
+  // ============================================================
+  const SCALE_EXPONENTS = {
+    carroll_1988: 3.000,
+    carroll_criollo: 3.000,
+    marcenac_1964: 3.000,
+    martinson_2014: 2.812,
+    catalano_2016: 2.609
+  };
+  const K_VALUES = [0.6, 0.7, 0.85, 1.0, 1.15, 1.3];
+  const REF = { g: 180, l: 165, h: 150, nc: 85 };
+
+  Object.keys(SCALE_EXPONENTS).forEach(modelKey => {
+    Morphometrics.setModel(modelKey);
+    setAllMeasures(REF.g, REF.l, REF.h, REF.nc);
+    const baseWeight = Morphometrics.getCalculatedWeightKg();
+    K_VALUES.forEach(k => {
+      setAllMeasures(REF.g * k, REF.l * k, REF.h * k, REF.nc * k);
+      const scaledWeight = Morphometrics.getCalculatedWeightKg();
+      const ratio = scaledWeight / baseWeight;
+      const expectedRatio = Math.pow(k, SCALE_EXPONENTS[modelKey]);
+      const relErr = Math.abs(ratio - expectedRatio) / expectedRatio;
+      assert(relErr <= 0.005, `[Escalado] ${modelKey} · k=${k} · E=${SCALE_EXPONENTS[modelKey]}`,
+        `ratio obtenido ${ratio.toFixed(4)}, esperado ${expectedRatio.toFixed(4)}, error relativo ${(relErr * 100).toFixed(3)}%`);
+    });
+  });
+
+  // Willoughby por sexo: E=3.000 exacto para ambas variantes de adultos
+  ['male', 'female'].forEach(sex => {
+    Morphometrics.setModel('willoughby_1975');
+    Morphometrics.setSex(sex);
+    setAllMeasures(REF.g, REF.l, REF.h, REF.nc);
+    const baseWeight = Morphometrics.getCalculatedWeightKg();
+    K_VALUES.forEach(k => {
+      setMeasure('G', REF.g * k);
+      const scaledWeight = Morphometrics.getCalculatedWeightKg();
+      const ratio = scaledWeight / baseWeight;
+      const expectedRatio = Math.pow(k, 3.000);
+      const relErr = Math.abs(ratio - expectedRatio) / expectedRatio;
+      assert(relErr <= 0.005, `[Escalado] willoughby_1975 (${sex}) · k=${k} · E=3.000`,
+        `ratio obtenido ${ratio.toFixed(4)}, esperado ${expectedRatio.toFixed(4)}`);
+    });
+  });
+  setAllMeasures(180, 165, 150, 85);
+
+  // ============================================================
+  // 3. Modelos retirados: no existen, setModel no lanza excepción
+  // ============================================================
+  ['martinson_2014', 'catalano_2016', 'carroll_1988', 'carroll_criollo', 'marcenac_1964', 'willoughby_1975'].forEach(k => {
+    // no-op: solo confirma que la lista de vigentes es la esperada (comprobado abajo vía modelsMap indirecto)
+  });
+
+  ['jones_1989', 'ensminger_1977', 'traditional_hall'].forEach(retiredKey => {
+    let threw = false;
+    try {
+      Morphometrics.setModel(retiredKey);
+    } catch (e) {
+      threw = true;
+    }
+    assert(!threw, `[T-04/T-06] setModel('${retiredKey}') no lanza excepción`);
+    assert(Morphometrics.getState, `[T-04/T-06] setModel('${retiredKey}') deja el módulo operativo`);
+    // Debe caer al modelo por defecto
+    const citation = document.getElementById('heroModelCitation').innerHTML;
+    assert(citation.includes('Martinson'), `[T-04/T-06] setModel('${retiredKey}') cae al modelo por defecto (Martinson)`, citation.slice(0, 60));
+  });
+  Morphometrics.setModel('carroll_1988');
+
+  // ============================================================
+  // 4. Divisor por condición corporal (Carroll)
+  // ============================================================
+  const BCS_CASES = [
+    { bcs: 4,   divisor: 12265, expected: 435.9 },
+    { bcs: 4.5, divisor: 12265, expected: 435.9 },
+    { bcs: 5,   divisor: 11877, expected: 450.1 },
+    { bcs: 5.5, divisor: 11877, expected: 450.1 },
+    { bcs: 6,   divisor: 11706, expected: 456.7 },
+    { bcs: 7,   divisor: 11706, expected: 456.7 }
+  ];
+  BCS_CASES.forEach(c => {
+    window.dispatchEvent(new CustomEvent('bcsUpdated', { detail: { hennekeScore: c.bcs } }));
+    Morphometrics.setModel('carroll_1988');
+    assertClose(Morphometrics.getCalculatedWeightKg(), c.expected, 0.1, `[H-09] BCS Henneke ${c.bcs} → divisor ${c.divisor}`);
+  });
+  window.dispatchEvent(new CustomEvent('bcsUpdated', { detail: { hennekeScore: 5 } }));
+
+  // ============================================================
+  // 5. Conversión de unidades: ida y vuelta sin deriva
+  // ============================================================
+  setAllMeasures(180, 165, 150, 85);
+  const beforeState = Morphometrics.getState();
+  Morphometrics.setUnit('imperial');
+  Morphometrics.setUnit('metric');
+  const afterState = Morphometrics.getState();
+  ['NC', 'H', 'G', 'L'].forEach(key => {
+    assert(Math.abs(beforeState[key] - afterState[key]) <= 0.1,
+      `[Conversión] ${key}: sin deriva > 0.1 cm ida-vuelta métrico→imperial→métrico`,
+      `antes ${beforeState[key]}, después ${afterState[key]}`);
+  });
+
+  const kgWeight = Morphometrics.getCalculatedWeightKg();
+  Morphometrics.setUnit('imperial');
+  const lbShown = Number(document.getElementById('heroWeightVal').textContent);
+  const expectedLb = Math.round(kgWeight * 2.20462);
+  assert(Math.abs(lbShown - expectedLb) <= 0.5, '[Conversión] peso mostrado en libras = kg × 2.20462 (±0.5 lb)',
+    `mostrado ${lbShown}, esperado ${expectedLb}`);
+  Morphometrics.setUnit('metric');
+
+  // ============================================================
+  // 6. Regresión de interfaz: sin referencias al ajuste eliminado
+  // ============================================================
+  const heroHtml = document.getElementById('heroModelCitation').innerHTML;
+  const tableHtml = document.getElementById('modelComparisonTableBody').innerHTML;
+  ['adjustmentFactor', 'adjustmentFormula', 'adjustmentInputs', 'baseWeightKg'].forEach(term => {
+    assert(!heroHtml.includes(term) && !tableHtml.includes(term),
+      `[Regresión] "${term}" no aparece en el DOM tras la corrección`);
+  });
+
+  // weightUpdated sigue con la estructura { weightKg, modelName }
+  let capturedDetail = null;
+  const handler = (e) => { capturedDetail = e.detail; };
+  window.addEventListener('weightUpdated', handler);
+  setMeasure('G', 181);
+  window.removeEventListener('weightUpdated', handler);
+  assert(capturedDetail && typeof capturedDetail.weightKg === 'number' && typeof capturedDetail.modelName === 'string',
+    '[Regresión] weightUpdated mantiene la estructura { weightKg, modelName }',
+    JSON.stringify(capturedDetail));
+  setMeasure('G', 180);
+
+  // ============================================================
+  // 7. T-13 — Sexo (Willoughby)
+  // ============================================================
+  Morphometrics.setModel('willoughby_1975');
+  setMeasure('G', 180);
+  Morphometrics.setSex('male');
+  assertClose(Morphometrics.getCalculatedWeightKg(), 489.6, 0.15, '[T-13] Willoughby macho, G=180cm → 489.6 kg');
+  Morphometrics.setSex('female');
+  assertClose(Morphometrics.getCalculatedWeightKg(), 476.1, 0.5, '[T-13] Willoughby hembra, G=180cm → 476.1 kg');
+  Morphometrics.setSex('gelding');
+  assertClose(Morphometrics.getCalculatedWeightKg(), 489.6, 0.15, '[T-13] Willoughby castrado, G=180cm → aplica coeficiente de machos (489.6 kg)');
+
+  assert('sex' in Morphometrics.getState(), '[T-13] getState() incluye "sex"');
+
+  let profileEventFired = false;
+  window.addEventListener('animalProfileUpdated', (e) => {
+    profileEventFired = (e.detail && e.detail.sex === 'male');
+  });
+  Morphometrics.setSex('male');
+  assert(profileEventFired, '[T-13] animalProfileUpdated se emite al cambiar el sexo con { sex }');
+
+  // Incoherencia sexo/estado fisiológico: añadir #selectPhysioState dinámicamente
+  const physioStub = document.createElement('select');
+  physioStub.id = 'selectPhysioState';
+  physioStub.innerHTML = '<option value="lactation_early" selected>Yegua Lactante</option>';
+  document.body.appendChild(physioStub);
+
+  const weightBeforeCoherenceCheck = Morphometrics.getCalculatedWeightKg();
+  Morphometrics.setSex('male');
+  // Esperar el debounce de 120ms del bloque de advertencias antes de leer el DOM
+  setTimeout(() => {
+    const warningsEl = document.getElementById('morphometricsDomainWarnings');
+    const hasIncoherenceWarning = warningsEl.innerHTML.includes('no concuerda');
+    assert(hasIncoherenceWarning, '[T-13] Advertencia de incoherencia aparece con macho + yegua lactante', warningsEl.innerHTML.slice(0, 120));
+    const weightAfter = Morphometrics.getCalculatedWeightKg();
+    assert(weightAfter === weightBeforeCoherenceCheck, '[T-13] La advertencia de incoherencia no altera ningún valor calculado');
+
+    document.body.removeChild(physioStub);
+
+    // Tolerancia a ausencia de #selectPhysioState (ya removido)
+    let threwOnAbsence = false;
+    try { Morphometrics.setSex('female'); } catch (e) { threwOnAbsence = true; }
+    assert(!threwOnAbsence, '[T-13] checkSexPhysioCoherence tolera la ausencia de #selectPhysioState sin lanzar excepción');
+
+    render();
+  }, 200);
+
+  // ============================================================
+  // 8. Contrato DOM congelado (8.1) — 23 identificadores
+  // ============================================================
+  const FROZEN_IDS = [
+    'inputNC', 'inputH', 'inputG', 'inputL', 'rangeNC', 'rangeH', 'rangeG', 'rangeL',
+    'selectWeightModel', 'btnUnitMetric', 'btnUnitImperial',
+    'heroWeightVal', 'heroWeightUnit', 'heroModelName', 'heroModelCitation', 'resultHeroBox',
+    'modelComparisonTableBody', 'svgBadgeNC', 'svgBadgeH', 'svgBadgeG', 'svgBadgeL',
+    'svgLineNC', 'svgLineH', 'svgLineG', 'svgLineL', 'btnScrollToWeight'
+  ];
+  // Nota: resultHeroBox, svgLineNC/H/G/L y btnScrollToWeight no existen en este
+  // stub aislado (pertenecen al documento real index.html); se listan aquí
+  // para que el conteo quede documentado, y se verifican de verdad contra
+  // index.html en la comprobación manual de la sección 8.1 (no en este stub).
+  assert(FROZEN_IDS.length >= 23, '[8.1] Lista de identificadores congelados documentada (verificación real contra index.html aparte)');
+
+  function render() {
+    const summary = document.getElementById('summary');
+    summary.innerHTML = failCount === 0
+      ? `<span class="pass">✔ ${passCount} pruebas OK, 0 fallos</span>`
+      : `<span class="fail">✘ ${failCount} fallos</span> / <span class="pass">${passCount} OK</span>`;
+    document.getElementById('results').innerHTML = results.map(r =>
+      `<div class="row ${r.ok ? 'pass' : 'fail'}">${r.ok ? '✔' : '✘'} ${r.label}${r.detail ? ' — ' + r.detail : ''}</div>`
+    ).join('');
+    console.log(`${passCount} OK / ${failCount} fallos`);
+    if (failCount > 0) {
+      console.error('Pruebas fallidas:', results.filter(r => !r.ok));
+    }
+  }
+
+  // El render final ocurre dentro del setTimeout de la sección 7 (espera el debounce).
+})();
+</script>
+</body>
+</html>

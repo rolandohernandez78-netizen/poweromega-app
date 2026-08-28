@@ -75,41 +75,31 @@ body::before {
   z-index: 1000;
 }
 
-/* Header Navbar - NEGRO MARCA EQUIGRAS & DORADO */
+/* Header Navbar - NEGRO MARCA EQUIGRAS & DORADO.
+   Solo la barra de pestañas (.header-tabs-bar) queda fija al hacer scroll — el
+   resto (nombre de la app, EQUIGRAS, Tecnigrasas, NutriBÁSICOS) se desplaza
+   con la página para no restar espacio visible a la ventana. */
 .app-header {
-  position: sticky;
-  top: 4px;
-  z-index: 100;
   background: var(--header-bg);
-  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
-  padding: 0.85rem 2rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.header-top-block {
+  padding: 0.85rem 2rem 0.7rem;
 }
 
 .header-container {
   max-width: 1400px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(260px, auto) minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.brand-wrapper {
   display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 1.2rem;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
-.brand-logo-img {
-  height: 52px;
-  border-radius: var(--radius-sm);
-  background: #ffffff;
-  padding: 4px 10px;
-  border: 1px solid rgba(245, 158, 11, 0.5);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
-  object-fit: contain;
+.header-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
 }
 
 .brand-text h1 {
@@ -155,13 +145,86 @@ body::before {
   object-fit: contain;
 }
 
+/* Fila de aliados — Tecnigrasas (casa matriz, izquierda) + NutriBÁSICOS de
+   Venezuela (aliado estratégico, derecha), separados a los extremos como la
+   fila del título. Sin tarjeta ni divisor: misma altura de logo en ambos
+   (.ally-row__logo), que es lo que garantiza que se vean del mismo tamaño. */
+.ally-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ally-row__item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.ally-row__item--venezuela {
+  flex-direction: row-reverse;
+}
+
+.ally-row__logo {
+  height: 36px;
+  width: auto;
+  max-width: 140px;
+  flex-shrink: 0;
+  display: block;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  padding: 3px 8px;
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  object-fit: contain;
+}
+
+.ally-row__caption {
+  font-size: 0.66rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fbbf24;
+}
+
+.ally-row__caption small {
+  display: block;
+  margin-top: 1px;
+  color: #9ca3af;
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.ally-row__item--parent .ally-row__caption {
+  text-align: left;
+}
+
+.ally-row__item--venezuela .ally-row__caption {
+  text-align: right;
+}
+
+/* Barra de pestañas — única parte del header que queda fija al hacer scroll,
+   para no restar espacio visible al desplazarse por la app. */
+.header-tabs-bar {
+  position: sticky;
+  top: 4px;
+  z-index: 100;
+  background: var(--header-bg);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  padding: 0.6rem 2rem 0.85rem;
+}
+
 /* Nav Tabs en Header Negro */
 .nav-tabs {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   min-width: 0;
   width: 100%;
-  max-width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   gap: 0.4rem;
   background: rgba(255, 255, 255, 0.06);
   padding: 4px;
@@ -2283,18 +2346,18 @@ button,
 }
 
 @media (max-width: 1240px) {
-  .app-header {
+  .header-top-block {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .header-tabs-bar {
     padding-right: 1rem;
     padding-left: 1rem;
   }
 
   .header-container {
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.75rem 1rem;
-  }
-
-  .brand-logo-img {
-    height: 46px;
+    gap: 0.6rem;
   }
 
   .brand-text h1 {
@@ -2310,35 +2373,28 @@ button,
     height: 44px;
   }
 
-  .nav-tabs {
-    grid-column: 1 / -1;
+  .ally-row__logo {
+    height: 32px;
   }
 }
 
 @media (max-width: 760px) {
-  .app-header {
-    position: relative;
-    top: auto;
+  .header-top-block {
     padding: 0.65rem max(1rem, env(safe-area-inset-right))
+      0.6rem max(1rem, env(safe-area-inset-left));
+  }
+
+  .header-tabs-bar {
+    padding: 0.5rem max(1rem, env(safe-area-inset-right))
       0.65rem max(1rem, env(safe-area-inset-left));
   }
 
   .header-container {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 0.65rem 0.8rem;
+    gap: 0.6rem;
   }
 
-  .brand-wrapper {
-    width: auto;
-    justify-content: flex-start;
-    gap: 0.75rem;
-  }
-
-  .brand-logo-img {
-    height: 44px;
-    max-width: min(48vw, 180px);
+  .header-top-row {
+    gap: 0.8rem;
   }
 
   .brand-text h1 {
@@ -2352,20 +2408,25 @@ button,
     line-height: 1.25;
   }
 
-  .equigras-header-logo-wrapper {
-    display: flex;
-    grid-column: 2;
-    grid-row: 1;
-  }
-
   .equigras-header-logo-img {
     max-width: min(30vw, 120px);
     height: 40px;
     padding: 3px 8px;
   }
 
+  .ally-row__logo {
+    height: 30px;
+  }
+
+  .ally-row__caption {
+    font-size: 0.6rem;
+  }
+
+  .ally-row__caption small {
+    font-size: 0.56rem;
+  }
+
   .nav-tabs {
-    grid-column: 1 / -1;
     width: 100%;
     max-width: 100%;
     padding: 4px;
@@ -2550,23 +2611,21 @@ button,
 }
 
 @media (max-width: 560px) {
-  .app-header {
-    position: relative;
-    top: auto;
-    padding-top: 0.85rem;
-    padding-bottom: 0.85rem;
+  .header-top-block {
+    padding-top: 0.75rem;
+    padding-bottom: 0.65rem;
+  }
+
+  .header-tabs-bar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
   }
 
   .header-container {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.7rem;
+    gap: 0.6rem;
   }
 
-  .brand-wrapper {
-    grid-column: 1;
-    grid-row: 1;
-    width: 100%;
-    justify-content: center;
+  .header-top-row {
     gap: 0.6rem;
   }
 
@@ -2574,12 +2633,6 @@ button,
     margin: 1rem auto;
     padding-right: 0.75rem;
     padding-left: 0.75rem;
-  }
-
-  .brand-logo-img {
-    height: 40px;
-    max-width: min(46vw, 160px);
-    padding: 3px 7px;
   }
 
   .brand-text {
@@ -2600,20 +2653,31 @@ button,
     line-height: 1.22;
   }
 
-  .equigras-header-logo-wrapper {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
-  }
-
   .equigras-header-logo-img {
-    max-width: min(40vw, 125px);
-    height: 38px;
+    max-width: min(32vw, 110px);
+    height: 36px;
   }
 
-  .nav-tabs {
-    grid-column: 1;
-    grid-row: 3;
+  .ally-row {
+    gap: 0.5rem;
+  }
+
+  .ally-row__item {
+    gap: 0.4rem;
+  }
+
+  .ally-row__logo {
+    height: 26px;
+    max-width: 100px;
+    padding: 2px 6px;
+  }
+
+  .ally-row__caption {
+    font-size: 0.56rem;
+  }
+
+  .ally-row__caption small {
+    font-size: 0.52rem;
   }
 
   .module-header-card,
@@ -2699,12 +2763,8 @@ button,
 }
 
 @media (max-width: 380px) {
-  .brand-wrapper {
+  .header-top-row {
     gap: 0.5rem;
-  }
-
-  .brand-logo-img {
-    max-width: min(43vw, 138px);
   }
 
   .brand-text h1 {
@@ -2724,7 +2784,30 @@ button,
   }
 
   .equigras-header-logo-img {
-    max-width: min(42vw, 118px);
+    max-width: min(38vw, 100px);
+    height: 32px;
+  }
+
+  .ally-row {
+    gap: 0.4rem;
+  }
+
+  .ally-row__item {
+    gap: 0.3rem;
+  }
+
+  .ally-row__logo {
+    height: 23px;
+    max-width: 85px;
+    padding: 2px 5px;
+  }
+
+  .ally-row__caption {
+    font-size: 0.5rem;
+  }
+
+  .ally-row__caption small {
+    font-size: 0.46rem;
   }
 
   .footer-achievements-grid {
@@ -3630,5 +3713,229 @@ button,
 
   .analytics-consent__actions {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   Módulo Morfométrico — Corrección científica (T-07, T-08, T-09, T-13, T-14)
+   Solo reglas nuevas, prefijo morphometrics-. No se modifica ninguna regla
+   existente. Ver PLAN_CORRECCION_MORFOMETRIA_1.md, sección 8.5.
+   ========================================================================== */
+
+/* T-02 / T-13: fila de selectores adicionales (tipo racial, sexo) */
+.morphometrics-extra-inputs-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* T-07: rango de incertidumbre bajo el peso estimado */
+.morphometrics-weight-range {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-body);
+  margin-top: 0.3rem;
+}
+
+/* T-13: aviso de sexo no elegido / castrado (Willoughby) */
+.morphometrics-sex-notice {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #b45309;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  margin-top: 0.6rem;
+}
+
+/* T-14: declaración de qué usa el modelo activo */
+.morphometrics-model-usage {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--border-light);
+  line-height: 1.5;
+}
+
+.morphometrics-weight-longitudinal-note {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  margin-top: 0.5rem;
+  line-height: 1.45;
+}
+
+/* T-14: atenuación de medidas no usadas por el modelo activo */
+.morphometrics-measure-dimmed {
+  opacity: 0.5;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.morphometrics-measure-dimmed::after {
+  content: "No entra en este modelo";
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  font-style: italic;
+}
+
+.morphometrics-badge-dimmed {
+  opacity: 0.45;
+  transition: opacity 0.2s ease;
+}
+
+/* T-14, ampliación: el selector de sexo solo cambia el peso con Willoughby (1975)
+   activo, pero siempre alimenta el aviso de coherencia sexo/estado fisiológico
+   (T-13). Se atenúa igual que NC/H/G/L cuando no es relevante para el peso, pero
+   nunca se deshabilita ni se le aplica el "No entra en este modelo" genérico —
+   lleva su propio texto explicativo (#sexModelRelevanceNote) porque sí sigue
+   siendo funcionalmente relevante. */
+.morphometrics-sex-dimmed {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.morphometrics-sex-relevance-note {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin: 0.35rem 0 0;
+  line-height: 1.4;
+}
+
+/* T-08: panel de índices morfométricos */
+.morphometrics-index-panel {
+  margin-bottom: 1.5rem;
+}
+
+.morphometrics-index-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.morphometrics-index-item {
+  background: #f8fafc;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.morphometrics-index-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 0.3rem;
+}
+
+.morphometrics-index-value {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--primary-green-dark);
+}
+
+.morphometrics-index-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* T-09: advertencias de dominio (por modelo activo) */
+.morphometrics-domain-warnings {
+  list-style: none;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.morphometrics-domain-warnings li {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-left: 5px solid #ea580c;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  color: #7c2d12;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .morphometrics-extra-inputs-row {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .morphometrics-index-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
+  }
+
+  .morphometrics-index-value {
+    font-size: 1.35rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .morphometrics-weight-range {
+    font-size: 0.85rem;
+  }
+
+  .morphometrics-model-usage {
+    font-size: 0.74rem;
+  }
+
+  .morphometrics-index-item {
+    padding: 0.6rem;
+  }
+
+  .morphometrics-index-value {
+    font-size: 1.2rem;
+  }
+
+  .morphometrics-domain-warnings li {
+    font-size: 0.76rem;
+    padding: 0.6rem 0.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .morphometrics-index-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* T-13, opción C: aviso de coherencia sexo / estado fisiológico en Módulo 2
+   (Nutrición), en el punto de selección. Mismo lenguaje visual que
+   .morphometrics-domain-warnings (Módulo 1) para que se lea como el mismo
+   tipo de advertencia en toda la app. */
+.nutrition-sex-physio-warning {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  border-left: 5px solid #ea580c;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  margin: -0.4rem 0 1.2rem;
+  color: #7c2d12;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .nutrition-sex-physio-warning {
+    font-size: 0.76rem;
+    padding: 0.6rem 0.75rem;
   }
 }
