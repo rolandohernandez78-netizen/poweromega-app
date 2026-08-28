@@ -2658,26 +2658,26 @@ button,
     height: 36px;
   }
 
+  /* Por debajo de 560px no cabe el logo + el texto ("Casa matriz",
+     "Aliado estratégico") en una sola fila: el segundo logo terminaba
+     cayendo a una línea nueva pegado a la izquierda, en vez de quedar a
+     la derecha bajo EQUIGRAS. Se oculta el texto (queda el aria-label del
+     contenedor para lectores de pantalla) y se impide el salto de línea,
+     para que Tecnigrasas y NutriBÁSICOS queden fijos a los extremos,
+     igual que el título y EQUIGRAS arriba, y del mismo tamaño entre sí. */
   .ally-row {
+    flex-wrap: nowrap;
     gap: 0.5rem;
   }
 
-  .ally-row__item {
-    gap: 0.4rem;
+  .ally-row__caption {
+    display: none;
   }
 
   .ally-row__logo {
-    height: 38px;
-    max-width: 145px;
-    padding: 2px 7px;
-  }
-
-  .ally-row__caption {
-    font-size: 0.56rem;
-  }
-
-  .ally-row__caption small {
-    font-size: 0.52rem;
+    height: 44px;
+    max-width: 165px;
+    padding: 3px 8px;
   }
 
   .module-header-card,
@@ -2792,22 +2792,10 @@ button,
     gap: 0.4rem;
   }
 
-  .ally-row__item {
-    gap: 0.3rem;
-  }
-
   .ally-row__logo {
-    height: 32px;
-    max-width: 120px;
-    padding: 2px 6px;
-  }
-
-  .ally-row__caption {
-    font-size: 0.5rem;
-  }
-
-  .ally-row__caption small {
-    font-size: 0.46rem;
+    height: 38px;
+    max-width: 145px;
+    padding: 2px 7px;
   }
 
   .footer-achievements-grid {

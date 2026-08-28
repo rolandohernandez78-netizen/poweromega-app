@@ -36,11 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof ProductModule !== 'undefined') ProductModule.init();
 
   // Botón móvil "Presiona aquí para ver el peso estimado" (Módulo Peso Morfométrico)
+  // scrollIntoView({block:'start'}) alineaba el recuadro contra el borde superior
+  // real de la página, pero la barra de pestañas ahora queda fija (sticky) sobre
+  // ese borde y lo tapaba — el peso en grande quedaba escondido detrás de la barra,
+  // dando la sensación de haber bajado de más. Se calcula la posición manualmente
+  // restando la altura actual de esa barra (medida en el momento del clic, así
+  // sirve para cualquier tamaño de pantalla) más un pequeño margen de aire.
   const btnScrollToWeight = document.getElementById('btnScrollToWeight');
   const resultHeroBox = document.getElementById('resultHeroBox');
   if (btnScrollToWeight && resultHeroBox) {
     btnScrollToWeight.addEventListener('click', () => {
-      resultHeroBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const tabsBar = document.querySelector('.header-tabs-bar');
+      const stickyOffset = tabsBar ? tabsBar.getBoundingClientRect().height : 0;
+      const targetTop = resultHeroBox.getBoundingClientRect().top + window.scrollY - stickyOffset - 12;
+      window.scrollTo({ top: Math.max(targetTop, 0), behavior: 'smooth' });
     });
   }
 
