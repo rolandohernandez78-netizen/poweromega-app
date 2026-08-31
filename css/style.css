@@ -599,14 +599,6 @@ body::before {
   font-weight: 800 !important;
 }
 
-.morphometric-measure .range-slider::-webkit-slider-thumb {
-  background: var(--measure-color) !important;
-}
-
-.morphometric-measure .range-slider::-moz-range-thumb {
-  background: var(--measure-color) !important;
-}
-
 .form-group .morphometric-measure-label {
   padding: 0.42rem 0.62rem;
   border-left: 4px solid var(--measure-color);
@@ -650,6 +642,56 @@ body::before {
   color: var(--text-muted);
   font-weight: 700;
   pointer-events: none;
+}
+
+/* Botones +/- de NC/H/G/L (reemplazan la barra deslizante: en pantallas
+   táctiles, arrastrar un control tan angosto era muy sensible — cualquier
+   toque cambiaba el valor de golpe, y tocar la barra "saltaba" directo a
+   ese punto. Cada botón suma o resta exactamente un `step` del campo
+   numérico asociado, sin saltos posibles. */
+.measure-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.measure-input-row .input-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.measure-step-btn {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--measure-color);
+  border-radius: var(--radius-sm);
+  background: var(--measure-soft);
+  color: var(--measure-color);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: var(--transition);
+}
+
+.measure-step-btn:hover:not(:disabled) {
+  background: var(--measure-color);
+  color: #ffffff;
+}
+
+.measure-step-btn:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.measure-step-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
 
 /* Custom Sliders */

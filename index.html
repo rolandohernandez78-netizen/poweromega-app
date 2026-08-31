@@ -80,7 +80,7 @@
   <aside class="app-version-banner" aria-label="Versión actual de PowerOmega APP">
     <div class="app-version-banner__content">
       <span class="app-version-banner__mark" aria-hidden="true">◆</span>
-      <strong>Versión 2.5</strong>
+      <strong>Versión 2.6</strong>
       <span class="app-version-banner__divider" aria-hidden="true"></span>
       <span>Agosto 2026</span>
     </div>
@@ -167,48 +167,52 @@
           <!-- Input NC -->
           <div class="form-group morphometric-measure morphometric-measure--nc">
             <label for="inputNC" class="morphometric-measure-label">NC: Circunferencia del Cuello</label>
-            <div class="input-wrapper">
-              <input type="number" id="inputNC" class="form-control" value="85" min="40" max="160" step="1">
-              <span class="input-unit unit-label-length">cm</span>
-            </div>
-            <div class="range-slider-wrapper">
-              <input type="range" id="rangeNC" class="range-slider" value="85" min="40" max="160" step="1" aria-label="Circunferencia del cuello">
+            <div class="measure-input-row">
+              <button type="button" class="measure-step-btn measure-step-btn--minus" data-target="inputNC" aria-label="Disminuir circunferencia del cuello">−</button>
+              <div class="input-wrapper">
+                <input type="number" id="inputNC" class="form-control" value="85" min="40" max="160" step="1">
+                <span class="input-unit unit-label-length">cm</span>
+              </div>
+              <button type="button" class="measure-step-btn measure-step-btn--plus" data-target="inputNC" aria-label="Aumentar circunferencia del cuello">+</button>
             </div>
           </div>
 
           <!-- Input H -->
           <div class="form-group morphometric-measure morphometric-measure--h">
             <label for="inputH" class="morphometric-measure-label">H: Altura a la Cruz</label>
-            <div class="input-wrapper">
-              <input type="number" id="inputH" class="form-control" value="150" min="80" max="210" step="1">
-              <span class="input-unit unit-label-length">cm</span>
-            </div>
-            <div class="range-slider-wrapper">
-              <input type="range" id="rangeH" class="range-slider" value="150" min="80" max="210" step="1" aria-label="Altura a la cruz">
+            <div class="measure-input-row">
+              <button type="button" class="measure-step-btn measure-step-btn--minus" data-target="inputH" aria-label="Disminuir altura a la cruz">−</button>
+              <div class="input-wrapper">
+                <input type="number" id="inputH" class="form-control" value="150" min="80" max="210" step="1">
+                <span class="input-unit unit-label-length">cm</span>
+              </div>
+              <button type="button" class="measure-step-btn measure-step-btn--plus" data-target="inputH" aria-label="Aumentar altura a la cruz">+</button>
             </div>
           </div>
 
           <!-- Input G -->
           <div class="form-group morphometric-measure morphometric-measure--g">
             <label for="inputG" class="morphometric-measure-label">G: Circunferencia de la Cincha (del Barril / Cardíaca)</label>
-            <div class="input-wrapper">
-              <input type="number" id="inputG" class="form-control" value="180" min="90" max="260" step="1">
-              <span class="input-unit unit-label-length">cm</span>
-            </div>
-            <div class="range-slider-wrapper">
-              <input type="range" id="rangeG" class="range-slider" value="180" min="90" max="260" step="1" aria-label="Circunferencia de la cincha">
+            <div class="measure-input-row">
+              <button type="button" class="measure-step-btn measure-step-btn--minus" data-target="inputG" aria-label="Disminuir circunferencia de la cincha">−</button>
+              <div class="input-wrapper">
+                <input type="number" id="inputG" class="form-control" value="180" min="90" max="260" step="1">
+                <span class="input-unit unit-label-length">cm</span>
+              </div>
+              <button type="button" class="measure-step-btn measure-step-btn--plus" data-target="inputG" aria-label="Aumentar circunferencia de la cincha">+</button>
             </div>
           </div>
 
           <!-- Input L -->
           <div class="form-group morphometric-measure morphometric-measure--l">
             <label for="inputL" class="morphometric-measure-label">L: Longitud Corporal (Escápula a Punta de Nalga)</label>
-            <div class="input-wrapper">
-              <input type="number" id="inputL" class="form-control" value="165" min="80" max="240" step="1">
-              <span class="input-unit unit-label-length">cm</span>
-            </div>
-            <div class="range-slider-wrapper">
-              <input type="range" id="rangeL" class="range-slider" value="165" min="80" max="240" step="1" aria-label="Longitud corporal">
+            <div class="measure-input-row">
+              <button type="button" class="measure-step-btn measure-step-btn--minus" data-target="inputL" aria-label="Disminuir longitud corporal">−</button>
+              <div class="input-wrapper">
+                <input type="number" id="inputL" class="form-control" value="165" min="80" max="240" step="1">
+                <span class="input-unit unit-label-length">cm</span>
+              </div>
+              <button type="button" class="measure-step-btn measure-step-btn--plus" data-target="inputL" aria-label="Aumentar longitud corporal">+</button>
             </div>
           </div>
 
@@ -1533,7 +1537,7 @@
   </section>
 
   <!-- Scripts JS Modulares -->
-  <script src="js/morphometrics.js?v=20260827e"></script>
+  <script src="js/morphometrics.js?v=20260827g"></script>
   <script src="js/nutrition.js?v=20260827c"></script>
   <script src="js/bcs.js"></script>
   <script src="js/product.js"></script>

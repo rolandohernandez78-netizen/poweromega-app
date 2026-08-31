@@ -516,6 +516,20 @@ const Morphometrics = (function() {
       if (formGroup) formGroup.classList.toggle('morphometrics-measure-dimmed', !used);
       const badgeGroup = document.getElementById(`svgBadge${key}`)?.closest('g');
       if (badgeGroup) badgeGroup.classList.toggle('morphometrics-badge-dimmed', !used);
+
+      // Botones +/-: deshabilitar el que ya no tiene a dónde moverse (en el
+      // límite mínimo o máximo), para que el usuario vea de inmediato por
+      // qué no reacciona en vez de seguir tocando sin efecto.
+      const numInput = document.getElementById(`input${key}`);
+      if (numInput) {
+        const val = parseFloat(numInput.value);
+        const min = parseFloat(numInput.min);
+        const max = parseFloat(numInput.max);
+        const minusBtn = document.querySelector(`.measure-step-btn--minus[data-target="input${key}"]`);
+        const plusBtn = document.querySelector(`.measure-step-btn--plus[data-target="input${key}"]`);
+        if (minusBtn) minusBtn.disabled = Number.isFinite(val) && val <= min;
+        if (plusBtn) plusBtn.disabled = Number.isFinite(val) && val >= max;
+      }
     });
 
     // T-14, ampliación: atenuar el tipo racial cuando el modelo activo no es
@@ -604,7 +618,7 @@ const Morphometrics = (function() {
 
     ['NC', 'H', 'G', 'L'].forEach(key => {
       const numInput = document.getElementById(`input${key}`);
-      const rangeInput = document.getElementById(`range${key}`);
+      if (!numInput) return;
       const metricRange = METRIC_RANGES[key];
       const min = currentUnit === 'metric' ? metricRange.min : metricRange.min / 2.54;
       const max = currentUnit === 'metric' ? metricRange.max : metricRange.max / 2.54;
@@ -613,14 +627,11 @@ const Morphometrics = (function() {
         ? Math.round(state[key])
         : Number((state[key] / 2.54).toFixed(1));
 
-      [numInput, rangeInput].forEach(input => {
-        if (!input) return;
-        input.min = min.toFixed(currentUnit === 'metric' ? 0 : 1);
-        input.max = max.toFixed(currentUnit === 'metric' ? 0 : 1);
-        input.step = step;
-        input.value = val;
-        input.removeAttribute('aria-invalid');
-      });
+      numInput.min = min.toFixed(currentUnit === 'metric' ? 0 : 1);
+      numInput.max = max.toFixed(currentUnit === 'metric' ? 0 : 1);
+      numInput.step = step;
+      numInput.value = val;
+      numInput.removeAttribute('aria-invalid');
     });
 
     updateUI();
@@ -652,7 +663,6 @@ const Morphometrics = (function() {
   function bindEvents() {
     ['NC', 'H', 'G', 'L'].forEach(key => {
       const numInput = document.getElementById(`input${key}`);
-      const rangeInput = document.getElementById(`range${key}`);
 
       if (numInput) {
         numInput.addEventListener('input', (e) => {
@@ -665,7 +675,6 @@ const Morphometrics = (function() {
           }
           e.target.removeAttribute('aria-invalid');
           state[key] = unitToCm(val);
-          if (rangeInput) rangeInput.value = val;
           updateUI();
         });
         numInput.addEventListener('change', (e) => {
@@ -676,25 +685,27 @@ const Morphometrics = (function() {
           e.target.value = val;
           e.target.removeAttribute('aria-invalid');
           state[key] = unitToCm(val);
-          if (rangeInput) rangeInput.value = val;
           updateUI();
         });
       }
+    });
 
-      if (rangeInput) {
-        const syncRangeValue = (e) => {
-          const val = parseFloat(e.target.value);
-          if (!Number.isFinite(val)) return;
-          state[key] = unitToCm(val);
-          if (numInput) numInput.value = val;
-          e.target.setAttribute('aria-valuetext', `${val} ${getUnitLabelLength()}`);
-          updateUI();
-        };
-        // `input` ofrece actualización continua; `change` cubre navegadores
-        // que solo notifican al soltar el control.
-        rangeInput.addEventListener('input', syncRangeValue);
-        rangeInput.addEventListener('change', syncRangeValue);
-      }
+    // Botones +/- de NC/H/G/L (T-09b, ajuste de sensibilidad táctil): cada
+    // toque suma o resta exactamente el `step` vigente del campo numérico
+    // asociado y dispara el mismo evento 'change' que ya maneja la validación,
+    // el clamping a min/max y la actualización de estado — sin duplicar esa
+    // lógica aquí. Reemplazan la barra deslizante retirada de Módulo 1.
+    document.querySelectorAll('.measure-step-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const numInput = document.getElementById(btn.dataset.target);
+        if (!numInput) return;
+        const step = parseFloat(numInput.step) || 1;
+        const direction = btn.classList.contains('measure-step-btn--minus') ? -1 : 1;
+        const current = parseFloat(numInput.value);
+        const base = Number.isFinite(current) ? current : parseFloat(numInput.min);
+        numInput.value = +(base + direction * step).toFixed(1);
+        numInput.dispatchEvent(new Event('change', { bubbles: true }));
+      });
     });
 
     // Selector de Modelo

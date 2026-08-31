@@ -23,13 +23,9 @@
 <!-- ============ STUB DOM: mismos ids que consume morphometrics.js ============ -->
 <div id="stub">
   <input id="inputNC" type="number" value="85" min="0" max="9999">
-  <input id="rangeNC" type="range" value="85" min="0" max="9999">
   <input id="inputH" type="number" value="150" min="0" max="9999">
-  <input id="rangeH" type="range" value="150" min="0" max="9999">
   <input id="inputG" type="number" value="180" min="0" max="9999">
-  <input id="rangeG" type="range" value="180" min="0" max="9999">
   <input id="inputL" type="number" value="165" min="0" max="9999">
-  <input id="rangeL" type="range" value="165" min="0" max="9999">
 
   <select id="selectWeightModel">
     <option value="martinson_2014">Martinson</option>
@@ -326,10 +322,14 @@
   }, 200);
 
   // ============================================================
-  // 8. Contrato DOM congelado (8.1) — 23 identificadores
+  // 8. Contrato DOM congelado (8.1) — 19 identificadores
   // ============================================================
+  // Nota (ajuste de sensibilidad táctil, Módulo 1): rangeNC/H/G/L se retiraron
+  // de este contrato — la barra deslizante fue reemplazada por botones +/-
+  // (.measure-step-btn) que operan directamente sobre inputNC/H/G/L, sin
+  // necesitar un id propio por medida.
   const FROZEN_IDS = [
-    'inputNC', 'inputH', 'inputG', 'inputL', 'rangeNC', 'rangeH', 'rangeG', 'rangeL',
+    'inputNC', 'inputH', 'inputG', 'inputL',
     'selectWeightModel', 'btnUnitMetric', 'btnUnitImperial',
     'heroWeightVal', 'heroWeightUnit', 'heroModelName', 'heroModelCitation', 'resultHeroBox',
     'modelComparisonTableBody', 'svgBadgeNC', 'svgBadgeH', 'svgBadgeG', 'svgBadgeL',
@@ -339,7 +339,7 @@
   // stub aislado (pertenecen al documento real index.html); se listan aquí
   // para que el conteo quede documentado, y se verifican de verdad contra
   // index.html en la comprobación manual de la sección 8.1 (no en este stub).
-  assert(FROZEN_IDS.length >= 23, '[8.1] Lista de identificadores congelados documentada (verificación real contra index.html aparte)');
+  assert(FROZEN_IDS.length >= 19, '[8.1] Lista de identificadores congelados documentada (verificación real contra index.html aparte)');
 
   function render() {
     const summary = document.getElementById('summary');
